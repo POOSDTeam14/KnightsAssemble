@@ -20,6 +20,9 @@ exports.setApp = function(app, client)
         const db = client.db();
         const results = await db.collection('Users').find({Username: username, Password: password}).toArray();
 
+        // Log the query results
+        console.log("Query results:", results);
+
         // Initialize outgoing info
         var firstname = "";
         var lastname = "";
@@ -35,10 +38,10 @@ exports.setApp = function(app, client)
 
             ret = {firstname: firstname, lastname: lastname, email: email};
         }
-        else
-        {
-            ret = {error: "Username or password is incorrect!"};
-        }
+        //else
+        //{
+            //ret = {error: "Username or password is incorrect!"};
+        //}
         res.status(200).json(ret);
     });
 }
