@@ -16,8 +16,11 @@ exports.setApp = function(app, client)
         // Get username and password from request body
         const {username, password} = req.body
 
+        console.log("Username input:", username, "Password input:", password);
+
+
         // Check database's users collection to see if there is a matching login and password
-        const db = client.db();
+        const db = client.db('KnightsAssembleDatabase');
         const results = await db.collection('Users').find({Username: username, Password: password}).toArray();
 
         // Log the query results
