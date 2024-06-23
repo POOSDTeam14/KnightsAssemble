@@ -24,7 +24,7 @@ exports.setApp = function(app, client)
         var firstname = "";
         var lastname = "";
         var email = "";
-
+        // outgoing results 
         var ret;
         // If matching user is found populate outgoing info
         if (results.length > 0)
@@ -32,12 +32,13 @@ exports.setApp = function(app, client)
             firstname = results[0].FirstName;
             lastname = results[0].LastName;
             email = results[0].Email;
+
+            ret = {firstname: firstname, lastname: lastname, email: email};
         }
         else
         {
             ret = {error: "Username or password is incorrect!"};
         }
-        var ret = {firstname:firstname, lastname:lastname, email:email};
         res.status(200).json(ret);
     });
 }
