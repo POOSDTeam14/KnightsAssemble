@@ -62,4 +62,55 @@ exports.setApp = function(app, client)
 
         res.status(200).json(ret);
     });
+
+
+    // Register Incoming: 
+    // Username : ""
+    // Password : ""
+    // FirstName : ""
+    // LastName : ""
+    // Email : ""
+    app.post('/api/register', async (req, res, next) =>
+        {
+            // Get username,password, firstname, lastname, and email from request body
+            const {username, password, firstname, lastname, email} = req.body
+
+            if (!username | !password | !firstname | !lastname | !email)
+            {
+                return res.status(400).json({error: "All fields must be filled out!"});
+            }
+
+            // Check database's users collection to see if there is an existing username
+            const db = client.db('KnightsAssembleDatabase');
+            const results = await db.collection('Users').find({Username: username}).toArray();
+
+            // User name already exists
+            if (results.length > 0)
+            {
+                return res.status(400).json({error: "Username already exists!"});
+            }
+            else
+            {
+                const newUser = {
+                    Username: username,
+                    Password: password,
+                    FirstName: firstname,
+                    LastName: lastname,
+                    Email: email
+                };
+            }
+            try 
+            {
+                var ret = await db.collection('Users').insertOne(newUser);
+                res.status(200).json(ret);
+            } 
+            catch (error) 
+            {
+                res.status(500).json({error: "User not registered"});
+            }
+            // Possibly todo: create JWT for the user as soon as they register
+            
+        });
+
+
 }
