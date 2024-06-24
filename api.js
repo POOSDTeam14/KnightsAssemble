@@ -1,5 +1,6 @@
 require('express');
 require('mongodb');
+const createAccessToken = require('./createJWT');
 
 exports.setApp = function(app, client)
 {
@@ -37,13 +38,18 @@ exports.setApp = function(app, client)
             firstname = results[0].FirstName;
             lastname = results[0].LastName;
             email = results[0].Email;
+            // Create JWT
+            const token = createAccessToken(username);
 
-            ret = {firstname: firstname, lastname: lastname, email: email};
+            ret = {firstname: firstname, lastname: lastname, email: email, token: token};
         }
         else
         {
             ret = {error: "Username or password is incorrect!"};
         }
+
+        console.log("Outgoing response:", ret);
+
         res.status(200).json(ret);
     });
 }
