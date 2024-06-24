@@ -1,6 +1,6 @@
 require('express');
 require('mongodb');
-const createAccessToken = require('./createJWT');
+const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
 
 exports.setApp = function(app, client)
 {
@@ -41,12 +41,19 @@ exports.setApp = function(app, client)
             lastname = results[0].LastName;
             email = results[0].Email;
             userid = results[0]._id;
-
+    
             const userInfo = {firstname, lastname, email, userid}; 
-            // Create JWT
-            const token = createAccessToken(userInfo);
-
-            ret = {firstname: firstname, lastname: lastname, email: email, userid: userid, token: token};
+    
+            try
+            {
+                // Create JWT
+                const token = createAccessToken(userInfo);
+                ret = {firstname: firstname, lastname: lastname, email: email, userid: userid, token: token};
+            }
+            catch(error)
+            {
+                ret = {error:e.message};
+            }
         }
         else
         {
