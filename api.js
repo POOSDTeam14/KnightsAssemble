@@ -16,15 +16,14 @@ exports.setApp = function(app, client)
         // Get username and password from request body
         const {username, password} = req.body
 
-        console.log("Username input:", username, "Password input:", password);
+        //console.log("Username input:", username, "Password input:", password);
 
 
         // Check database's users collection to see if there is a matching login and password
         const db = client.db('KnightsAssembleDatabase');
         const results = await db.collection('Users').find({Username: username, Password: password}).toArray();
 
-        // Log the query results
-        console.log("Query results:", results);
+        //console.log("Query results:", results);
 
         // Initialize outgoing info
         var firstname = "";
@@ -41,10 +40,10 @@ exports.setApp = function(app, client)
 
             ret = {firstname: firstname, lastname: lastname, email: email};
         }
-        //else
-        //{
-            //ret = {error: "Username or password is incorrect!"};
-        //}
+        else
+        {
+            ret = {error: "Username or password is incorrect!"};
+        }
         res.status(200).json(ret);
     });
 }
