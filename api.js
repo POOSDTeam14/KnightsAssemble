@@ -17,19 +17,21 @@ exports.setApp = function(app, client)
         // Get username and password from request body
         const {username, password} = req.body
 
-        //console.log("Username input:", username, "Password input:", password);
-
+        // Error handling for empty username or password
+        if (!username || !password)
+        {
+            return res.status(400).json({ error: "Both a username and password are required!" });
+        }
 
         // Check database's users collection to see if there is a matching login and password
         const db = client.db('KnightsAssembleDatabase');
         const results = await db.collection('Users').find({Username: username, Password: password}).toArray();
 
-        //console.log("Query results:", results);
-
         // Initialize outgoing info
         var firstname = "";
         var lastname = "";
         var email = "";
+        var userid = "";
         // outgoing results 
         var ret;
         // If matching user is found populate outgoing info
@@ -38,17 +40,18 @@ exports.setApp = function(app, client)
             firstname = results[0].FirstName;
             lastname = results[0].LastName;
             email = results[0].Email;
-            // Create JWT
-            const token = createAccessToken(username);
+            userid = results[0]._id;
 
-            ret = {firstname: firstname, lastname: lastname, email: email, token: token};
+            const userInfo = {firstname, lastname, email, userid}; 
+            // Create JWT
+            const token = createAccessToken(userInfo);
+
+            ret = {firstname: firstname, lastname: lastname, email: email, userid: userid, token: token};
         }
         else
         {
             ret = {error: "Username or password is incorrect!"};
         }
-
-        console.log("Outgoing response:", ret);
 
         res.status(200).json(ret);
     });
