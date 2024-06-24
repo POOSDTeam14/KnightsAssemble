@@ -88,17 +88,16 @@ exports.setApp = function(app, client)
             if (results.length > 0)
             {
                 return res.status(400).json({error: "Username already exists!"});
-            }
-            else
-            {
-                const newUser = {
-                    Username: username,
-                    Password: password,
-                    FirstName: firstname,
-                    LastName: lastname,
-                    Email: email
-                };
-            }
+            }           
+             
+            const newUser = {
+                Username: username,
+                Password: password,
+                FirstName: firstname,
+                LastName: lastname,
+                Email: email
+            };
+            
             try 
             {
                 var ret = await db.collection('Users').insertOne(newUser);
