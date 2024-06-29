@@ -203,7 +203,7 @@ exports.setApp = function(app, client)
 
         const eventTime = new Date(time);
         // Make sure eventid is of type ObjectID for query
-        eventObjectId = new ObjectId(eventid);
+        var eventObjectId = new ObjectId(eventid);
 
         const db = client.db('KnightsAssembleDatabase');
         const results = await db.collection('Events').find({_id : eventObjectId}).toArray();
@@ -226,6 +226,7 @@ exports.setApp = function(app, client)
                     {_id : eventObjectId},
                     {$set : updatedEvent}
                 );
+                console.log("Update event result", ret);
             } 
             catch (error) 
             {
