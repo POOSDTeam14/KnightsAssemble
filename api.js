@@ -120,7 +120,7 @@ exports.setApp = function(app, client)
     app.post('/api/createEvent', async (req, res, next) =>
     {
         // Get name,type, description, time, location, and capacity from request body
-        const {name, type, description, time, location, capacity} = req.body
+        const {name, type, description, time, location, capacity, attendees} = req.body
 
         if (!name | !type | !description | !time | !location | !capacity)
         {
@@ -129,7 +129,7 @@ exports.setApp = function(app, client)
 
         // Possibly do some check for identical events?
         const db = client.db('KnightsAssembleDatabase');
-        
+
         // Convert time to Date object because MongoDB might not be interpreting it correctly
         const eventTime = new Date(time);
 
@@ -139,7 +139,8 @@ exports.setApp = function(app, client)
             Description : description,
             Time : eventTime,
             Location : location,
-            Capacity : capacity
+            Capacity : capacity,
+            Attendees : attendees || [] // Defaults to empty array if no attendees entered
         };
 
         try 
