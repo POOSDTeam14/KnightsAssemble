@@ -116,11 +116,13 @@ exports.setApp = function(app, client)
     // Time : Date
     // Location : ""
     // Capacity : Int32
+    /// HostID : 
     // Attendees : Array
+    // Token
     app.post('/api/createEvent', async (req, res, next) =>
     {
         // Get name,type, description, time, location, and capacity from request body
-        const {name, type, description, time, location, capacity, attendees} = req.body
+        const {name, type, description, time, location, capacity, hostid, attendees, token} = req.body
 
         if (!name | !type | !description | !time | !location | !capacity)
         {
@@ -129,6 +131,19 @@ exports.setApp = function(app, client)
 
         // Possibly do some check for identical events?
         const db = client.db('KnightsAssembleDatabase');
+
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
 
         // Convert time to Date object because MongoDB might not be interpreting it correctly
         const eventTime = new Date(time);
@@ -140,18 +155,31 @@ exports.setApp = function(app, client)
             Time : eventTime,
             Location : location,
             Capacity : capacity,
+            HostID : hostid,
             Attendees : attendees || [] // Defaults to empty array if no attendees entered
         };
 
         try 
         {
             var ret = await db.collection('Events').insertOne(newEvent);
-            res.status(200).json(ret);
         } 
         catch (error) 
         {
-            console.error("Error creating event:", error);
             res.status(500).json({error: "Event not created"});
         }
+
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+
+        // Respond with event and token
+        res.status(200).json({ret, token: newToken});
     });
 }
