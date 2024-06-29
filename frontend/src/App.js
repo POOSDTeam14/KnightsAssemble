@@ -18,7 +18,7 @@ function App() {
        <Route path="/events" exact>
          <EventPage/>
        </Route>
-       <Route paht = "/register" exact>
+       <Route path = "/register" exact>
           <RegisterPage/>
        </Route>
        <Redirect to="/" />

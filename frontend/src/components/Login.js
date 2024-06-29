@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ForgetPassword from './ForgetPassword.js';
 
 
 function Login()
@@ -7,19 +8,9 @@ function Login()
     let loginPassword;
 
     const [message,setMessage] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
 
-    const app_name = 'knightsassemble-c02217fc9059'
-    function buildPath(route)
-    {
-      if (process.env.NODE_ENV === 'production') 
-      {
-         return 'https://' + app_name +  '.herokuapp.com/' + route;
-      }
-      else
-      {        
-          return 'http://localhost:5000/' + route;
-      }
-    }
+    let bp = require('./Path.js');
 
    
     const doLogin = async event => 
@@ -33,8 +24,8 @@ function Login()
   
           try
           {    
-              const response = await fetch(buildPath('api/login'),
-                  {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            const response = await fetch(bp.buildPath('api/login'), {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
   
               let res = JSON.parse(await response.text());
   
@@ -63,6 +54,15 @@ function Login()
           }    
       };
 
+      const forgetPasswordClick = () => {
+        setShowPopup(true);
+      }
+
+      const closePopup = () => {
+        setShowPopup(false);
+      }
+
+    
   
 
     return(
@@ -71,7 +71,7 @@ function Login()
         {/*Top Page Logo*/}
         <div class = "upperBox">
           <a href = "https://github.com/POOSDTeam14/KnightsAssemble">
-            <img src='https://i.imgur.com/IhXxVvE.png'></img>
+            <img src='https://i.imgur.com/IhXxVvE.png' alt = "UCF Knight Logo"></img>
           </a>
           <p >Knights Assemble</p>
         </div>
@@ -87,7 +87,10 @@ function Login()
             <input type="text" id="loginName" placeholder="Username" ref = {(elem) => loginName = elem}/><br />
             <p id="password-text">Password</p>
             <input type="password" id="loginPassword" placeholder="Password" ref = {(elem) => loginPassword = elem}/><br />
-            <a id ="forgot-password" class = "links">Forgot Password</a>
+  
+            <a id ="forgot-password" class = "links" onClick={forgetPasswordClick}>Forgot Password</a>
+            <ForgetPassword show = {showPopup} onClose = {closePopup} />
+
             <button id="loginButton" onClick={doLogin}>Sign In</button>
             <span id="loginResult">{message}</span>
           </div>
