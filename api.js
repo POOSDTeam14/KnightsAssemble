@@ -129,12 +129,15 @@ exports.setApp = function(app, client)
 
         // Possibly do some check for identical events?
 
+        // Convert time to Date object because MongoDB might not be interpreting it correctly
+        const eventTime = new Date(time);
+
         const newEvent = {
-            Name: name,
-            Type: type,
-            Description: description,
-            Time: time,
-            Location: location,
+            Name : name,
+            Type : type,
+            Description : description,
+            Time : eventTime,
+            Location : location,
             Capacity : capacity
         };
 
@@ -145,6 +148,7 @@ exports.setApp = function(app, client)
         } 
         catch (error) 
         {
+            console.error("Error creating event:", error);
             res.status(500).json({error: "Event not created"});
         }
     });
