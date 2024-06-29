@@ -116,13 +116,12 @@ exports.setApp = function(app, client)
     // Time : Date
     // Location : ""
     // Capacity : Int32
-    /// HostID : 
     // Attendees : Array
     // Token
     app.post('/api/createEvent', async (req, res, next) =>
     {
         // Get name,type, description, time, location, and capacity from request body
-        const {name, type, description, time, location, capacity, hostid, attendees, token} = req.body
+        const {name, type, description, time, location, capacity, attendees, token} = req.body
 
         if (!name | !type | !description | !time | !location | !capacity)
         {
@@ -147,6 +146,9 @@ exports.setApp = function(app, client)
 
         // Convert time to Date object because MongoDB might not be interpreting it correctly
         const eventTime = new Date(time);
+
+        // Get host id this way
+        const hostid = req.user._id;
 
         const newEvent = {
             Name : name,
