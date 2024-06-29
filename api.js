@@ -128,7 +128,8 @@ exports.setApp = function(app, client)
         }
 
         // Possibly do some check for identical events?
-
+        const db = client.db('KnightsAssembleDatabase');
+        
         // Convert time to Date object because MongoDB might not be interpreting it correctly
         const eventTime = new Date(time);
 
