@@ -1,5 +1,5 @@
 require('express');
-require('mongodb');
+const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
 
 exports.setApp = function(app, client)
