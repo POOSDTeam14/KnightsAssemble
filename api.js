@@ -183,6 +183,15 @@ exports.setApp = function(app, client)
         res.status(200).json({ret, token: newToken});
     });
 
+    // Update Incoming: 
+    // Name : ""
+    // Type : ""
+    // Description : ""
+    // Time : Date
+    // Location : ""
+    // Capacity : Int32
+    // eventid : ""
+    // Token
     app.post('/api/updateEvent', async (req, res, next) =>
     {
         // Get all event parameters except for HostID and attendees (these probably should not change)
@@ -253,4 +262,66 @@ exports.setApp = function(app, client)
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
+    
+    // Delete incoming:
+    // eventid : ObjectID
+    // token
+    app.post('/api/deleteEvent', async (req, res, next) =>
+    {
+        // Get eventid (same as _id in db) to delete it
+        const {eventid, token} = req.body
+        
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
+
+        // Make sure eventid is of type ObjectID for query
+        var eventObjectId = new ObjectId(eventid);
+    
+        const db = client.db('KnightsAssembleDatabase');
+        const results = await db.collection('Events').find({_id : eventObjectId}).toArray();
+    
+            // If matching event is found update info
+            if (results.length > 0)
+            {
+                try 
+                {
+                    var ret = await db.collection('Events').deleteOne(
+                        {_id : eventObjectId}
+                    );
+                } 
+                catch (error) 
+                {
+                    console.log(error);
+                    return res.status(500).json({error: "Event not deleted!"});
+                }
+            }
+            else
+            {
+                return res.status(404).json({error: "Event not found!"});
+            }
+        
+            // Refresh token at end of CRUD events
+            var newToken = null;
+            try 
+            {
+                newToken = refreshToken(token);
+            } 
+            catch (error) 
+            {
+                console.log(error);
+            }
+        
+            // Respond with event and token
+            res.status(200).json({ret, token: newToken});
+        });
 }
