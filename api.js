@@ -328,7 +328,7 @@ exports.setApp = function(app, client)
     app.post('/api/joinEvent', async (req, res, next) =>
     {
         // Get eventid to add attendees to it
-        const {eventid, userid, token} = req.body
+        const {eventid, token} = req.body
 
         // Check for expired token
         try 
@@ -343,6 +343,48 @@ exports.setApp = function(app, client)
             return res.status(401).json({error: "Something is wrong with your session"});
         }
 
+        // Check if eventid is valid
+        var eventObjectId = new ObjectId(eventid);
+    
+        const db = client.db('KnightsAssembleDatabase');
+        const results = await db.collection('Events').find({_id : eventObjectId}).toArray();
+
+        if ( results.length>0 )
+        {
+            try
+            {
+                const tokenObj = JSON.parse(token);
+                const userId = tokenObj.userId;
+                var ret = await db.collection('Events').update(
+                    {_id : eventObjectId},
+                    {
+                        $push: { attendees: {userId}}   
+                    }
+                );
+            }
+            catch (error) 
+            {
+                console.log(error);
+                return res.status(500).json({error: "You have not been added to event!"});
+            }
+        }
+        else
+        {
+            return res.status(404).json({error: "Event not found!"});
+        }
         
-        });
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+        
+        // Respond with event and token
+        res.status(200).json({ret, token: newToken});
+    });
 }
