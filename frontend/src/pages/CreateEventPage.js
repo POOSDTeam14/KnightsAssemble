@@ -1,21 +1,20 @@
 import React from 'react';
 
 import PageTitle from '../components/PageTitle';
-import Login from '../components/Login';
-import ForgetPassword from '../components/ForgetPassword';
 import TopPageLogo from '../components/TopPageLogo';
+import CreateEvent from '../components/CreateEvent';
 
 
-const LoginPage = () =>
+const CreateEventPage = () =>
 {
 
     return(
       <div>
         <PageTitle />
         <TopPageLogo />
-        <Login />
+        <CreateEvent />
       </div>
     );
 };
 
-export default LoginPage;
+export default CreateEventPage;

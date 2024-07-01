@@ -22,7 +22,7 @@ function VerificationCode( {show, onClose}) {
         <div className="popup-overlay">
             <div className="popup-content">
                 <span className="close-btn" onClick={onClose}>×</span>
-                <img src="https://i.imgur.com/nkvjtG6.png" alt="Gold Lock" />
+                <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
                 <div className="popup-text">
                     <p>Enter Verification Code</p>
                     <input id="emailInput" type="text" placeholder="Verification Code" /><br />

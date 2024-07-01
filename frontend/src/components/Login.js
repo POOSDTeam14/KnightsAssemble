@@ -12,7 +12,6 @@ function Login()
 
     let bp = require('./Path.js');
 
-   
     const doLogin = async event => 
       {
           event.preventDefault();
@@ -24,7 +23,8 @@ function Login()
   
           try
           {    
-            const response = await fetch(bp.buildPath('api/login'), {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            const response = await fetch(bp.buildPath('api/login'), 
+              {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
   
               let res = JSON.parse(await response.text());
@@ -67,14 +67,6 @@ function Login()
 
     return(
       <div id="loginDiv">
-         
-        {/*Top Page Logo*/}
-        <div class = "upperBox">
-          <a href = "https://github.com/POOSDTeam14/KnightsAssemble">
-            <img src='https://i.imgur.com/IhXxVvE.png' alt = "UCF Knight Logo"></img>
-          </a>
-          <p >Knights Assemble</p>
-        </div>
         
         <div id = "login-in-container">
         
