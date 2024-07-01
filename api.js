@@ -324,4 +324,25 @@ exports.setApp = function(app, client)
             // Respond with event and token
             res.status(200).json({ret, token: newToken});
         });
+    
+    app.post('/api/joinEvent', async (req, res, next) =>
+    {
+        // Get eventid to add attendees to it
+        const {eventid, userid, token} = req.body
+
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
+
+        
+        });
 }
