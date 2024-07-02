@@ -1,0 +1,366 @@
+/*********  TopLogo CSS ***************/
+.upperBox {
+  width: 100%;
+  height: 64px;
+  justify-content: flex-start;
+  display: flex;
+  background-color: black;
+  align-items: center;
+  color: white;
+  padding: 0;
+}
+
+.upperBox img {
+width: 30px;
+height: 30px;
+margin-right: 10px;
+}
+/*********  TopLogo CSS ***************/
+
+/*********  LoginIn CSS ***************/
+#login-in-container {
+  display: flex;
+  height: 100vh; 
+
+}
+
+#signIn-left-side, #signIn-right-side {
+width: 50%; 
+background-size: cover; /* Background image covers the entire container */
+background-position: center; /* Center the background image */
+display: flex;
+flex-direction: column; 
+justify-content: flex-start; 
+padding: 20px; 
+}
+
+#signIn-left-side {
+  background-image: url(https://i.imgur.com/vAwpwqL.png); 
+  
+}
+
+
+#signIn-right-side {
+background-image: url(https://i.imgur.com/j9hx0Fb.png); 
+color: black;
+font-family: "Arial";
+}
+
+#signIn-heading {
+font-weight: normal;
+margin: 20px 0; 
+padding-top: 150px;
+}
+
+#signIn-subheader {
+margin: 0; 
+font-size: 15px;
+font-weight: normal;
+}
+
+#signIn-right-side a {
+text-decoration: none;
+color: #008080;
+}
+
+#loginName, #loginPassword, #emailInput, #newPassword, #confirmPassword{
+width: calc(100% - 150px); 
+height: 30px;
+margin-bottom: 10px; 
+padding: 5px; 
+}
+
+#username-text, #password-text {
+margin: 20px 0px 5px; 
+font-weight: bold;
+color: black;
+}
+
+#signIn-right-side .links{
+  margin: 10px 0px 20px;
+  font-style: italic;
+  color: blue;
+  cursor: pointer; 
+}
+
+#loginButton, .popup-text button, #createEvent-Button {
+background-color: black; 
+border: 2px solid gold; 
+color: white; 
+font-weight: bold; 
+border-radius: 20px; 
+padding: 10px 20px; 
+cursor: pointer; 
+width: calc(100% - 150px);
+}
+
+#loginButton:hover {
+background-color: #333; 
+border-color: transparent;
+color: gold; 
+}
+/*********  LoginIn CSS ***************/
+
+/*********  Register CSS ***************/
+#register-in-container {
+  display: flex;
+  height: 100vh; 
+}
+
+#signUp-left-side, #signUp-right-side {
+  width: 50%; 
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start; 
+  padding: 20px; 
+}
+
+#signUp-left-side {
+  background-image: url(https://i.imgur.com/vAwpwqL.png); 
+}
+
+#signUp-right-side {
+  background-image: url(https://i.imgur.com/j9hx0Fb.png); 
+  color: black;
+  font-family: "Arial";
+}
+
+#signUp-heading {
+  font-weight: normal;
+  margin: 20px 0; 
+  padding-top: 50px;
+}
+
+#signUp-subheader {
+  margin: 0; 
+  font-size: 15px;
+  font-weight: normal;
+}
+
+#signUp-right-side a {
+  text-decoration: none;
+  color: #008080;
+}
+
+#firstName, #lastName, #username, #emailInput, #newPassword, #confirmPassword {
+  width: calc(100% - 150px); 
+  height: 30px;
+  margin-bottom: 10px; 
+  padding: 5px; 
+}
+
+#name-text, #username-text, #email-text, #password-text, #confirm-password-text {
+  margin: 20px 0px 5px; 
+  font-weight: bold;
+  color: black;
+}
+
+#signUp-right-side .links {
+  margin: 10px 0px 20px;
+  font-style: italic;
+  color: blue;
+  cursor: pointer; 
+}
+
+#registerButton {
+  background-color: black; 
+  border: 2px solid gold; 
+  color: white; 
+  font-weight: bold; 
+  border-radius: 20px; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  width: calc(100% - 150px);
+}
+
+#registerButton:hover {
+  background-color: #333; 
+  border-color: transparent;
+  color: gold; 
+}
+/*********  Register CSS ***************/
+
+/*********  ForgetPassword CSS ***************/
+.popup-overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: black;
+  border: 2px solid gold;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  width: 30%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.popup-content img {
+  width: 20%;
+  height: 20%;
+  margin: 20px;
+  align-self: center;
+}
+
+.close-btn {
+  position: absolute;
+  color: gold;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.popup-text{
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-text button{
+  background-color: black;
+  color: gold;
+  border: 2px solid white; 
+  margin-top: 10px;
+}
+
+.popup-text button:hover {
+  background-color: #333; 
+  border-color: transparent;
+  color: gold; 
+  }
+
+#changePassword{
+  margin-top: 30px;
+}
+/*********  ForgetPassword CSS ***************/
+
+
+/*********  CreateEvent CSS ***************/
+.page-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 64px);
+  overflow-x: hidden;
+}
+
+.tab-column {
+  width: 5%; /* Adjust the width as needed */
+  background-color: gold; /* Adjust the color as needed */
+  height: 100%; /* Extend the column to the bottom of its parent container */
+  border: 2px solid black;
+  border-top: none;
+}
+
+.tab-column a {
+  cursor: pointer;
+  text-decoration: none; 
+}
+
+.tab-column p {
+  font-weight: bold;
+  color: black;
+  margin-bottom: 0px;
+}
+
+.createEvent-container {
+  height: calc(100vh - 64px);
+  width: 95%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  margin: auto; /* Centers the container horizontally */
+}
+
+.createEvent-container h1 {
+  text-align: center; /* Centers the heading text */
+  font-family: "Arial";
+}
+
+.createEvent-container img{
+  height: 30%;
+}
+
+.createEvent-info-1 {
+  margin-top: 40px; 
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  margin-left: 70px;
+  width: 100%;
+}
+
+.createEvent-info-1 .eventInput-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; 
+}
+
+.createEvent-info-2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  margin-left: 70px;
+}
+
+.eventInput-container p {
+  font-family: "Arial";
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 20px;
+  min-width: 120px; 
+}
+
+.eventInput-container input, .eventInput-container select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-right: 30px;
+  width: 250px;
+}
+
+.date-container input, .date-container select {
+  width: calc((100% - 150px) / 3); 
+}
+
+.date-container p {
+  min-width: 120px; 
+  font-family: "Arial";
+}
+
+.eventInput-container textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  width: 300px;
+  height: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+}
+
+#createEvent-Button{
+  margin-top: 30px;
+  width: calc(95% - 300px);
+}
+
+/*********  CreateEvent CSS ***************/
