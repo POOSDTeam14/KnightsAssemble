@@ -109,8 +109,8 @@ color: gold;
 
 #signUp-left-side, #signUp-right-side {
   width: 50%; 
-  background-size: cover; /* Background image covers the entire container /
-  background-position: center; / Center the background image /
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column; 
   justify-content: flex-start; 
