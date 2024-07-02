@@ -1,10 +1,10 @@
 require('express');
 const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
-
+// xander was here
 exports.setApp = function(app, client)
 {
-    // Login Incoming: 
+    // Login Incoming:
     // Username : ""
     // Password : ""
 
@@ -32,7 +32,7 @@ exports.setApp = function(app, client)
         var lastname = "";
         var email = "";
         var userid = "";
-        // outgoing results 
+        // outgoing results
         var ret;
         // If matching user is found populate outgoing info
         if (results.length > 0)
@@ -41,9 +41,9 @@ exports.setApp = function(app, client)
             lastname = results[0].LastName;
             email = results[0].Email;
             userid = results[0]._id;
-    
-            const userInfo = {firstname, lastname, email, userid}; 
-    
+
+            const userInfo = {firstname, lastname, email, userid};
+
             try
             {
                 // Create JWT
@@ -64,7 +64,7 @@ exports.setApp = function(app, client)
     });
 
 
-    // Register Incoming: 
+    // Register Incoming:
     // Username : ""
     // Password : ""
     // FirstName : ""
@@ -88,8 +88,8 @@ exports.setApp = function(app, client)
         if (results.length > 0)
         {
             return res.status(400).json({error: "Username already exists!"});
-        }           
-             
+        }
+
         const newUser = {
             Username: username,
             Password: password,
@@ -97,26 +97,26 @@ exports.setApp = function(app, client)
             LastName: lastname,
             Email: email
         };
-            
-        try 
+
+        try
         {
             var ret = await db.collection('Users').insertOne(newUser);
             res.status(200).json(ret);
-        } 
-        catch (error) 
+        }
+        catch (error)
         {
             res.status(500).json({error: "User not registered"});
-        }   
+        }
     });
 
-    // Create Incoming: 
+    // Create Incoming:
     // Name : ""
     // Type : ""
     // Description : ""
     // Time : Date
     // Location : ""
     // Capacity : Int32
-    /// HostID : 
+    /// HostID :
     // Attendees : Array
     // Token
     app.post('/api/createEvent', async (req, res, next) =>
@@ -133,14 +133,14 @@ exports.setApp = function(app, client)
         const db = client.db('KnightsAssembleDatabase');
 
         // Check for expired token
-        try 
+        try
         {
             if (isTokenExpired(token))
             {
                 return res.status(401).json({error: "Your session is no longer valid"});
             }
-        } 
-        catch (error) 
+        }
+        catch (error)
         {
             return res.status(401).json({error: "Something is wrong with your session"});
         }
@@ -159,22 +159,22 @@ exports.setApp = function(app, client)
             Attendees : attendees || [] // Defaults to empty array if no attendees entered
         };
 
-        try 
+        try
         {
             var ret = await db.collection('Events').insertOne(newEvent);
-        } 
-        catch (error) 
+        }
+        catch (error)
         {
             res.status(500).json({error: "Event not created"});
         }
 
         // Refresh token at end of CRUD events
         var newToken = null;
-        try 
+        try
         {
             newToken = refreshToken(token);
-        } 
-        catch (error) 
+        }
+        catch (error)
         {
             console.log(error);
         }
@@ -183,7 +183,7 @@ exports.setApp = function(app, client)
         res.status(200).json({ret, token: newToken});
     });
 
-    // Update Incoming: 
+    // Update Incoming:
     // Name : ""
     // Type : ""
     // Description : ""
@@ -196,16 +196,16 @@ exports.setApp = function(app, client)
     {
         // Get all event parameters except for HostID and attendees (these probably should not change)
         const {name, type, description, time, location, capacity,eventid, token} = req.body
-    
+
         // Check for expired token
-        try 
+        try
         {
             if (isTokenExpired(token))
             {
                 return res.status(401).json({error: "Your session is no longer valid"});
             }
-        } 
-        catch (error) 
+        }
+        catch (error)
         {
             return res.status(401).json({error: "Something is wrong with your session"});
         }
@@ -229,15 +229,15 @@ exports.setApp = function(app, client)
                 Capacity : capacity
             };
 
-            try 
+            try
             {
                 var ret = await db.collection('Events').updateOne(
                     {_id : eventObjectId},
                     {$set : updatedEvent}
                 );
                 console.log("Update event result", ret);
-            } 
-            catch (error) 
+            }
+            catch (error)
             {
                 console.log(error);
                 return res.status(500).json({error: "Event not updated!"});
@@ -247,22 +247,22 @@ exports.setApp = function(app, client)
         {
             return res.status(404).json({error: "Event not found!"});
         }
-    
+
         // Refresh token at end of CRUD events
         var newToken = null;
-        try 
+        try
         {
             newToken = refreshToken(token);
-        } 
-        catch (error) 
+        }
+        catch (error)
         {
             console.log(error);
         }
-    
+
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
-    
+
     // Delete incoming:
     // eventid : ObjectID
     // token
@@ -270,36 +270,36 @@ exports.setApp = function(app, client)
     {
         // Get eventid (same as _id in db) to delete it
         const {eventid, token} = req.body
-        
+
         // Check for expired token
-        try 
+        try
         {
             if (isTokenExpired(token))
             {
                 return res.status(401).json({error: "Your session is no longer valid"});
             }
-        } 
-        catch (error) 
+        }
+        catch (error)
         {
             return res.status(401).json({error: "Something is wrong with your session"});
         }
 
         // Make sure eventid is of type ObjectID for query
         var eventObjectId = new ObjectId(eventid);
-    
+
         const db = client.db('KnightsAssembleDatabase');
         const results = await db.collection('Events').find({_id : eventObjectId}).toArray();
-    
+
             // If matching event is found update info
             if (results.length > 0)
             {
-                try 
+                try
                 {
                     var ret = await db.collection('Events').deleteOne(
                         {_id : eventObjectId}
                     );
-                } 
-                catch (error) 
+                }
+                catch (error)
                 {
                     console.log(error);
                     return res.status(500).json({error: "Event not deleted!"});
@@ -309,43 +309,43 @@ exports.setApp = function(app, client)
             {
                 return res.status(404).json({error: "Event not found!"});
             }
-        
+
             // Refresh token at end of CRUD events
             var newToken = null;
-            try 
+            try
             {
                 newToken = refreshToken(token);
-            } 
-            catch (error) 
+            }
+            catch (error)
             {
                 console.log(error);
             }
-        
+
             // Respond with event and token
             res.status(200).json({ret, token: newToken});
         });
-    
+
     app.post('/api/joinEvent', async (req, res, next) =>
     {
         // Get eventid to add attendees to it
         const {eventid, token} = req.body
 
         // Check for expired token
-        try 
+        try
         {
             if (isTokenExpired(token))
             {
                 return res.status(401).json({error: "Your session is no longer valid"});
             }
-        } 
-        catch (error) 
+        }
+        catch (error)
         {
             return res.status(401).json({error: "Something is wrong with your session"});
         }
 
         // Check if eventid is valid
         var eventObjectId = new ObjectId(eventid);
-    
+
         const db = client.db('KnightsAssembleDatabase');
         const results = await db.collection('Events').find({_id : eventObjectId}).toArray();
 
@@ -358,11 +358,11 @@ exports.setApp = function(app, client)
                 var ret = await db.collection('Events').update(
                     {_id : eventObjectId},
                     {
-                        $push: { attendees: {userId}}   
+                        $push: { attendees: {userId}}
                     }
                 );
             }
-            catch (error) 
+            catch (error)
             {
                 console.log(error);
                 return res.status(500).json({error: "You have not been added to event!"});
@@ -372,18 +372,18 @@ exports.setApp = function(app, client)
         {
             return res.status(404).json({error: "Event not found!"});
         }
-        
+
         // Refresh token at end of CRUD events
         var newToken = null;
-        try 
+        try
         {
             newToken = refreshToken(token);
-        } 
-        catch (error) 
+        }
+        catch (error)
         {
             console.log(error);
         }
-        
+
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
