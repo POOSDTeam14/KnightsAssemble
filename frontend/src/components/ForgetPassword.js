@@ -23,8 +23,8 @@ function ForgetPassword({ show, onClose }) {
                 <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
                 <div className="popup-text">
                     <p>Enter Email Address</p>
-                    <input id="emailInput" type="text" placeholder="Email" /><br />
-                    <button onClick={handleVerification}>Send Verification Code</button>
+                    <input id="login-emailInput" type="text" placeholder="Email" /><br />
+                    <button className = "popup-button" onClick={handleVerification}>Send Verification Code</button>
                     {showVerificationPopup && <VerificationCode show={true} onClose={closeAllPopups} />}
                 </div>
             </div>

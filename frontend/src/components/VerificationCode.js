@@ -25,8 +25,8 @@ function VerificationCode( {show, onClose}) {
                 <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
                 <div className="popup-text">
                     <p>Enter Verification Code</p>
-                    <input id="emailInput" type="text" placeholder="Verification Code" /><br />
-                    <button onClick={changePasswordClick}>Send Verification Code</button>
+                    <input id="verificationInput" type="text" placeholder="Verification Code" /><br />
+                    <button className = "popup-button" onClick={changePasswordClick}>Enter Verification Code</button>
                     {showChangePasswordPopup && <ChangePassword show={true} onClose={closeAllPopups} />}
                 </div>
             </div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import ForgetPassword from './ForgetPassword.js';
 
-
 function Login()
 {
     let loginName;
@@ -66,32 +65,35 @@ function Login()
   
 
     return(
-      <div id="loginDiv">
-        
-        <div id = "login-in-container">
-        
-          <div id = "signIn-left-side"></div>
+           <div class = "row g-0 loginRow"> 
+              <div class = "col h-100">
 
-          <div id = "signIn-right-side">
-            <h1 id="signIn-heading">Sign In</h1>
-            <h2 id="signIn-subheader">New to Knights Assemble? <a href = "/register" class = "links">Create Account</a></h2>
-            <p id="username-text">Username</p>
-            <input type="text" id="loginName" placeholder="Username" ref = {(elem) => loginName = elem}/><br />
-            <p id="password-text">Password</p>
-            <input type="password" id="loginPassword" placeholder="Password" ref = {(elem) => loginPassword = elem}/><br />
+                <div class = "left-login">
+                </div>
+
+              </div>
+           
+              <div class = "col h-100">
+
+                <div class = "right-login">
+                  <h1 id="signIn-heading">Sign In</h1>
+                  <h2 id="signIn-subheader">New to Knights Assemble? <a href = "/register" class = "links">Create Account</a></h2>
+                  <p id="username-text">Username</p>
+                  <input type="text" id="loginName" placeholder="Username" ref = {(elem) => loginName = elem}/><br />
+                  <p id="password-text">Password</p>
+                  <input type="password" id="loginPassword" placeholder="Password" ref = {(elem) => loginPassword = elem}/><br />
   
-            <a id ="forgot-password" class = "links" onClick={forgetPasswordClick}>Forgot Password</a>
-            <ForgetPassword show = {showPopup} onClose = {closePopup} />
+                  <a id ="forgot-password" class = "links" onClick={forgetPasswordClick}>Forgot Password</a>
+                  <ForgetPassword show = {showPopup} onClose = {closePopup} />
 
-            <button id="loginButton" onClick={doLogin}>Sign In</button>
-            <span id="loginResult">{message}</span>
-          </div>
+                  <button id="loginButton" onClick={doLogin}>Sign In</button>
+                  <span id="loginResult">{message}</span>
+                </div>
 
-        </div>
-
-
-        
-     </div>
+              </div>
+           
+           
+           </div>
     );
 };
 
