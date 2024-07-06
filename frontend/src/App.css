@@ -108,66 +108,85 @@
 /*****************  Login CSS *****************/
 
 /*********  Register CSS ***************/
-#register-in-container {
-  display: flex;
-  height: 100vh; 
+.signUpRow {
+  height: calc(100vh - 50px);
 }
 
-#signUp-left-side, #signUp-right-side {
-  width: 50%; 
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column; 
-  justify-content: flex-start; 
-  padding: 20px; 
+.left-signUp, .right-signUp {
+  height: 100%;
+  width: 100%;
+  background-size: cover; /* Background image covers the entire container */
+  background-position: center; /* Center the background image */
 }
 
-#signUp-left-side {
-  background-image: url(https://i.imgur.com/vAwpwqL.png); 
+.left-signUp {
+  background-image: url("https://i.imgur.com/vAwpwqL.png"); 
 }
 
-#signUp-right-side {
-  background-image: url(https://i.imgur.com/j9hx0Fb.png); 
-  color: black;
+.right-signUp {
+  background-image: url("https://i.imgur.com/j9hx0Fb.png"); 
   font-family: "Arial";
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Center horizontally */
+  justify-content: flex-start; /* Align items to the top */
+  padding: 3%; /* Add some padding for better aesthetics */
 }
 
 #signUp-heading {
   font-weight: normal;
-  margin: 20px 0; 
-  padding-top: 50px;
+  margin-top: 3%;
 }
 
 #signUp-subheader {
-  margin: 0; 
   font-size: 15px;
   font-weight: normal;
 }
 
-#signUp-right-side a {
+.right-signUp a {
+  font-style: italic;
+  color: blue;
+  cursor: pointer; 
   text-decoration: none;
-  color: #008080;
 }
 
-#firstName, #lastName, #username, #emailInput, #newPassword, #confirmPassword {
-  width: calc(100% - 150px); 
-  height: 30px;
-  margin-bottom: 10px; 
-  padding: 5px; 
+.right-signUp .row{
+  margin-top: 2%;
 }
 
-#name-text, #username-text, #email-text, #password-text, #confirm-password-text {
-  margin: 20px 0px 5px; 
+.signUp-nameRow, .signUp-usernameRow, .signUp-emailRow, .signUp-passwordRow, .signUp-confirmPasswordRow {
+  height: 10%; /* Adjust height based on your layout needs */
+  width: 100%
+}
+
+.right-signUp .col {
+  height: 100%; /* Ensure columns fill the height of the row */
+  width: 50%
+}
+
+.right-signUp input{
+  width: 75%;
+  height: 50%;
+}
+
+.signUp-inputText {
+  margin-bottom: 1%;
   font-weight: bold;
   color: black;
 }
 
-#signUp-right-side .links {
-  margin: 10px 0px 20px;
-  font-style: italic;
-  color: blue;
-  cursor: pointer; 
+.right-signUp .signUp-requirementFields{
+  color: red;
+  font-size: 15px;
+  text-align: left;
+  width: 80%;
+}
+
+.right-signUp .signUp-registerButton  {
+  height: 15%;
+  width: 100%;
+  margin-top: 15%;
 }
 
 #registerButton {
@@ -185,6 +204,12 @@
   background-color: #333; 
   border-color: transparent;
   color: gold; 
+}
+
+@media (max-height: 695px) {
+  .right-signUp .signUp-registerButton  {
+    margin-top: 2%;
+  }
 }
 /*********  Register CSS ***************/
 
