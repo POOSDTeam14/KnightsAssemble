@@ -336,7 +336,7 @@ exports.setApp = function(app, client)
     app.post('/api/joinEvent', async (req, res, next) =>
     {
         // Get eventid to add attendees to it
-        const {eventid, usernmae, token} = req.body
+        const {eventid, username, token} = req.body
 
         // Check for expired token
         try 
@@ -366,7 +366,7 @@ exports.setApp = function(app, client)
                 var ret = await db.collection('Events').update(
                     {_id : eventObjectId},
                     {
-                        $push: { Attendees: {"Test123"}}   
+                        $push: { Attendees: {username}}   
                     }
                 );
             }
