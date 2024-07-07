@@ -15,6 +15,7 @@
         "express": "^4.19.2",
         "jsonwebtoken": "^9.0.2",
         "mongob": "^1.0.0",
-        "mongodb": "^6.7.0"
+        "mongodb": "^6.7.0",
+        "@sendgrid/mail" : "^8.1.3"
     }
 }
