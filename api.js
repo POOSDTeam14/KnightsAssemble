@@ -83,13 +83,20 @@ exports.setApp = function(app, client)
 
         // Check database's users collection to see if there is an existing username
         const db = client.db('KnightsAssembleDatabase');
-        const results = await db.collection('Users').find({Username: username}).toArray();
+        const userResults = await db.collection('Users').find({Username: username}).toArray();
+        const emailResults = await db.collection('Users').find({Email: email}).toArray();
 
         // User name already exists
-        if (results.length > 0)
+        if (userResults.length > 0)
         {
             return res.status(400).json({error: "Username already exists!"});
-        }           
+        }         
+        
+        // Email already exists
+        if (emailResults.length > 0)
+        {
+            return res.status(400).json({error: "Email is already in use on this site!"});
+        }       
              
         const newUser = {
             Username: username,
