@@ -496,6 +496,8 @@ exports.setApp = function(app, client)
         // Take in user email and new password to update it
         const {email, password} = req.body
 
+        const db = client.db('KnightsAssembleDatabase');
+
         const emailResults = await db.collection('Users').find({Email: email}).toArray();
 
         if (emailResults.length > 0)
