@@ -1,6 +1,7 @@
 require('express');
 const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
+const {createVerifyCode} = require('./createVerificationCode');
 
 exports.setApp = function(app, client)
 {
@@ -386,5 +387,46 @@ exports.setApp = function(app, client)
         
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
+    });
+
+    // Verify email incoming:
+    // email : ""
+    // Verify email outgoing:
+    // Code : 1234
+    app.post('/api/verifyEmail', async (req, res, next) =>
+    {
+        // Get registering email and create a random code
+        const {email} = req.body
+
+        if (!email)
+        {
+            return res.status(400).json({error: "You must enter your email!"});
+        }
+
+        var verifyCode = createVerifyCode();
+
+
+        const sgMail = require('@sendgrid/mail')
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+        const msg = {
+        to: email, // Change to your recipient
+        from: 'info@tsinghuarejects.com', // Change to your verified sender
+        subject: 'KnightsAssemble Verification Code',
+        text: 'Enter this verification code into the app: ' + verifyCode,
+        html: '<strong>Enter this verification code into the app: ' + verifyCode + '</strong>',
+        }
+
+        sgMail
+        .send(msg)
+        .then((response) => {
+            console.log("Verification code sent");
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+
+        // Respond with code
+        res.status(200).json({verifyCode});
     });
 }
