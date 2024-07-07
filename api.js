@@ -366,7 +366,7 @@ exports.setApp = function(app, client)
                 var ret = await db.collection('Events').update(
                     {_id : eventObjectId},
                     {
-                        $push: { "Attendees": {username}}   
+                        $push: { Attendees: {"username": username}}   
                     }
                 );
             }
