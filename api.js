@@ -355,7 +355,7 @@ exports.setApp = function(app, client)
             try
             {
                 const tokenObj = JSON.parse(token);
-                const userId = tokenObj.userId;
+                const userId = tokenObj.userid;
                 var ret = await db.collection('Events').update(
                     {_id : eventObjectId},
                     {
