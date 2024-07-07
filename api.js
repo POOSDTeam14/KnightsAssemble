@@ -433,4 +433,87 @@ exports.setApp = function(app, client)
         // Respond with code
         res.status(200).json({verifyCode});
     });
+
+    // Forgot password incoming:
+    // email : ""
+    // Forgot password outgoing:
+    // Code : 1234
+    app.post('/api/forgotPassword', async (req, res, next) =>
+    {
+        // Get user email and create a random code
+        const {email} = req.body
+    
+        if (!email)
+        {
+            return res.status(400).json({error: "You must enter your email!"});
+        }
+
+        const emailResults = await db.collection('Users').find({Email: email}).toArray();    
+        
+        // Email exists so send code
+        if (emailResults.length > 0)
+        {
+            var verifyCode = createVerifyCode();
+        
+        
+            const sgMail = require('@sendgrid/mail')
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+        
+            const msg = {
+            to: email, // Change to your recipient
+            from: 'info@tsinghuarejects.com', // Change to your verified sender
+            subject: 'KnightsAssemble Verification Code',
+            text: 'Enter this code to reset your password: ' + verifyCode,
+            html: '<strong>Enter this code to reset your password: ' + verifyCode + '</strong>',
+            }
+        
+            sgMail
+            .send(msg)
+            .then((response) => {
+                console.log("Verification code sent");
+            })
+            .catch((error) => {
+            console.error(error)
+            })
+
+            return res.status(200).json({verifyCode});
+        }
+        else
+        {
+            return res.status(400).json({error: "This email is not associated with any account!"});
+        }
+    });
+
+    // Update password incoming:
+    // email : ""
+    // password : ""
+    // Update password outgoing:
+    //
+    app.put('/api/updatePassword', async (req, res, next) =>
+    {
+        // Take in user email and new password to update it
+        const {email, password} = req.body
+
+        const emailResults = await db.collection('Users').find({Email: email}).toArray();
+
+        if (emailResults.length > 0)
+        {
+            try 
+            {
+                var ret = await db.collection('Users').updateOne(
+                    {Email : email},
+                    {$set : {Password : password}}
+                );
+                return res.status(200).json(ret);
+            } 
+            catch (error) 
+            {
+                return res.status(500).json({error: "Password not updated!"});
+            }
+        }
+        else
+        {
+            return res.status(404).json({error: "User not found!"});
+        }
+    });
 }
