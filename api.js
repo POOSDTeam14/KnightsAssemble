@@ -442,6 +442,8 @@ exports.setApp = function(app, client)
     {
         // Get user email and create a random code
         const {email} = req.body
+
+        const db = client.db('KnightsAssembleDatabase');
     
         if (!email)
         {
