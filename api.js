@@ -363,11 +363,10 @@ exports.setApp = function(app, client)
             {
                 //const tokenObj = JSON.parse(token);
                 //const userId = tokenObj.userid;
-                var ret = await db.collection('Events').update(
+                var ret = await db.collection('Events').updateOne(
                     {_id : eventObjectId},
-                    {
-                        $push: { Attendees: {username}}   
-                    }
+                    { $push: { Attendees: username } },
+                    { upsert: true }
                 );
             }
             catch (error) 
