@@ -403,6 +403,10 @@ exports.setApp = function(app, client)
                 return res.status(500).json({error: "You have not been added to event!"});
             }
         }
+        else if ( eventResults.length>0 )
+        {
+            return res.status(404).json({error: "User already joined!"});
+        }
         else
         {
             return res.status(404).json({error: "Event not found!"});
