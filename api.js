@@ -388,12 +388,12 @@ exports.setApp = function(app, client)
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
 
         const result = await db.collection('Discussions').findOne(
-        { Attendees: { $elemMatch: userid } }
+        { Attendees: { $elemMatch: { userid } } }
         );
 
         if (result)
         {
-            return res.status(404).json({error: "User already joined!"});
+            return res.status(405).json({error: "User already joined!"});
         }
         
         if ( eventResults.length>0 ) 
