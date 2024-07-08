@@ -389,7 +389,7 @@ exports.setApp = function(app, client)
         const userResult = await db.collection('Events').find(
         { 
             _id: eventObjectId,
-            Attendees: { $elemMatch: { userid } } 
+            Attendees: userObjectId
         }     
         ).toArray();
 
