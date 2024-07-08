@@ -83,7 +83,7 @@ exports.setApp = function(app, client)
 
         // Check database's users collection to see if there is an existing username
         const db = client.db('KnightsAssembleDatabase');
-        const userResults = await db.collection('Users').find({Username: username}).toArray();
+        /*const userResults = await db.collection('Users').find({Username: username}).toArray();
         const emailResults = await db.collection('Users').find({Email: email}).toArray();
 
         // User name already exists
@@ -96,7 +96,7 @@ exports.setApp = function(app, client)
         if (emailResults.length > 0)
         {
             return res.status(400).json({error: "Email is already in use on this site!"});
-        }       
+        }*/       
              
         const newUser = {
             Username: username,
@@ -115,6 +115,34 @@ exports.setApp = function(app, client)
         {
             res.status(500).json({error: "User not registered"});
         }   
+    });
+
+    // checkExistingUser Incoming: 
+    // Username : ""
+    // Email : ""
+    app.post('/api/checkExistingUser', async (req, res, next) =>
+    {
+        // Get username & email to see if an account is already registered with one of these
+        const {username, email} = req.body
+
+        // Check database's users collection to see if there is an existing username
+        const db = client.db('KnightsAssembleDatabase');
+        const userResults = await db.collection('Users').find({Username: username}).toArray();
+        const emailResults = await db.collection('Users').find({Email: email}).toArray();
+
+        // User name already exists
+        if (userResults.length > 0)
+        {
+            return res.status(400).json({error: "Username already exists!"});
+        }         
+        
+        // Email already exists
+        if (emailResults.length > 0)
+        {
+            return res.status(400).json({error: "Email is already in use on this site!"});
+        }
+        
+        return res.status(200).json({message: "Unique user information entered"});
     });
 
     // Create Incoming: 
