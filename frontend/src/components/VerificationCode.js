@@ -6,8 +6,10 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful}) 
     const [verificationCode, setVerificationCode] = useState("");
 
     const verificationButtonClick = async () => {
-        if(window.location.pathname === "/register" && (verificationCode === verifyCode))
-            await verificationSuccessful();
+        if(window.location.pathname === "/register"){
+            if(verificationCode === verifyCode)
+                await verificationSuccessful();
+        }
         else
             setShowChangePasswordPopup(true);
     };
