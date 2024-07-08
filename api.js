@@ -384,10 +384,19 @@ exports.setApp = function(app, client)
         var eventObjectId = new ObjectId(eventid);
     
         const db = client.db('KnightsAssembleDatabase');
-        const userResults = await db.collection('Events').find({Attendees: userObjectId}).toArray();
+        //const userResults = await db.collection('Events').find({Attendees: userObjectId}).toArray();
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
 
-        if ( eventResults.length>0 && userResults.length<=0 ) 
+        const result = await db.collection('Discussions').findOne(
+        { Attendees: { $elemMatch: {userObjectiD } } }
+        );
+
+        if (result)
+        {
+            return res.status(404).json({error: "User already joined!"});
+        }
+        
+        if ( eventResults.length>0 ) 
         {
             try
             {
@@ -402,10 +411,6 @@ exports.setApp = function(app, client)
                 console.log(error);
                 return res.status(500).json({error: "You have not been added to event!"});
             }
-        }
-        else if ( eventResults.length>0 )
-        {
-            return res.status(404).json({error: "User already joined!"});
         }
         else
         {
