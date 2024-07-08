@@ -379,23 +379,25 @@ exports.setApp = function(app, client)
             return res.status(401).json({error: "Something is wrong with your session"});
         }
 
-        // Check if eventid is valid
+        // Check user and event id
         var userObjectId = new ObjectId(userid);
         var eventObjectId = new ObjectId(eventid);
     
         const db = client.db('KnightsAssembleDatabase');
-        const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
 
+        // Check to see if user is already joined event
         const userResult = await db.collection('Events').findOne(
         { _id: eventObjectId,
           Attendees: userid }     
         );
-
+        // If so, do not add them
         if ( userResult )
         {
             return res.status(405).json({error: "User already joined!"});
         }
-        
+
+        // If event exists and passes the previous test, join event
+        const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
         if ( eventResults.length>0 ) 
         {
             try
