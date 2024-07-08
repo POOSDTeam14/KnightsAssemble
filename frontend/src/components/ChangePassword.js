@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function ChangePassword( {show, onClose}) {
+function ChangePassword( {show, onClose, email}) {
     //Password Requirements Message
     const [lengthNotMet, setlengthNotMet] = useState("");
     const [upperCaseNotMet, setUpperCaseNotMet] = useState("");
@@ -13,6 +13,8 @@ function ChangePassword( {show, onClose}) {
     //Input Fields
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    let bp = require('./Path.js');
     
     if(!show)
         return null;
@@ -27,43 +29,70 @@ function ChangePassword( {show, onClose}) {
 
         //Check if both fields filled
         if(!password || !confirmPassword){
-            setMessage("Both Fields Must Be Filled!");
+            setMessage("Both fields must be filled!");
             return;
         }
 
         //Check if passwords match
         if(password !== confirmPassword){
-            setMessage("Passwords Must Match!");
+            setMessage("Passwords must match!");
             return;
         }
 
         /******** Check Password Requirements ************/
         const testRequirements = validatePassword(password);
-        setPasswordSuccessful("Password Change Successful")
+        let validPassword = true;
+        
 
         if(!testRequirements.isLengthMet){
             setlengthNotMet("Password Length Must Be 8-16 Characters");
-            setPasswordSuccessful("");
+            validPassword = false;
         }
 
         
 
         if(!testRequirements.isDigitMet){
             setDigitNotMet("Password Must Contain At Least One Digit");
-            setPasswordSuccessful("");
+            validPassword = false;
         }
 
         
 
         if(!testRequirements.isUpperCaseMet){
             setUpperCaseNotMet("Password Must Contain At Least One UpperCase Letter");
-            setPasswordSuccessful("");
+            validPassword = false;
         }
 
         
         if(!testRequirements.isLowerCaseMet){
             setLowerCaseNotMet("Password Must Contain At Least One LowerCase Letter");
-            setPasswordSuccessful("");
+            validPassword = false;
+        }
+
+        if(validPassword){
+            var obj = {
+                email: email,
+                password: confirmPassword
+            };
+            let js = JSON.stringify(obj);
+            try {
+                const response = await fetch(bp.buildPath('api/updatePassword'), {
+                    method: 'POST',
+                    body: js,
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                let res = JSON.parse(await response.text());
+                
+                if ('error' in res) {
+                    setMessage(res.error);
+                } else {
+                    setPasswordSuccessful("Password Change Successful")
+                }
+            } catch (e) {
+                alert(e.toString());
+                return;
+            }
         }
 
     };

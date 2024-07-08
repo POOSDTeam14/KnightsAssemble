@@ -2,25 +2,53 @@ import React, { useState } from 'react';
 import VerificationCode from './VerificationCode';
 
 function ForgetPassword({ show, onClose }) {
+    //Verification Popup
     const [showVerificationPopup, setShowVerificationPopup] = useState(false);
+    const [verifyCode, setVerifyCode] = useState('');
      
-    //Email Requirements Message
-    const [emailRequirementNotMet, setEmailRequirementNotMet] = useState("");
+    //Requirements Message
+    const [message, setMessage] = useState("");
     
+    //Email Input
     const [email, setEmail] = useState('');
+    
+    let bp = require('./Path.js');
 
-    const handleVerification = () => {
+    const handleVerification = async event => {
         //Validate Email Format
         const emailRequirement = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         if(!emailRequirement)
-            setEmailRequirementNotMet("Email Address is Not Valid")      
-        else
-            setShowVerificationPopup(true);
+            setMessage("Email Address is not valid")      
+        else{
+            var obj = {
+                email: email
+            };
+            let js = JSON.stringify(obj);
+            try {
+                const response = await fetch(bp.buildPath('api/forgotPassword'), {
+                    method: 'POST',
+                    body: js,
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                let res = JSON.parse(await response.text());
+                
+                if ('error' in res) {
+                    setMessage(res.error);
+                } else {
+                    setVerifyCode(res.verifyCode);
+                    setShowVerificationPopup(true);
+                }
+            } catch (e) {
+                alert(e.toString());
+                return;
+            }
+        }
     };
 
     const closeAllPopups = () => {
         setEmail("");
-        setEmailRequirementNotMet("");
+        setMessage("");
         setShowVerificationPopup(false);
         onClose(); // Close the ForgetPassword popup as well
     };
@@ -36,9 +64,9 @@ function ForgetPassword({ show, onClose }) {
                 <div className="popup-text">
                     <p>Enter Email Address</p>
                     <input id="login-emailInput" type="text" placeholder="Email" value={email} onChange={(elem) => setEmail(elem.target.value)}/><br />
-                    <span className = "requirementFields">{emailRequirementNotMet}</span>
+                    <span className = "requirementFields">{message}</span>
                     <button className = "popup-button" onClick={handleVerification}>Send Verification Code</button>
-                    {showVerificationPopup && <VerificationCode show={true} onClose={closeAllPopups} />}
+                    {showVerificationPopup && <VerificationCode show={true} onClose={closeAllPopups} verifyCode={verifyCode} email = {email} />}
                 </div>
             </div>
         </div>

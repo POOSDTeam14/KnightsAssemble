@@ -120,8 +120,8 @@ function Register() {
                 if ('error' in res) {
                     setMessage(res.error);
                 } else {
-                    setShowVerificationPopup(true);
                     setVerifyCode(res.verifyCode);
+                    setShowVerificationPopup(true);
                 }
             } catch (e) {
                 alert(e.toString());

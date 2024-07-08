@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
 import ChangePassword from './ChangePassword';
 
-function VerificationCode( {show, onClose, verifyCode, verificationSuccessful}) {
+function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, email}) {
     const [showChangePasswordPopup, setShowChangePasswordPopup] = useState(false);
     const [verificationCode, setVerificationCode] = useState("");
 
+    const[message, setMessage] = useState("");
+
     const verificationButtonClick = async () => {
-        if(window.location.pathname === "/register"){
-            if(verificationCode === verifyCode)
+        if(verificationCode === verifyCode){
+
+            if(window.location.pathname === "/register")
                 await verificationSuccessful();
+            else
+                setShowChangePasswordPopup(true);
         }
         else
-            setShowChangePasswordPopup(true);
+            setMessage("Verification code incorrect!")
+
     };
 
     const closeAllPopups = () => {
@@ -32,8 +38,9 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful}) 
                 <div className="popup-text">
                     <p>Verification Code sent to Email</p>
                     <input id="verificationInput" type="text" placeholder="Verification Code" value={verificationCode} onChange={(elem) => setVerificationCode(elem.target.value)}/><br />
+                    <span className = "requirementFields">{message}</span>
                     <button className = "popup-button" onClick={verificationButtonClick}>Enter Verification Code</button>
-                    {showChangePasswordPopup && <ChangePassword show={true} onClose={closeAllPopups} />}
+                    {showChangePasswordPopup && <ChangePassword show={true} onClose={closeAllPopups}  email={email}/>}
                 </div>
             </div>
         </div>
