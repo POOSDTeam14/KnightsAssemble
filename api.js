@@ -397,7 +397,7 @@ exports.setApp = function(app, client)
         }       
         );
 
-        if (result)
+        if (!result)
         {
             return res.status(405).json({error: "User already joined!"});
         }
