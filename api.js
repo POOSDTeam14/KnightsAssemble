@@ -383,9 +383,10 @@ exports.setApp = function(app, client)
         var eventObjectId = new ObjectId(eventid);
     
         const db = client.db('KnightsAssembleDatabase');
-        const results = await db.collection('Events').find({_id : eventObjectId}).toArray();
+        const userResults = await db.collection('Users').find({Username: username}).toArray();
+        const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
 
-        if ( results.length>0 )
+        if ( eventResults.length>0 && userResults.length<=0 ) 
         {
             try
             {
