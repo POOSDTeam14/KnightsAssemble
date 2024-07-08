@@ -77,7 +77,7 @@ function ChangePassword( {show, onClose, email}) {
             let js = JSON.stringify(obj);
             try {
                 const response = await fetch(bp.buildPath('api/updatePassword'), {
-                    method: 'POST',
+                    method: 'PUT',
                     body: js,
                     headers: { 'Content-Type': 'application/json' }
                 });
