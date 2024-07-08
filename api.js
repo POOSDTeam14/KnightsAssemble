@@ -387,7 +387,7 @@ exports.setApp = function(app, client)
         //const userResults = await db.collection('Events').find({Attendees: userObjectId}).toArray();
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
 
-        const result = await db.collection('Discussions').findOne(
+        const result = await db.collection('Events').findOne(
         { Attendees: { $elemMatch: { userid } } }
         );
 
