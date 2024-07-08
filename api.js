@@ -390,7 +390,7 @@ exports.setApp = function(app, client)
         const result = await db.collection('Events').findOne(
         { 
             _id: eventObjectId,
-            Attendees: { $elemMatch: { userObjectId } } 
+            Attendees: { $elemMatch: { userid } } 
         },
         {
             projection: {'Attendees.$': 1}
