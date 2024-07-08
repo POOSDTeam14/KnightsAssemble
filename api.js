@@ -386,14 +386,12 @@ exports.setApp = function(app, client)
         const db = client.db('KnightsAssembleDatabase');
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
 
-        const userResult = await db.collection('Events').find(
-        { 
-            _id: eventObjectId,
-            Attendees: userObjectId
-        }     
-        ).toArray();
+        const userResult = await db.collection('Events').findOne(
+        { _id: eventObjectId,
+          Attendees: userObjectId }     
+        );
 
-        if ( userResult.length>0 )
+        if ( userResult )
         {
             return res.status(405).json({error: "User already joined!"});
         }
@@ -403,7 +401,7 @@ exports.setApp = function(app, client)
             try
             {
                 var ret = await db.collection('Events').updateOne(
-                    {_id : eventObjectId},
+                    { _id : eventObjectId},
                     { $push: { Attendees: userid } },
                     { upsert: true }
                 );
