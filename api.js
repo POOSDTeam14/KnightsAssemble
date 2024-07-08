@@ -388,7 +388,7 @@ exports.setApp = function(app, client)
 
         const userResult = await db.collection('Events').findOne(
         { _id: eventObjectId,
-          Attendees: userObjectId }     
+          Attendees: userid }     
         );
 
         if ( userResult )
