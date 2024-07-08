@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import ChangePassword from './ChangePassword';
 
-function VerificationCode( {show, onClose}) {
+function VerificationCode( {show, onClose, verifyCode, verificationSuccessful}) {
     const [showChangePasswordPopup, setShowChangePasswordPopup] = useState(false);
+    const [verificationCode, setVerificationCode] = useState("");
 
-    const verificationButtonClick = () => {
-        if(window.location.pathname === "/register")
-            window.location.href = "/login";
+    const verificationButtonClick = async () => {
+        if(window.location.pathname === "/register" && (verificationCode === verifyCode))
+            await onVerificationSuccessful();
         else
             setShowChangePasswordPopup(true);
     };
@@ -28,7 +29,7 @@ function VerificationCode( {show, onClose}) {
                 <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
                 <div className="popup-text">
                     <p>Verification Code sent to Email</p>
-                    <input id="verificationInput" type="text" placeholder="Verification Code" /><br />
+                    <input id="verificationInput" type="text" placeholder="Verification Code" value={verificationCode} onChange={(elem) => setVerificationCode(elem.target.value)}/><br />
                     <button className = "popup-button" onClick={verificationButtonClick}>Enter Verification Code</button>
                     {showChangePasswordPopup && <ChangePassword show={true} onClose={closeAllPopups} />}
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import VerificationCode from './VerificationCode';
 
 function Register() {
     const [firstName, setFirstName] = useState('');
@@ -9,7 +9,6 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
-    const history = useHistory();
 
     //Password Requirements Message
     const [lengthNotMet, setlengthNotMet] = useState("");
@@ -23,6 +22,10 @@ function Register() {
     //Name Requirement Message
     const [firstNameRequirementNotMet, setFirstNameRequirementNotMet] = useState("");
     const [lastNameRequirementNotMet, setLastNameRequirementNotMet] = useState("");
+
+    //Verification Popup
+    const [showVerificationPopup, setShowVerificationPopup] = useState(false);
+    const [verifyCode, setVerifyCode] = useState('');
 
 
     let bp = require('./Path.js');
@@ -81,7 +84,7 @@ function Register() {
         //Validate Email Format
         const emailRequirement = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         if(!emailRequirement){
-            setEmailRequirementNotMet("Email Address is Not Valid")
+            setEmailRequirementNotMet("Email Address is not valid")
             validInput = false;
             return;
         }
@@ -98,37 +101,34 @@ function Register() {
             validInput = false;
             return;
         }
-        
+
+        //Verify Email 
         if(validInput){
-                var obj = { 
-                    username: username,
-                    firstname: firstName,
-                    lastname: lastName,
-                    email: email,
-                    password: password
-                };
-                let js = JSON.stringify(obj);
-
-                try {
-                    const response = await fetch(bp.buildPath('api/register'), {
-                        method: 'POST',
-                        body: js,
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-
-                    let res = JSON.parse(await response.text());
-
-                    if ('error' in res) {
-                        setMessage(res.error);
-                    } else {
-                        setMessage('Registration successful! Please log in.');
-                        history.push('/login');
-                    }
-                } catch (e) {
-                    alert(e.toString());
-                    return;
+            var obj = {
+                email: email
+            };
+            let js = JSON.stringify(obj);
+            try {
+                const response = await fetch(bp.buildPath('api/verifyEmail'), {
+                    method: 'POST',
+                    body: js,
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                let res = JSON.parse(await response.text());
+                
+                if ('error' in res) {
+                    setMessage(res.error);
+                } else {
+                    setShowVerificationPopup(true);
+                    setVerifyCode(res.verifyCode);
                 }
+            } catch (e) {
+                alert(e.toString());
+                return;
+            }
         }
+
     };
 
     const validatePassword = (password) => {
@@ -146,6 +146,40 @@ function Register() {
 
         return requirements;
     };
+
+    const closeVerificationPopup = () => {
+        setShowVerificationPopup(false);
+    };
+
+    const onVerificationSuccessful = async () =>{
+        var obj = { 
+            username: username,
+            firstname: firstName,
+            lastname: lastName,
+            email: email,
+            password: password
+        };
+        let js = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(bp.buildPath('api/register'), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            let res = JSON.parse(await response.text());
+
+            if ('error' in res) {
+                setMessage(res.error);
+            } else{
+                window.location.href = "/login";
+            }
+        } catch (e) {
+            alert(e.toString());
+            return;
+        }
+    }
 
     return (
         <div className="row g-0 signUpRow ">
@@ -214,11 +248,11 @@ function Register() {
                         <div className = "col h-100">
                             <button id="registerButton" type="submit" onClick={doRegister}>Register</button>
                         </div>
-                    </div>
-                                        
+                    </div>                  
                     
                 </div>
             </div>
+            {showVerificationPopup && <VerificationCode show={true} onClose={closeVerificationPopup} verifyCode = {verifyCode} verificationSuccessful = {onVerificationSuccessful}/>}   
         </div>
 
 

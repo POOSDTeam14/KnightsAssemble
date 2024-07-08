@@ -155,18 +155,28 @@
   margin-top: 2%;
 }
 
-.signUp-nameRow, .signUp-usernameRow, .signUp-emailRow, .signUp-passwordRow, .signUp-confirmPasswordRow {
-  height: 10%; /* Adjust height based on your layout needs */
+.signUp-nameRow{
+  height: 10%;
+  width: 78%;
+}
+
+.signUp-usernameRow, .signUp-emailRow, .signUp-passwordRow, .signUp-confirmPasswordRow {
+  height: 10%; 
   width: 100%
 }
 
 .right-signUp .col {
   height: 100%; /* Ensure columns fill the height of the row */
-  width: 50%
+  width: 50%;
 }
 
 .right-signUp input{
   width: 75%;
+  height: 50%;
+}
+
+.right-signUp #firstName, .right-signUp #lastName{
+  width: 94%;
   height: 50%;
 }
 
