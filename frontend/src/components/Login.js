@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import ForgetPassword from './ForgetPassword.js';
+import decode from 'jwt-decode';
+const { storeToken } = require('../tokenStorage.js');
 
 function Login()
 {
@@ -14,10 +16,8 @@ function Login()
     const doLogin = async event => 
       {
           event.preventDefault();
-          var obj = {
-            username: loginName.value,
-            password: loginPassword.value
-          };
+
+          var obj = {username: loginName.value, password: loginPassword.value};
           let js = JSON.stringify(obj);
   
           try
@@ -25,25 +25,27 @@ function Login()
             const response = await fetch(bp.buildPath('api/login'), 
               {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
-  
               let res = JSON.parse(await response.text());
-  
-              if('error' in res)
+              const {accessToken} = res;
+              const decoded = decode(accessToken, {complete:true});
+
+              let userInfo = decoded.UserInfo;
+              let userId = userInfo.userid;
+              let email = userInfo.email;
+              let firstname = ud.firstname;
+              let lastname = ud.lastname;
+
+              if ('error' in res) 
               {
-                  setMessage(res.error);
+                setMessage(res.error);
               }
-              else
+              else 
               {
-                  let user = {
-                    firstName:res.firstname,
-                    lastName:res.lastname,
-                    id:res.user
-                  };
-                  localStorage.setItem('user_data', JSON.stringify(user));
-                  
-      
-                  setMessage('');
-                  window.location.href = '/events';
+                let user = {id: userId, email: email, firstName: firstname, lastName: lastname};
+                storeToken(user);
+
+                setMessage('');
+                window.location.href = '/events';
               }
           }
           catch(e)
