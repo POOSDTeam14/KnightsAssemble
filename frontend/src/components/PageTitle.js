@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-const [userData, setUserData] = useState('');
-
 function PageTitle()
 {
+  const [userData, setUserData] = useState('');
+  
   const getCookieData = async event => 
   {
     event.preventDefault();
