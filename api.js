@@ -586,7 +586,7 @@ exports.setApp = function(app, client)
         }
         
         // Created variable to hold the current time
-        var timePosted = new Date().ISOString();
+        // var timePosted = new Date().ISOString();
 
         var eventObjectId = new ObjectId(eventid);
         
@@ -601,8 +601,8 @@ exports.setApp = function(app, client)
                 var ret = await db.collection('Messages').insertOne(
                     { Event : eventid },
                     { User : userid },
-                    { Text : message },
-                    { TimeSent: timePosted };
+                    { Text : message };
+                    // { TimeSent: timePosted };
                 );
             } 
             catch (error) 
