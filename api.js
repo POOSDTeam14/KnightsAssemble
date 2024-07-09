@@ -48,7 +48,7 @@ exports.setApp = function(app, client)
             try
             {
                 // Create JWT
-                ret = createAccessToken(userInfo);
+                ret = {accessToken: createAccessToken(userInfo)};
             }
             catch(error)
             {
