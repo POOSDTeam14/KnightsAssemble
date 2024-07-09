@@ -4,6 +4,8 @@ const { retrieveToken } = require('../tokenStorage.js');
 
 function EventsUI()
 {
+    const [userData, setUserData] = useState('');
+
     const getCookieData = async event => {
         event.preventDefault();
         alert(jwtDecode(retrieveToken(), {header: true}).firstname);
