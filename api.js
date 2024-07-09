@@ -583,22 +583,25 @@ exports.setApp = function(app, client)
             return res.status(400).json({error: "Need to know who sent what message to which event!"});
         }
 
+        // Variable created for document
         var eventObjectId = new ObjectId(eventid);
         var userObjectId = new ObjectId(userid);
         const timePosted = new Date().toISOString();
         
         const db = client.db('KnightsAssembleDatabase');
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
-        
+
+        // If no events match the ID, do not send message
         if ( eventResults.length>0 )
         {
             try 
             {
                 const newMessage = 
                     { Text : message,
+                      TimePosted: timePosted,
                       Event : eventObjectId,
-                      User : userObjectId,
-                      TimePosted: timePosted };
+                      User : userObjectId
+                    };
                 
                 var ret = await db.collection('Messages').insertOne( newMessage );
             } 
