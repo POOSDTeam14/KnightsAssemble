@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import ForgetPassword from './ForgetPassword.js';
 import jwt_decode from 'jwt-decode';
 const { storeToken } = require('../tokenStorage.js');
