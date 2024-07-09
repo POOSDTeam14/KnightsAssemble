@@ -10,8 +10,10 @@ function EventsUI()
     };
 
     return(
-        <span id="data">{userData}</span>
-        <button id="test" onClick={getCookieData}>test</button>
+        <div>
+            <span id="data">{userData}</span>
+            <button id="test" onClick={getCookieData}>test</button>
+        </div>
     );
 }
 
