@@ -8,7 +8,7 @@ function EventsUI()
 
     const getCookieData = async event => {
         event.preventDefault();
-        alert(jwtDecode(retrieveToken(), {header: true}));
+        alert(retrieveToken());
     };
 
     return(
