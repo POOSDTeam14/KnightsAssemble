@@ -451,8 +451,8 @@ exports.setApp = function(app, client)
         }
         
         const db = client.db('KnightsAssembleDatabase');
-        // Check to see if user exists
 
+        // Look for user in all events, return to array if found
         try
         {
             var ret = await db.collection('Events').find( { Attendees: userid } ).toArray();
