@@ -380,7 +380,6 @@ exports.setApp = function(app, client)
         }
 
         // Check user and event id
-        var userObjectId = new ObjectId(userid);
         var eventObjectId = new ObjectId(eventid);
     
         const db = client.db('KnightsAssembleDatabase');
@@ -588,25 +587,34 @@ exports.setApp = function(app, client)
         
         // Created variable to hold the current time
         var timePosted = new Date().ISOString();
-        
-        const newMessage = {
-            Event : eventid,
-            User : userid,
-            Text : message
-            //TimeSent: timePosted
-        };
 
+        var eventObjectId = new ObjectId(eventid);
+        
         const db = client.db('KnightsAssembleDatabase');
-        
-        try 
-        {
-            var ret = await db.collection('Messages').insertOne(newMessage);
-        } 
-        catch (error) 
-        {
-            res.status(500).json({error: "Unable to send message"});
-        }
+        const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
 
+        // Check if event exists
+        if ( eventResults.length>0 )
+        {
+            try 
+            {
+                var ret = await db.collection('Messages').insertOne(
+                    { Event : eventid },
+                    { User : userid },
+                    { Text : message },
+                    { TimeSent: timePosted };
+                );
+            } 
+            catch (error) 
+            {
+                res.status(500).json({error: "Unable to send message"});
+            }
+        }
+        else
+        {
+            return res.status(404).json({error: "Event not found!"});
+        }
+        
         // Refresh token at end of CRUD events
         var newToken = null;
         try 
