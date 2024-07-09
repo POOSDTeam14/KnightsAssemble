@@ -218,6 +218,9 @@ exports.setApp = function(app, client)
         res.status(200).json({ret, token: newToken});
     });
 
+    // findCreatedEvents incoming:
+    // userid: ""
+    // token: 
     app.post('/api/findCreatedEvents', async (req, res, next) =>
     {
         // Get eventid to add attendees to it
@@ -240,7 +243,7 @@ exports.setApp = function(app, client)
         const db = client.db('KnightsAssembleDatabase');
         var eventResults = await db.collection('Events').find( { HostID: userObjectId } ).toArray();
         
-        // Look for user in all events, return to array if found
+        // Look for hostid==userid in all events, return to array if found
         if ( eventResults.length>0 )
             try
             {
@@ -411,7 +414,11 @@ exports.setApp = function(app, client)
             // Respond with event and token
             res.status(200).json({ret, token: newToken});
         });
-    
+
+    // joinEvent incoming:
+    // eventid: ""
+    // userid: ""
+    // token:
     app.post('/api/joinEvent', async (req, res, next) =>
     {
         // Get eventid to add attendees to it
@@ -483,7 +490,10 @@ exports.setApp = function(app, client)
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
-
+    
+    // findJoinedEvents incoming:
+    // userid: ""
+    // token:
     app.post('/api/findJoinedEvents', async (req, res, next) =>
     {
         // Get eventid to add attendees to it
@@ -662,7 +672,12 @@ exports.setApp = function(app, client)
             return res.status(404).json({error: "User not found!"});
         }
     });
-    
+
+    // postMessage incoming:
+    // eventid: ""
+    // userid: ""
+    // message: ""
+    // token:
     app.post('/api/postMessage', async (req, res, next) =>
     {
         // Get eventid, userid, and message from request body
