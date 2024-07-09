@@ -585,7 +585,7 @@ exports.setApp = function(app, client)
 
         var eventObjectId = new ObjectId(eventid);
         var userObjectId = new ObjectId(userid);
-        const timePosted = new Date().ISOString();
+        const timePosted = new Date().toISOString();
         
         const db = client.db('KnightsAssembleDatabase');
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
