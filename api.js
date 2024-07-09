@@ -561,4 +561,65 @@ exports.setApp = function(app, client)
             return res.status(404).json({error: "User not found!"});
         }
     });
+
+    app.post('/api/postMessage', async (req, res, next) =>
+    {
+        // Get eventid, userid, and message from request body
+        const {eventid, userid, message, token} = req.body
+
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
+
+        // If no message, do not proceed
+        if ( !eventid | !userid | !message )
+        {
+            return res.status(400).json({error: "Need to know who sent what message to which event!"});
+        }
+        
+        // Created variable to hold the current time
+        var timePosted = new Date().ISOString();
+        
+        const newMessage = {
+            Event : eventid,
+            User : userid,
+            Text : message
+            //TimeSent: timePosted
+        };
+
+        const db = client.db('KnightsAssembleDatabase');
+        
+        try 
+        {
+            var ret = await db.collection('Messages').insertOne(newMessage);
+        } 
+        catch (error) 
+        {
+            res.status(500).json({error: "Unable to send message"});
+        }
+
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+
+        // Respond with event and token
+        res.status(200).json({ret, token: newToken});
+    });
+
 }
