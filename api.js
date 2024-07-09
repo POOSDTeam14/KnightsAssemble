@@ -432,6 +432,60 @@ exports.setApp = function(app, client)
         res.status(200).json({ret, token: newToken});
     });
 
+    app.post('/api/findJoinedEvents', async (req, res, next) =>
+    {
+        // Get eventid to add attendees to it
+        const {userid, token} = req.body
+
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
+        
+        const db = client.db('KnightsAssembleDatabase');
+        var userObjectId = new ObjectId(userid);
+        // Check to see if user exists
+        const userResults = await db.collection('Users').find({_id : userObjectId}).toArray();
+        
+        if ( userResults>0 )
+        {
+            try
+            {
+                var ret = await db.collection('Events').find( { Attendees: userid } ).toArray();
+            }
+            catch ( error )
+            {
+                return res.status(404).json({error: "Unable to find user in Events!"});
+            }
+        }
+        else
+        {
+            return res.status(405).json({error: "User does not exist!"});
+        }
+        
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+        
+        // Respond with event and token
+        res.status(200).json({ret, token: newToken});
+    });
+
     // Verify email incoming:
     // email : ""
     // Verify email outgoing:
