@@ -247,11 +247,11 @@ exports.setApp = function(app, client)
             }
             catch ( error )
             {
-                return res.status(404).json({error: "Unable to find user in Events!"});
+                return res.status(404).json({error: "Unable to find host user in Events!"});
             }
         else
         {
-            return res.status(405).json({error: "User is not in any current Events!"});
+            return res.status(405).json({error: "User has not created any Events!"});
         }
         
         // Refresh token at end of CRUD events
