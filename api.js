@@ -451,9 +451,9 @@ exports.setApp = function(app, client)
         }
         
         const db = client.db('KnightsAssembleDatabase');
-        var userObjectId = new ObjectId(userid);
+        // var userObjectId = new ObjectId(userid);
         // Check to see if user exists
-        const userResults = await db.collection('Users').find({_id : userObjectId}).toArray();
+        const userResults = await db.collection('Users').find({_id : userid}).toArray();
         
         if ( userResults>0 )
         {
