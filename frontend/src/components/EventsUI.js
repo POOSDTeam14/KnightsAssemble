@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
 
-function EventsUI(){
+function EventsUI()
+{
+    const [userData, setUserData] = useState('');
+
+    const getCookieData = async event => {
+        event.preventDefault();
+        setUserData(localStorage.getItem('user_data').id);
+    };
+
     return(
-        <h1>Event Page</h1>
+        <span id="data">{userData}</span>
+        <button id="test" onClick={getCookieData}>test</button>
     );
 }
 

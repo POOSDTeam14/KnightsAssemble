@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+const [userData, setUserData] = useState('');
 
 function PageTitle()
 {
-  const [userData, setUserData] = useState('');
-  
   const getCookieData = async event => 
   {
     event.preventDefault();
@@ -11,10 +11,7 @@ function PageTitle()
   };
 
    return(
-    <div>
-      <span id="data">{userData}</span>
-      <button id="test" onClick={getCookieData}>test</button>
-    </div>
+      <title id="title">Knights Assemble</title>
    );
 };
 
