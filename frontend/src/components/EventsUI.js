@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const jwt = require("jsonwebtoken");
+import { jwtDecode } from "jwt-decode";
 const { retrieveToken } = require('../tokenStorage.js');
 
 function EventsUI()
@@ -8,7 +8,7 @@ function EventsUI()
 
     const getCookieData = async event => {
         event.preventDefault();
-        let userInfo = jwt.decode(retrieveToken(), { header: true });
+        let userInfo = jwtDecode(retrieveToken());
         alert(userInfo.firstname);
     };
 
