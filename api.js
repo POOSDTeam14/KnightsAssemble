@@ -560,7 +560,7 @@ exports.setApp = function(app, client)
             return res.status(404).json({error: "User not found!"});
         }
     });
-
+    /*
     app.post('/api/postMessage', async (req, res, next) =>
     {
         // Get eventid, userid, and message from request body
@@ -625,5 +625,5 @@ exports.setApp = function(app, client)
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
-
+    */
 }
