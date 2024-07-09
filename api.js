@@ -2,9 +2,12 @@ require('express');
 const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
 const {createVerifyCode} = require('./createVerificationCode');
+const bodyParser = require('body-parser');
 
 exports.setApp = function(app, client)
 {
+    app.use(bodyParser.text());
+    
     // Login Incoming: 
     // Username : ""
     // Password : ""
