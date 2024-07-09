@@ -26,8 +26,7 @@ function Login()
               {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
               let res = JSON.parse(await response.text());
-              const {accessToken} = res;
-              const decoded = jwtDecode(accessToken, {header: true});
+              const decoded = jwtDecode(res, {header: true});
 
               let userInfo = decoded.UserInfo;
               let userId = userInfo.userid;
