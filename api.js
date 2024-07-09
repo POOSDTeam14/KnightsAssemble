@@ -559,7 +559,7 @@ exports.setApp = function(app, client)
             return res.status(404).json({error: "User not found!"});
         }
     });
-    /*
+    
     app.post('/api/postMessage', async (req, res, next) =>
     {
         // Get eventid, userid, and message from request body
@@ -588,7 +588,7 @@ exports.setApp = function(app, client)
         
         const db = client.db('KnightsAssembleDatabase');
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
-
+        /*
         if ( eventResults.length>0 )
         {
             try 
@@ -609,7 +609,7 @@ exports.setApp = function(app, client)
         {
             return res.status(404).json({error: "Event not found!"});
         }
-        
+        */
         // Refresh token at end of CRUD events
         var newToken = null;
         try 
@@ -624,5 +624,5 @@ exports.setApp = function(app, client)
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
-    */
+    
 }
