@@ -451,15 +451,21 @@ exports.setApp = function(app, client)
         }
         
         const db = client.db('KnightsAssembleDatabase');
-
+        var eventResults = await db.collection('Events').find( { Attendees: userid } ).toArray();
+        
         // Look for user in all events, return to array if found
-        try
+        if ( eventResults.length>0 )
+            try
+            {
+                var ret = eventResults;
+            }
+            catch ( error )
+            {
+                return res.status(404).json({error: "Unable to find user in Events!"});
+            }
+        else
         {
-            var ret = await db.collection('Events').find( { Attendees: userid } ).toArray();
-        }
-        catch ( error )
-        {
-            return res.status(404).json({error: "Unable to find user in Events!"});
+            return res.status(405).json({error: "User is not in any current Events!"});
         }
         
         // Refresh token at end of CRUD events
