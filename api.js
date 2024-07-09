@@ -588,17 +588,18 @@ exports.setApp = function(app, client)
         
         const db = client.db('KnightsAssembleDatabase');
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
-        /*
+        
         if ( eventResults.length>0 )
         {
             try 
             {
-                var ret = await db.collection('Messages').insertOne(
-                    { Event : eventid },
-                    { User : userid },
-                    { Text : message },
-                    { TimePosted: timePosted };
-                );
+                const newMessage = 
+                    { Event : eventid,
+                      User : userid,
+                      Text : message,
+                      TimePosted: timePosted };
+                
+                var ret = await db.collection('Messages').insertOne( newMessage );
             } 
             catch (error) 
             {
@@ -609,7 +610,7 @@ exports.setApp = function(app, client)
         {
             return res.status(404).json({error: "Event not found!"});
         }
-        */
+        
         // Refresh token at end of CRUD events
         var newToken = null;
         try 
