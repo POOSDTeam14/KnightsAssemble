@@ -582,21 +582,16 @@ exports.setApp = function(app, client)
             return res.status(401).json({error: "Something is wrong with your session"});
         }
 
-        // If no message, do not proceed
         if ( !eventid | !userid | !message )
         {
             return res.status(400).json({error: "Need to know who sent what message to which event!"});
         }
-        
-        // Created variable to hold the current time
-        // var timePosted = new Date().ISOString();
 
         var eventObjectId = new ObjectId(eventid);
         
         const db = client.db('KnightsAssembleDatabase');
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
 
-        // Check if event exists
         if ( eventResults.length>0 )
         {
             try 
@@ -605,7 +600,7 @@ exports.setApp = function(app, client)
                     { Event : eventid },
                     { User : userid },
                     { Text : message };
-                    // { TimeSent: timePosted };
+                    
                 );
             } 
             catch (error) 
