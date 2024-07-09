@@ -32,7 +32,7 @@ function Login()
               }
               else 
               {
-                localStorage.setItem('token_data', res.accessToken);
+                storeToken(res);
 
                 setMessage('');
                 window.location.href = '/events';

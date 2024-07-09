@@ -24,3 +24,5 @@ function retrieveToken()
     
     return userData;
 }
+
+module.exports = {storeToken, retrieveToken};
