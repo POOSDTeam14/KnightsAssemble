@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import ForgetPassword from './ForgetPassword.js';
-import { jwtDecode } from "jwt-decode";
 const { storeToken } = require('../tokenStorage.js');
 
 function Login()
@@ -26,13 +25,6 @@ function Login()
               {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
               let res = JSON.parse(await response.text());
-              const decoded = jwtDecode(res, {header: true});
-
-              let userInfo = decoded.UserInfo;
-              let userId = userInfo.userid;
-              let email = userInfo.email;
-              let firstname = userInfo.firstname;
-              let lastname = userInfo.lastname;
 
               if ('error' in res) 
               {
@@ -40,8 +32,7 @@ function Login()
               }
               else 
               {
-                let user = {id: userId, email: email, firstName: firstname, lastName: lastname};
-                storeToken(user);
+                storeToken(res.accessToken);
 
                 setMessage('');
                 window.location.href = '/events';

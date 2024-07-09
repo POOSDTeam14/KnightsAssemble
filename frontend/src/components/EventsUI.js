@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { jwtDecode } from "jwt-decode";
+const { retrieveToken } = require('../tokenStorage.js');
 
 function EventsUI()
 {
@@ -6,7 +8,7 @@ function EventsUI()
 
     const getCookieData = async event => {
         event.preventDefault();
-        setUserData(localStorage.getItem('user_data').id);
+        setUserData(jwtDecode(retrieveToken(), {header: true}).firstname);
     };
 
     return(
