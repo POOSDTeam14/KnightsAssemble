@@ -102,6 +102,33 @@ function Register() {
             return;
         }
 
+        //Check if Email/Username Taken
+        var obj = {
+            email: email,
+            username: username
+        };
+        let js = JSON.stringify(obj);
+        try {
+            const response = await fetch(bp.buildPath('api/checkExistingUser'), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            });
+            
+            let res = JSON.parse(await response.text());
+            
+            if ('error' in res) {
+                setMessage(res.error);
+                validInput = false;
+            } else {
+                setMessage("");
+                validInput = true;
+            }
+        } catch (e) {
+            alert(e.toString());
+            return;
+        }
+
         //Verify Email 
         if(validInput){
             var obj = {
