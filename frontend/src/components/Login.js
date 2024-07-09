@@ -32,8 +32,8 @@ function Login()
               let userInfo = decoded.UserInfo;
               let userId = userInfo.userid;
               let email = userInfo.email;
-              let firstname = ud.firstname;
-              let lastname = ud.lastname;
+              let firstname = userInfo.firstname;
+              let lastname = userInfo.lastname;
 
               if ('error' in res) 
               {
