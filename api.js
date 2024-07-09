@@ -235,9 +235,10 @@ exports.setApp = function(app, client)
         {
             return res.status(401).json({error: "Something is wrong with your session"});
         }
-        
+
+        var userObjectId = new ObjectId(userid);
         const db = client.db('KnightsAssembleDatabase');
-        var eventResults = await db.collection('Events').find( { HostID: userid } ).toArray();
+        var eventResults = await db.collection('Events').find( { HostID: userObjectId } ).toArray();
         
         // Look for user in all events, return to array if found
         if ( eventResults.length>0 )
