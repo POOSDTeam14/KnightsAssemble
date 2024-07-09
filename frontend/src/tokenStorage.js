@@ -2,7 +2,7 @@ function storeToken(token)
 {
     try 
     {
-        localStorage.setItem('token_data', token.accessToken);
+        localStorage.setItem('token_data', token);
     }
     catch (e) 
     {
