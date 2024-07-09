@@ -588,6 +588,7 @@ exports.setApp = function(app, client)
         }
 
         var eventObjectId = new ObjectId(eventid);
+        const timePosted = new Date().ISOString();
         
         const db = client.db('KnightsAssembleDatabase');
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
@@ -599,8 +600,8 @@ exports.setApp = function(app, client)
                 var ret = await db.collection('Messages').insertOne(
                     { Event : eventid },
                     { User : userid },
-                    { Text : message };
-                    
+                    { Text : message },
+                    { TimePosted: timePosted };
                 );
             } 
             catch (error) 
