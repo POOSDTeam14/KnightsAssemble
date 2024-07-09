@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ForgetPassword from './ForgetPassword.js';
-import decode from 'jwt-decode';
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const { storeToken } = require('../tokenStorage.js');
 
 function Login()
@@ -27,7 +28,7 @@ function Login()
 
               let res = JSON.parse(await response.text());
               const {accessToken} = res;
-              const decoded = decode(accessToken, {complete:true});
+              const decoded = jwt.decode(accessToken, {complete:true});
 
               let userInfo = decoded.UserInfo;
               let userId = userInfo.userid;
