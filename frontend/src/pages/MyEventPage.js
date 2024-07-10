@@ -2,7 +2,7 @@ import React from 'react';
 
 import PageTitle from '../components/PageTitle';
 import TopPageLogo from '../components/TopPageLogo';
-import EventsUI from '../components/EventsUI';
+import MyEvents from '../components/MyEvents';
 import VerticalTabColumn from '../components/VerticalTabColumn';
 
 
@@ -22,7 +22,7 @@ const CreateEventPage = () =>
             <VerticalTabColumn />
           </div>
           <div className = "col">
-            <EventsUI />
+            <MyEvents />
           </div>
         </div>
       </div>

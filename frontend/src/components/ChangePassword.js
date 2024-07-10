@@ -121,9 +121,9 @@ function ChangePassword( {show, onClose, email}) {
                 <img id = "pegasus-ChangePassword" src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
                 <div className="popup-text">
                     <p>Enter New Password</p>
-                    <input id="login-newPassword" type="text" placeholder="Password" value = {password} onChange={(elem) => setPassword(elem.target.value)}/><br />
+                    <input id="login-newPassword" type="password" placeholder="Password" value = {password} onChange={(elem) => setPassword(elem.target.value)}/><br />
                     <p>Confirm Password</p>
-                    <input id = "login-confirmPassword" type="text" placeholder='Confirm Password' value = {confirmPassword} onChange={(elem) => setConfirmPassword(elem.target.value)}/><br/>
+                    <input id = "login-confirmPassword" type="password" placeholder='Confirm Password' value = {confirmPassword} onChange={(elem) => setConfirmPassword(elem.target.value)}/><br/>
                     <span className = "passwordInputsError">{message}</span>
                     <span style={{ color: 'green' }}>{passwordSuccessful}</span>
                     <span className = "requirementFields">{lengthNotMet}</span>

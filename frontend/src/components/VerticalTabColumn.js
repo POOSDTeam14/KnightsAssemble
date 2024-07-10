@@ -11,7 +11,7 @@ function VerticalTabColumn(){
                     <a href="/events">
                         <p>Events</p>
                     </a>
-                    <a href="#">
+                    <a href="/myevents">
                         <p>My Events</p>
                     </a>
                 </div>
