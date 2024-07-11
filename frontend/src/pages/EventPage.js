@@ -6,7 +6,7 @@ import EventsUI from '../components/EventsUI';
 import VerticalTabColumn from '../components/VerticalTabColumn';
 
 
-const CreateEventPage = () =>
+const EventPage = () =>
 {
 
     return(
@@ -29,4 +29,4 @@ const CreateEventPage = () =>
     );
 };
 
-export default CreateEventPage;
+export default EventPage;
