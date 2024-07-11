@@ -273,6 +273,62 @@ exports.setApp = function(app, client)
         res.status(200).json({ret, token: newToken});
     });
 
+
+    // provideEventInfo incoming:
+    // eventid: ""
+    // token:
+    app.post('/api/provideEventInfo', async (req, res, next) =>
+    {
+        // Get eventid to add attendees to it
+        const {eventid, token} = req.body
+
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
+
+        var eventObjectId = new ObjectId(eventid);
+        const db = client.db('KnightsAssembleDatabase');
+        var eventResults = await db.collection('Events').find( { HostID: eventObjectId } ).toArray();
+        
+        // Look for hostid==userid in all events, return to array if found
+        if ( eventResults.length>0 )
+            try
+            {
+                var ret = eventResults;
+            }
+            catch ( error )
+            {
+                return res.status(404).json({error: "Unable to find event info!"});
+            }
+        else
+        {
+            return res.status(405).json({error: "No events!"});
+        }
+        
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+        
+        // Respond with event and token
+        res.status(200).json({ret, token: newToken});
+    });
+
     // Update Incoming: 
     // Name : ""
     // Type : ""
