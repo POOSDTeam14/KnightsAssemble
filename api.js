@@ -495,8 +495,20 @@ exports.setApp = function(app, client)
 
         // Check user and event id
         var eventObjectId = new ObjectId(eventid);
+        var userObjectId = new ObjectId(userid);
     
         const db = client.db('KnightsAssembleDatabase');
+
+        // Check to see if user is event creator
+        const hostResult = await db.collection('Events').findOne(
+        { _id: eventObjectId,
+          HostID: userObjectId }     
+        );
+        // If so, do not add them
+        if ( hostResult )
+        {
+            return res.status(405).json({error: "O, creator, do not humble yourself to our level!"});
+        }
 
         // Check to see if user is already joined event
         const userResult = await db.collection('Events').findOne(
