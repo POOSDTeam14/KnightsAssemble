@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+const { retrieveToken } = require('../tokenStorage.js');
 
 function CreateEvent(){
 
@@ -28,6 +29,8 @@ function CreateEvent(){
             const dateObject = new Date(`${eventDate}T${eventTime}`);
 
             let testCapacity = parseInt(eventCapacity);
+            let token = retrieveToken();
+            let userId = jwtDecode(token).userInfo.userid;
 
             if(Number.isInteger(testCapacity)){
                 var obj = {
@@ -37,6 +40,9 @@ function CreateEvent(){
                 location: eventLocation,
                 time: dateObject,
                 capacity: testCapacity,
+                hostid: userId,
+                attendees: null,
+                token: token
                 };
                 let js = JSON.stringify(obj);
         
