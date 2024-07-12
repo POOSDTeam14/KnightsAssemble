@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 const { retrieveToken } = require('../tokenStorage.js');
 
-function EventsUI()
+function MyEvents()
 {
     const [userData, setUserData] = useState('');
 
@@ -20,4 +20,4 @@ function EventsUI()
     );
 }
 
-export default EventsUI;
+export default MyEvents;

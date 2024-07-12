@@ -6,7 +6,7 @@ import MyEvents from '../components/MyEvents';
 import VerticalTabColumn from '../components/VerticalTabColumn';
 
 
-const CreateEventPage = () =>
+const MyEventPage = () =>
 {
 
     return(
@@ -29,4 +29,4 @@ const CreateEventPage = () =>
     );
 };
 
-export default CreateEventPage;
+export default MyEventPage;
