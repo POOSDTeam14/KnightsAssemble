@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { jwtDecode } from "jwt-decode";
+const { ObjectId } = require('mongodb');
 const { retrieveToken } = require('../tokenStorage.js');
 
 function CreateEvent(){
@@ -41,7 +42,7 @@ function CreateEvent(){
                 location: eventLocation,
                 time: dateObject,
                 capacity: testCapacity,
-                hostid: userId,
+                hostid: new ObjectId(userId),
                 attendees: null,
                 token: token
                 };
