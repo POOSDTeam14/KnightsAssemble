@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { jwtDecode } from "jwt-decode";
-const { retrieveToken } = require('../tokenStorage.js');
+const { retrieveToken } = require('../storage.js');
 
-function MyEvents()
-{
+function MyEvents() {
     const [userData, setUserData] = useState('');
 
     const getCookieData = async event => {
@@ -12,7 +11,7 @@ function MyEvents()
         alert(userInfo.firstname + " " + userInfo.lastname + "\n" + userInfo.email + "\n" + userInfo.userid);
     };
 
-    return(
+    return (
         <div>
             <span id="data">{userData}</span>
             <button id="test" onClick={getCookieData}>MyEvents</button>

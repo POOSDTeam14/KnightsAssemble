@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ForgetPassword from './ForgetPassword.js';
-const { storeToken } = require('../tokenStorage.js');
+const { storeToken } = require('../storage.js');
 
 function Login()
 {
