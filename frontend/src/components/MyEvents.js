@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 import DeleteEventPopup from './DeleteEventPopup';
-import LeaveEventPopup from './LeaveEventPopup';
 const { retrieveToken } = require('../storage.js');
 
 const eventTypeImages = {
