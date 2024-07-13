@@ -547,3 +547,158 @@
   height: 50%;
 }
 /*********  CreateEvent CSS ***************/
+
+/*********  MyEvents CSS ***************/
+
+.myEvents-container {
+  height: 100%;
+}
+
+.hostingEvents-row {
+  height: 50%;
+  width: 100%;
+  position: relative;
+}
+
+.attendingEvents-row {
+  height: 50%;
+  width: 100%;
+}
+
+.MyEvents-Header {
+  height: 20%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative; 
+  position: relative; /* Ensure positioning context */
+  z-index: 0; /* Ensure header content is behind overlay-buttons */
+}
+
+.displayMyEvents-row {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative; /* Ensure relative positioning for absolute children */
+}
+
+.eventCard-Display {
+  height: 100%;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+}
+
+.eventCard-Display .eventCard-Info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.eventCard-Display .eventCard-Img {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay-buttons {
+  position: relative; /* Ensure stacking context */
+}
+
+.pagination-buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 10px; /* Adjust as needed */
+  z-index: 1; /* Ensure buttons are above other content */
+}
+
+.pagination-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: black; 
+  border: 2px solid gold; 
+  color: white; 
+  font-weight: bold; 
+  cursor: pointer;
+}
+
+.pagination-buttons button:disabled {
+  opacity: 0.5; /* Reduce opacity when disabled */
+  cursor: not-allowed; /* Change cursor to not-allowed when disabled */
+}
+
+.effectEventButtons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.effectEventButtons button{
+  background-color: gold; 
+  border: 2px solid black; 
+  color: black; 
+  font-weight: bold; 
+  cursor: pointer;
+}
+
+/*********  MyEvents CSS ***************/
+
+/******** Delete/Leave Event CSS *********/
+.updateEventStatus-PopUp{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+.updateEventStatus-Content {
+  background: black;
+  border: 2px solid gold;
+  border-radius: 5px;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.updateEventStatus-text{
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.updateEventStatus-Buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+#updateEventStatus-Yes {
+  color: white;
+  background-color: green;
+}
+
+#updateEventStatus-No{
+  color: white;
+  background-color: red;
+}
+/******** Delete/Leave Event CSS *********/
