@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
 import DeleteEventPopup from './DeleteEventPopup';
-const { retrieveToken } = require('../storage.js');
+const { retrieveToken, storeEventID } = require('../storage.js');
 
 const eventTypeImages = {
     Sports: "https://i.imgur.com/SaiXbOK.png",
@@ -131,8 +131,9 @@ function MyEvents() {
         // Implement leave event functionality here
     };
     
-    const updateEventClicked = async event => {
-        // Implement update event functionality here
+    const updateEventClicked = async event => 
+    {
+        storeEventID(event._id);
     };
 
     const deleteEventClicked = async event => {
