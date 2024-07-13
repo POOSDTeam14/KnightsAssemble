@@ -183,6 +183,9 @@ exports.setApp = function(app, client)
         // Convert time to Date object because MongoDB might not be interpreting it correctly
         const eventTime = new Date(time);
 
+        // Convert hostid to objectid
+        var hostObjectId = new ObjectId(hostid);
+
         const newEvent = {
             Name : name,
             Type : type,
@@ -190,7 +193,7 @@ exports.setApp = function(app, client)
             Time : eventTime,
             Location : location,
             Capacity : capacity,
-            HostID : hostid,
+            HostID : hostObjectId,
             Attendees : attendees || [] // Defaults to empty array if no attendees entered
         };
 
@@ -513,7 +516,7 @@ exports.setApp = function(app, client)
         // Check to see if user is already joined event
         const userResult = await db.collection('Events').findOne(
         { _id: eventObjectId,
-          Attendees: userid }     
+          Attendees: userObjectId }     
         );
         // If so, do not add them
         if ( userResult )
@@ -529,7 +532,7 @@ exports.setApp = function(app, client)
             {
                 var ret = await db.collection('Events').updateOne(
                     { _id : eventObjectId},
-                    { $push: { Attendees: userid } },
+                    { $push: { Attendees: userObjectId } },
                     { upsert: true }
                 );
             }
