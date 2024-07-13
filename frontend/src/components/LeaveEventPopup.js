@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function LeaveEvent( ) {
+function LeaveEventPopup( ) {
 
     if(!show)
         return null;
@@ -11,4 +11,4 @@ function LeaveEvent( ) {
     );
 }
 
-export default LeaveEvent;
+export default LeaveEventPopup;
