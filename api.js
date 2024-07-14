@@ -509,20 +509,18 @@ exports.setApp = function(app, client)
             return res.status(500).json({error: "Something went wrong creating search index"});
         }
 
-        const searchTerms = [];
+        const searchTerms = {};
         if (name)
         {
-            searchTerms.push(name);
+            searchTerms.Name = {$regex: name, $options: 'i'};
         }
 
         if (location)
         {
-            searchTerms.push(location);
+            searchTerms.Location = {$regex: location, $options: 'i'};
         }
 
-        const searchText = searchTerms.join(' ');
-
-        const searchResults = await db.collection('Events').find({$text: {$search: searchText}}).toArray();
+        const searchResults = await db.collection('Events').find(searchTerms).toArray();
         
         // If matching event is found returns all documents with matching keywords
         if (searchResults.length > 0)
