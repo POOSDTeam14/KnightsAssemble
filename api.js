@@ -474,6 +474,74 @@ exports.setApp = function(app, client)
             res.status(200).json({ret, token: newToken});
         });
 
+    // search incoming:
+    // name : ""
+    // location : ""
+    // search outgoing:
+    // documents that contain matching keywords
+    // token
+    app.post('/api/searchEvent', async (req, res, next) =>
+    {
+        // Get name and location to search
+        const {name, location, token} = req.body
+            
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                 return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
+    
+        const db = client.db('KnightsAssembleDatabase');
+
+        try
+        {
+            await db.collection('Events').createIndex({Name: "text", Location : "text"});
+        }
+        catch(error)
+        {
+            return res.status(500).json({error: "Something went wrong creating search index"});
+        }
+        const searchResults = await db.collection('Events').find({$text: {$search: "knight"}}).toArray();
+        
+        // If matching event is found returns all documents with matching keywords
+        if (searchResults.length > 0)
+        {
+            try 
+            {
+                var ret = searchResults;
+            } 
+            catch (error) 
+            {
+                return res.status(500).json({error: "Something went wrong with getting the search results"});
+            }
+        }
+        else
+        {
+            return res.status(404).json({error: "No matches!"});
+        }
+            
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+            
+        // Respond with search result documents and token
+        res.status(200).json({ret, token: newToken});
+    });
+
     // joinEvent incoming:
     // eventid: ""
     // userid: ""
