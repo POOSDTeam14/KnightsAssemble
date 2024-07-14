@@ -503,9 +503,11 @@ exports.setApp = function(app, client)
         try
         {
             await db.collection('Events').createIndex({Name: "text", Location : "text"});
+            console.log("Index created");
         }
         catch(error)
         {
+            console.error("Error making index");
             return res.status(500).json({error: "Something went wrong creating search index"});
         }
 
@@ -520,7 +522,11 @@ exports.setApp = function(app, client)
             searchTerms.Location = {$regex: location, $options: 'i'};
         }
 
+        console.log("Search terms are: ", searchTerms);
+
         const searchResults = await db.collection('Events').find(searchTerms).toArray();
+
+        console.log("Search results are: ", searchResults);
         
         // If matching event is found returns all documents with matching keywords
         if (searchResults.length > 0)
