@@ -511,22 +511,23 @@ exports.setApp = function(app, client)
             return res.status(500).json({error: "Something went wrong creating search index"});
         }
 
-        const searchTerms = {
-            $or: [
-                {name: {$regex: name, $options: 'i'}},
-                {location: {$regex: location, $options: 'i'}}
-            ]
-        };
+        const searchTerms = {};
 
-        /*if (name)
+        if (name) 
         {
-            searchTerms.Name = {$regex: name, $options: 'i'};
+            searchTerms.$or = [
+                { Name: { $regex: name, $options: 'i' } }
+            ];
         }
-
-        if (location)
+    
+        // Add search criteria for location if provided
+        if (location) 
         {
-            searchTerms.Location = {$regex: location, $options: 'i'};
-        }*/
+            searchTerms.$or = [
+                ...(searchTerms.$or || []),
+                { Location: { $regex: location, $options: 'i' } }
+            ];
+        }
 
         console.log("Search terms are: ", searchTerms);
 
