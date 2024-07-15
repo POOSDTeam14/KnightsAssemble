@@ -300,13 +300,13 @@ exports.setApp = function(app, client)
 
         var eventObjectId = new ObjectId(eventid);
         const db = client.db('KnightsAssembleDatabase');
-        var eventResults = await db.collection('Events').find( { HostID: eventObjectId } ).toArray();
+        var eventResults = await db.collection('Events').find( { _id: eventObjectId } ).toArray();
         
         // Look for hostid==userid in all events, return to array if found
         if ( eventResults.length>0 )
             try
             {
-                var ret = eventResults;
+                var ret = eventResults[0];
             }
             catch ( error )
             {
