@@ -483,7 +483,7 @@ exports.setApp = function(app, client)
     app.post('/api/searchEvent', async (req, res, next) =>
     {
         // Get name and location to search
-        const {name, location, token} = req.body
+        const {search, token} = req.body
             
         // Check for expired token
         try 
@@ -513,19 +513,11 @@ exports.setApp = function(app, client)
 
         const searchTerms = {};
 
-        if (name) 
+        if (search) 
         {
             searchTerms.$or = [
-                { Name: { $regex: name, $options: 'i' } }
-            ];
-        }
-    
-        // Add search criteria for location if provided
-        if (location) 
-        {
-            searchTerms.$or = [
-                ...(searchTerms.$or || []),
-                { Location: { $regex: location, $options: 'i' } }
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } }
             ];
         }
 
