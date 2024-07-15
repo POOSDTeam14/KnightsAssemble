@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-const { retrieveToken } = require('../storage.js');
+const { retrieveToken, retrieveEventID } = require('../storage.js');
 
-function UpdateEvent({ eventId }) {
+function UpdateEvent() {
   const [eventName, setEventName] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [eventType, setEventType] = useState('');
@@ -14,27 +14,47 @@ function UpdateEvent({ eventId }) {
 
   let bp = require('./Path.js');
 
+  let token = retrieveToken();
+  let eventId = retrieveEventID();
+
   useEffect(() => {
     const fetchEventDetails = async () => {
+      
+      var obj = {
+        eventid: eventId,
+        token: token
+      };
+      let js = JSON.stringify(obj);
+      
+      
       try {
-        const response = await fetch(bp.buildPath(`api/getEvent/${eventId}`), {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
+        const response = await fetch(bp.buildPath(`api/provideEventInfo`), {
+          method: 'POST',
+          body: js,
+          headers: { 'Content-Type': 'application/json' }
         });
-        const event = await response.json();
-        setEventName(event.name);
-        setEventLocation(event.location);
-        setEventType(event.type);
-        setEventDate(new Date(event.time).toISOString().split('T')[0]);
-        setEventTime(new Date(event.time).toTimeString().split(' ')[0].substring(0, 5));
-        setEventCapacity(event.capacity);
-        setDescription(event.description);
+        
+        let res = await JSON.parse(await response.text());
+
+        if ('error' in res.ret) {
+          setMessage(res.ret.error);
+        } else {
+          setEventName(res.ret.Name);
+          setEventLocation(res.ret.Location);
+          setEventType(res.ret.Type);
+          setEventDate(new Date(res.ret.Time).toISOString().split('T')[0]);
+          setEventTime(new Date(res.ret.Time).toTimeString().split(' ')[0].substring(0, 5));
+          setEventCapacity(res.ret.Capacity);
+          setDescription(res.ret.Description);
+          setMessage('');
+      }
+
       } catch (error) {
         console.error('Failed to fetch event details', error);
       }
     };
     fetchEventDetails();
-  }, [eventId, bp]);
+  }, []);
 
   const doUpdateEvent = async event => {
     event.preventDefault();
