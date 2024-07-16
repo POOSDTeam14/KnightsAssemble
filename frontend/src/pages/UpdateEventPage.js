@@ -14,7 +14,7 @@ const UpdateEventPage = () => {
         </div>
       </div>
       <div className="row g-0">
-        <div className="col-2" style={{ minWidth: "90px", maxWidth: "90px" }}>
+        <div className="col-2" style={{ minWidth: "110px", maxWidth: "110px" }}>
           <VerticalTabColumn />
         </div>
         <div className="col">

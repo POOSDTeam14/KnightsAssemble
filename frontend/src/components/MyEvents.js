@@ -21,8 +21,7 @@ function MyEvents() {
     const eventsPerPage = 3;
 
     const [showDeleteEventPopup, setDeleteEventPopup] = useState(false);
-    const [showLeaveEventPopup, setLeaveEventPopup] = useState(false);
-    const [selectedEventId, setSelectedEventId] = useState(null); // State to hold the selected event ID
+
 
     let bp = require('./Path.js');
 
@@ -152,7 +151,7 @@ function MyEvents() {
     };
 
     const leaveEventClicked = async event => {
-        // Implement leave event functionality here
+      
     };
     
     const updateEventClicked = async event => 
@@ -161,12 +160,12 @@ function MyEvents() {
         window.location.href = '/updateevent';
     };
 
-    const deleteEventClicked = async event => {
-        setSelectedEventId(event._id); // Set the selected event ID
+    const deleteEventClicked  = async event => {
+        storeEventID(event._id);
         setDeleteEventPopup(true); // Show the delete event popup
     };
 
-    const closeDeleteEventPopup = () => {
+    const closeDeleteEventPopup  = () => {
         setDeleteEventPopup(false); // Close the delete event popup
     };
 
@@ -184,7 +183,7 @@ function MyEvents() {
                     <div className="row g-0 overlay-buttons">
                         <div className="pagination-buttons">
                             <button onClick={prevHostedEventPage} disabled={currentHostedEventPage === 1}>Prev</button>
-                            <button onClick={nextHostedEventPage} disabled={currentHostedEventPage === Math.ceil(hostedEvents.length / eventsPerPage)}>Next</button>
+                            <button onClick={nextHostedEventPage} disabled={currentHostedEventPage === Math.ceil(hostedEvents.length / eventsPerPage) || hostedEvents.length === 0}>Next</button>
                         </div>
                     </div>
                 </div>
@@ -202,7 +201,7 @@ function MyEvents() {
                                 <div className="effectEventButtons">
                                     <button onClick={() => updateEventClicked(event)}>Update</button>
                                     <button onClick={() => deleteEventClicked(event)}>Delete</button>
-                                    {showDeleteEventPopup && <DeleteEventPopup show={showDeleteEventPopup} onClose={closeDeleteEventPopup} eventId={selectedEventId} refreshEvents={refreshEvents} />}
+                                    {showDeleteEventPopup && <DeleteEventPopup show={showDeleteEventPopup} onClose={closeDeleteEventPopup} refreshEvents={refreshEvents} />}
                                 </div>
                             </div>
                         </div>
@@ -216,7 +215,7 @@ function MyEvents() {
                     <div className="row g-0 overlay-buttons">
                         <div className="pagination-buttons">
                             <button onClick={prevAttendedEventPage} disabled={currentAttendedEventPage === 1}>Prev</button>
-                            <button onClick={nextAttendedEventPage} disabled={currentAttendedEventPage === Math.ceil(attendedEvents.length / eventsPerPage)}>Next</button>
+                            <button onClick={nextAttendedEventPage} disabled={currentAttendedEventPage === Math.ceil(attendedEvents.length / eventsPerPage) || attendedEvents.length === 0}>Next</button>
                         </div>
                     </div>
                 </div>
@@ -238,7 +237,6 @@ function MyEvents() {
                     ))}
                 </div>
             </div>
-            <span>{message}</span>
         </div>
     );
 }

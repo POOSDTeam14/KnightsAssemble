@@ -1,23 +1,30 @@
-import React, { useState } from 'react'
-import { Container, Row, Col } from 'react-bootstrap';
+import React from 'react';
+const { clearStorage } = require('../storage.js');
+
+function TopPageLogo() {
+
+  const logoutClicked = () => {
+    clearStorage();
+    window.location.href = "/login";
+  }
 
 
+  return (
+    <div className = "row g-0 upperBox">
 
-function TopPageLogo(){
-    return(
-        <Container fluid className="upperBox">
-        <Row className="align-items-center">
-          <Col xs="auto">
-            <a href="https://github.com/POOSDTeam14/KnightsAssemble">
-              <img src="https://i.imgur.com/IhXxVvE.png" alt="UCF Knight Logo" className="img-fluid" />
-            </a>
-          </Col>
-          <Col>
-            <p className="mb-0">Knights Assemble</p>
-          </Col>
-        </Row>
-      </Container>
-    );
+      <div className = "col-5 topLeft-Column">
+          <a href="https://github.com/POOSDTeam14/KnightsAssemble">
+            <img src="https://i.imgur.com/IhXxVvE.png" alt="UCF Knight Logo" className="img-fluid" />
+          </a>
+          <p className="mb-0">Knights Assemble</p>
+      </div> 
+
+      <div className = "col-7 topRight-Column">
+        {window.location.pathname === "/login" || window.location.pathname === "/register" || window.location.pathname === "/" ? null : <button className="logout-Button" onClick={logoutClicked}>LOGOUT</button>}
+      </div>
+
+    </div>
+  );
 }
 
 export default TopPageLogo;

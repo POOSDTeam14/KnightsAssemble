@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import ChangePassword from './ChangePassword';
 import { jwtDecode } from "jwt-decode";
-const { retrieveToken } = require('../storage.js');
+const { retrieveToken, retrieveEventID } = require('../storage.js');
 
-function DeleteEventPopup( {show, onClose, eventId, refreshEvents}) {
+function DeleteEventPopup( {show, onClose, refreshEvents}) {
     const[message, setMessage] = useState("");
 
     let bp = require('./Path.js');
@@ -11,7 +11,7 @@ function DeleteEventPopup( {show, onClose, eventId, refreshEvents}) {
     const deleteEventVerification = async () => {
         
         let token = retrieveToken();
-        let userId = jwtDecode(token).userInfo.userid;
+        let eventId = retrieveEventID();
 
         var obj = {
             eventid: eventId,

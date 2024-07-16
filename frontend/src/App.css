@@ -4,13 +4,44 @@
   color: white;
   padding: 10px;
   height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .upperBox img {
   width: 30px;
   height: 30px;
-  vertical-align: middle;
 }
+
+.upperBox .topLeft-Column{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.upperBox .topRight-Column{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.upperBox .topRight-Column button{
+  background-color: gold;
+  border: 1px solid white;
+  color: black;
+  font-weight: bold;
+  font-style: "Arial";
+  height: 30px;
+  width: 80px;
+}
+
+.upperBox .topRight-Column button:hover{
+  cursor: pointer;
+}
+
 /*********  TopLogo CSS ***************/
 
 /*********  VerticalTab CSS ***************/
@@ -20,7 +51,7 @@
 
 .verticalTabContent{
   height: 100%;
-  width: 90px;
+  width: 110px;
   background-color: gold;
   border-right: 2px solid black;
   display: flex;
