@@ -602,7 +602,6 @@
   display: flex;
   align-items: center;
   position: relative; 
-  position: relative; /* Ensure positioning context */
   z-index: 0; /* Ensure header content is behind overlay-buttons */
 }
 
@@ -621,6 +620,12 @@
   border: 2px solid black;
   display: flex;
   flex-direction: row;
+  margin-left: 3%;
+}
+
+.col-3-5 {
+    flex: 0 0 29.17%;
+    max-width: 29.17%;
 }
 
 .eventCard-Display .eventCard-Info {
@@ -629,6 +634,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.eventCard-Info h5, .eventCard-Info p {
+  text-align: center; 
+  white-space: normal; 
 }
 
 .eventCard-Display .eventCard-Img {

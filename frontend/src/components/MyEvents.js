@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
-import DeleteEventPopup from './DeleteEventPopup';
+import ConfirmationPopup from './ConfirmationPopup';
 const { retrieveToken, storeEventID } = require('../storage.js');
 
 const eventTypeImages = {
@@ -20,7 +20,8 @@ function MyEvents() {
     const [currentAttendedEventPage, setCurrentAttendedEventPage] = useState(1);
     const eventsPerPage = 3;
 
-    const [showDeleteEventPopup, setDeleteEventPopup] = useState(false);
+    const [showDeleteEventPopup, setShowDeleteEventPopup] = useState(false);
+    const [showLeaveEventPopup, setShowLeaveEventPopup] = useState(false);
 
 
     let bp = require('./Path.js');
@@ -46,6 +47,7 @@ function MyEvents() {
 
             if ('error' in res) {
                 setMessage(res.error);
+                setHostedEvents([]);
             } else {
                 setHostedEvents(res.ret);
                 setMessage('');
@@ -77,6 +79,7 @@ function MyEvents() {
 
             if ('error' in res) {
                 setMessage(res.error);
+                setAttendedEvents([]);
             } else {
                 setAttendedEvents(res.ret);
                 setMessage('');
@@ -151,7 +154,8 @@ function MyEvents() {
     };
 
     const leaveEventClicked = async event => {
-      
+      storeEventID(event._id);
+      setShowLeaveEventPopup(true);
     };
     
     const updateEventClicked = async event => 
@@ -162,11 +166,12 @@ function MyEvents() {
 
     const deleteEventClicked  = async event => {
         storeEventID(event._id);
-        setDeleteEventPopup(true); // Show the delete event popup
+        setShowDeleteEventPopup(true); // Show the delete event popup
     };
 
-    const closeDeleteEventPopup  = () => {
-        setDeleteEventPopup(false); // Close the delete event popup
+    const closeConfirmationPopup  = () => {
+        setShowDeleteEventPopup(false); // Close the delete event popup
+        setShowLeaveEventPopup(false);
     };
 
     const refreshEvents = async () => {
@@ -190,18 +195,18 @@ function MyEvents() {
                 
                 <div className="row g-0 displayMyEvents-row">
                     {currentHostedEvents.map(event => (
-                        <div key={event._id} className="col-4 eventCard-Display">
+                        <div key={event._id} className="col-3-5 eventCard-Display">
                             <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventTypeImages[event.Type]})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
                                 <p>{convertUTCtoEST(event.Time)}</p>
                                 <p>{event.Location}</p>
-                                <p>Event Type: {event.Type}</p>
+                                <p>Type: {event.Type}</p>
                                 <div className="effectEventButtons">
                                     <button onClick={() => updateEventClicked(event)}>Update</button>
                                     <button onClick={() => deleteEventClicked(event)}>Delete</button>
-                                    {showDeleteEventPopup && <DeleteEventPopup show={showDeleteEventPopup} onClose={closeDeleteEventPopup} refreshEvents={refreshEvents} />}
+                                    {showDeleteEventPopup && <ConfirmationPopup show={showDeleteEventPopup} onClose={closeConfirmationPopup} refreshEvents={refreshEvents} deleteEvent={showDeleteEventPopup}/>}
                                 </div>
                             </div>
                         </div>
@@ -221,16 +226,17 @@ function MyEvents() {
                 </div>
                 <div className="row g-0 displayMyEvents-row">
                     {currentAttendedEvents.map(event => (
-                        <div key={event._id} className="col-4 eventCard-Display">
+                        <div key={event._id} className="col-3-5 eventCard-Display">
                             <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventTypeImages[event.Type]})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
                                 <p>{convertUTCtoEST(event.Time)}</p>
                                 <p>{event.Location}</p>
-                                <p>Event Type: {event.Type}</p>
+                                <p>Type: {event.Type}</p>
                                 <div className="effectEventButtons">
                                     <button onClick={() => leaveEventClicked(event)}>Leave</button>
+                                    {showLeaveEventPopup && <ConfirmationPopup show={showLeaveEventPopup} onClose={closeConfirmationPopup} refreshEvents={refreshEvents} deleteEvent={showDeleteEventPopup}/>}
                                 </div>
                             </div>
                         </div>
