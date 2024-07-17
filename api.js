@@ -702,9 +702,13 @@ exports.setApp = function(app, client)
         res.status(200).json({ret, token: newToken});
     });
 
+    // leaveEvent incoming:
+    // eventid: ""
+    // userid: ""
+    // token:
     app.post('/api/leaveEvent', async (req, res, next) =>
     {
-        // Get eventid to add attendees to it
+        // Get eventid to remove attendees from it
         const {eventid, userid, token} = req.body
 
         // Check for expired token
@@ -737,7 +741,7 @@ exports.setApp = function(app, client)
             return res.status(405).json({error: "O, creator, please don't leave us!"});
         }
 
-        // Check to see if user is already joined event
+        // Check to see if user isn't in the event
         const userResult = await db.collection('Events').findOne(
             { _id: eventObjectId,
             Attendees: userObjectId }     
@@ -748,7 +752,7 @@ exports.setApp = function(app, client)
             return res.status(405).json({error: "User not in event!"});
         }
 
-        // If event exists and passes the previous test, join event
+        // If event exists and passes the previous test, leave event
         const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
         if ( eventResults.length>0 ) 
         {
