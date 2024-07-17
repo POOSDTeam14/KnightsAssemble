@@ -559,6 +559,91 @@ exports.setApp = function(app, client)
         res.status(200).json({ret, token: newToken});
     });
 
+    // filter incoming:
+    // search:
+    // token:
+    app.post('/api/filterEvents', async (req, res, next) =>
+    {
+        // Get paramters for filter
+        const {filter, token} = req.body
+            
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                 return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
+    
+        const db = client.db('KnightsAssembleDatabase');
+
+        try
+        {
+            await db.collection('Events').createIndex({Name: "text", Type: "text", Location : "text", Time: "date", Capacity: "integer"});
+            console.log("Index has been created");
+        }
+        catch(error)
+        {
+            console.error("Error attempting index");
+            return res.status(500).json({error: "Search index not created"});
+        }
+
+        const searchTerms = {};
+
+        if ( filter ) 
+        {
+            filterObject.$or = [
+                { Name: { $regex: filter, $options: 'i' } },
+                { Type: { $regex: filter, $options: 'i' } },
+                { Location: { $regex: filter, $options: 'i' } },
+                { Time: { $regex: filter, $options: 'i' } },
+                { Capacity: { $regex: filter, $options: 'i' } }
+            ];
+        }
+
+        console.log("Filter terms are: ", filterObject);
+
+        const filterResults = await db.collection('Events').find(filterObject).toArray();
+
+        console.log("Search results are: ", filterResults);
+        
+        // If matching event is found returns all documents with matching keywords
+        if ( filterResults.length>0 )
+        {
+            try 
+            {
+                var ret = filterResults;
+            } 
+            catch (error) 
+            {
+                return res.status(500).json({error: "Could not get filter results"});
+            }
+        }
+        else
+        {
+            return res.status(404).json({error: "Filtered data does not exist!"});
+        }
+            
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+            
+        // Respond with search result documents and token
+        res.status(200).json({ret, token: newToken});
+    });
+
     // joinEvent incoming:
     // eventid: ""
     // userid: ""
