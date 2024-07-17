@@ -702,6 +702,90 @@ exports.setApp = function(app, client)
         res.status(200).json({ret, token: newToken});
     });
 
+    app.post('/api/leaveEvent', async (req, res, next) =>
+    {
+        // Get eventid to add attendees to it
+        const {eventid, userid, token} = req.body
+
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
+
+        // Check user and event id
+        var eventObjectId = new ObjectId(eventid);
+        var userObjectId = new ObjectId(userid);
+    
+        const db = client.db('KnightsAssembleDatabase');
+
+        // Check to see if user is event creator
+        const hostResult = await db.collection('Events').findOne(
+        { _id: eventObjectId,
+          HostID: userObjectId }     
+        );
+        // If so, do not add them
+        if ( hostResult )
+        {
+            return res.status(405).json({error: "O, creator, please don't leave us!"});
+        }
+
+        // Check to see if user is already joined event
+        const userResult = await db.collection('Events').findOne(
+            { _id: eventObjectId,
+            Attendees: userObjectId }     
+        );
+        // If so, do not add them
+        if ( !userResult )
+        {
+            return res.status(405).json({error: "User not in event!"});
+        }
+
+        // If event exists and passes the previous test, join event
+        const eventResults = await db.collection('Events').find({_id : eventObjectId}).toArray();
+        if ( eventResults.length>0 ) 
+        {
+            try
+            {
+                var ret = await db.collection('Events').updateOne(
+                    { _id : eventObjectId},
+                    { $pull: { Attendees: userObjectId } },
+                    { upsert: true }
+                );
+            }
+            catch (error) 
+            {
+                console.log(error);
+                return res.status(500).json({error: "You have not left the event!"});
+            }
+        }
+        else
+        {
+            return res.status(404).json({error: "Event not found!"});
+        }
+        
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+        
+        // Respond with event and token
+        res.status(200).json({ret, token: newToken});
+    });
+
     // Verify email incoming:
     // email : ""
     // Verify email outgoing:
