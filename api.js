@@ -564,7 +564,7 @@ exports.setApp = function(app, client)
     });
 
     // filter incoming:
-    // search:
+    // filter: ""
     // token:
     app.post('/api/filterType', async (req, res, next) =>
     {
@@ -607,7 +607,7 @@ exports.setApp = function(app, client)
                 return res.status(411).json({error: "New filter not set"});
             }
         }
-
+        ret = typeFilter;
     
         const db = client.db('KnightsAssembleDatabase');
         /*
