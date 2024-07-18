@@ -653,7 +653,7 @@ exports.setApp = function(app, client)
     // filter incoming:
     // filter: Date
     // token:
-    app.post('/api/filterType', async (req, res, next) =>
+    app.post('/api/filterDate', async (req, res, next) =>
     {
         // Get paramters for filter
         const {filter, token} = req.body
@@ -683,7 +683,7 @@ exports.setApp = function(app, client)
         {
             try
             {
-                dateFilter = new Date();
+                dateFilter = new Date(2020, 1, 1);
             }
             catch
             {
