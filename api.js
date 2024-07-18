@@ -512,14 +512,16 @@ exports.setApp = function(app, client)
             console.error("Error making index");
             return res.status(500).json({error: "Something went wrong creating search index"});
         }
-
+        
         const searchTerms = {};
 
         if (search) 
         {
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
-                { Location: { $regex: search, $options: 'i' } }
+                { Location: { $regex: search, $options: 'i' } },
+                //{ Date: { $regex: typeFilter, $options: 'i' } },
+                { Type: { $regex: dateFilter, $options: 'i' } }
             ];
         }
 
@@ -564,7 +566,7 @@ exports.setApp = function(app, client)
     // filter incoming:
     // search:
     // token:
-    app.post('/api/filterEvents', async (req, res, next) =>
+    app.post('/api/filterType', async (req, res, next) =>
     {
         // Get paramters for filter
         const {filter, token} = req.body
@@ -582,14 +584,19 @@ exports.setApp = function(app, client)
             return res.status(401).json({error: "Something is wrong with your session"});
         }
 
-        // Make sure filter passed is an object
-        if ( filter !== 'object' )
+        // If no filter, make the filter an empty string
+        if ( filter == "")
         {
-            return res.status(405).json({error: "Filter object invalid"});
+            typeFilter = "";
         }
+        else
+        {
+            typeFilter = filter;
+        }
+
     
         const db = client.db('KnightsAssembleDatabase');
-
+        /*
         const filterResults = await db.collection('Events').find(filter).toArray();
         
         // If events fit filter criteria, return all events that match
@@ -608,7 +615,7 @@ exports.setApp = function(app, client)
         {
             return res.status(404).json({error: "Filtered data does not exist!"});
         }
-            
+        */
         // Refresh token at end of CRUD events
         var newToken = null;
         try 
@@ -621,7 +628,7 @@ exports.setApp = function(app, client)
         }
             
         // Respond with search result documents and token
-        res.status(200).json({ret, token: newToken});
+        res.status(200).json({token: newToken});
     });
 
     // joinEvent incoming:
