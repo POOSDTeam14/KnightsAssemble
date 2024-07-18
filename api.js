@@ -520,8 +520,8 @@ exports.setApp = function(app, client)
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
                 { Location: { $regex: search, $options: 'i' } },
-                //{ Date: { $regex: typeFilter, $options: 'i' } },
-                { Type: { $regex: dateFilter, $options: 'i' } }
+                //{ Date: { $regex: dateFilter, $options: 'i' } },
+                { Type: { $regex: typeFilter, $options: 'i' } }
             ];
         }
 
