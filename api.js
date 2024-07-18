@@ -579,38 +579,16 @@ exports.setApp = function(app, client)
         {
             return res.status(401).json({error: "Something is wrong with your session"});
         }
+
+        // Make sure filter passed is an object
+        if ( filter !== 'object' )
+        {
+            return res.status(405).json({error: "Filter object invalid"});
+        }
     
         const db = client.db('KnightsAssembleDatabase');
 
-        /* try
-        {
-            await db.collection('Events').createIndex({Name: "text", Type: "text", Location : "text", Time: "date", Capacity: "integer"});
-            console.log("Index has been created");
-        }
-        catch(error)
-        {
-            console.error("Error attempting index");
-            return res.status(500).json({error: "Search index not created"});
-        }
-        */
-        const filterObject = {};
-
-        if ( filter ) 
-        {
-            filterObject.$or = [
-                { Name: { $regex: filter, $options: 'i' } },
-                { Type: { $regex: filter, $options: 'i' } },
-                { Location: { $regex: filter, $options: 'i' } },
-                { Time: { $regex: filter, $options: 'i' } },
-                { Capacity: { $regex: filter, $options: 'i' } }
-            ];
-        }
-
-        console.log("Filter terms are: ", filterObject);
-
-        const filterResults = await db.collection('Events').find(filterObject).toArray();
-
-        console.log("Filtered results: ", filterResults);
+        const filterResults = await db.collection('Events').find(filter).toArray();
         
         // If events fit filter criteria, return all events that match
         if ( filterResults.length>0 )
