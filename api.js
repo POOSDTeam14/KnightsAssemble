@@ -587,11 +587,25 @@ exports.setApp = function(app, client)
         // If no filter, make the filter an empty string
         if ( filter == "")
         {
-            typeFilter = "";
+            try
+            {
+                typeFilter = "";
+            }
+            catch
+            {
+                return res.status(411).json({error: "New filter not set"});
+            }
         }
         else
         {
-            typeFilter = filter;
+            try
+            {
+                typeFilter = filter;
+            }
+            catch
+            {
+                return res.status(411).json({error: "New filter not set"});
+            }
         }
 
     
