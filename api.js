@@ -2,8 +2,8 @@ require('express');
 const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
 const {createVerifyCode} = require('./createVerificationCode');
-var datePreset = new Date(2020, 1, 1);
-var dateFilter = new Date(2020, 1, 1);
+var datePreset = new Date(2020, 1, 1, 0, 0, 0);
+var dateFilter = new Date(2020, 1, 1, 0, 0, 0);
 var typeFilter = "";
 
 exports.setApp = function(app, client)
@@ -538,7 +538,7 @@ exports.setApp = function(app, client)
 
         var finalResults = [];
         searchResults.forEach( user => {
-            if ( (user.Type===typeFilter && typeFilter!==""))
+            if ( user.Type===typeFilter && !(typeFilter==="") )
             {
                 try
                 {
