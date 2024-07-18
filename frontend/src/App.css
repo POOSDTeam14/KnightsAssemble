@@ -641,6 +641,20 @@
   white-space: normal; 
 }
 
+@media (max-width: 1200px) {
+  .eventCard-Info p {
+    font-size: 14px; 
+  }
+  .eventCard-Info h5{
+    font-size: 16px;
+  }
+
+  .effectEventButtons button {
+    padding: 2px 4px; 
+    font-size: 14px; 
+  }
+}
+
 .eventCard-Display .eventCard-Img {
   height: 100%;
   background-size: cover;
@@ -691,6 +705,8 @@
   font-weight: bold; 
   cursor: pointer;
 }
+
+
 
 /*********  MyEvents CSS ***************/
 
@@ -743,3 +759,63 @@
   background-color: red;
 }
 /******** Delete/Leave Event CSS *********/
+
+/******** Main Events Page CSS *********/
+
+.mainEventsPage-container{
+  height: 100%;
+}
+
+.eventSearchRow{
+  height: 25%;
+  width: 100%;
+  display: flex;
+  flex: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.eventSearchRow input,
+.eventSearchRow select,
+.eventSearchRow button {
+  border: 2px solid black; 
+  border-radius: 5px;
+  margin-left: 5%; 
+  height:50px;
+}
+
+.eventSearchRow input {
+  width: 50%;
+  padding-left: 40px; /* Space for the search icon */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="black" d="M21.71 20.29l-5.33-5.33A7.93 7.93 0 0 0 18 10c0-4.41-3.59-8-8-8s-8 3.59-8 8 3.59 8 8 8a7.93 7.93 0 0 0 5.96-2.67l5.33 5.33a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>');
+  background-size: 24px;
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
+
+
+.eventSearchRow select{
+  width: 15%;
+}
+
+.eventSearchRow button{
+  width: 15%;
+  margin-right: 5%;
+  background-color: black; 
+  border: 2px solid gold; 
+  color: white; 
+  font-weight: bold; 
+  border-radius: 20px; 
+  cursor: pointer; 
+}
+
+.mainEventsDisplay{
+  height: 75%;
+  width: 100%;
+}
+
+
+
+
+
+/******** Main Events Page CSS *********/
