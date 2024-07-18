@@ -2,7 +2,7 @@ require('express');
 const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
 const {createVerifyCode} = require('./createVerificationCode');
-var dateFilter = "";
+var dateFilter = new Date();
 var typeFilter = "";
 
 exports.setApp = function(app, client)
@@ -520,7 +520,7 @@ exports.setApp = function(app, client)
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
                 { Location: { $regex: search, $options: 'i' } },
-                //{ Date: { $regex: dateFilter, $options: 'i' } },
+                { Date: { $regex: dateFilter, $options: 'i' } },
                 { Type: { $regex: typeFilter, $options: 'i' } }
             ];
         }
