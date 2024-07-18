@@ -642,7 +642,7 @@ exports.setApp = function(app, client)
         }
             
         // Respond with search result documents and token
-        res.status(200).json({token: newToken});
+        res.status(200).json({ret, token: newToken});
     });
 
     // joinEvent incoming:
