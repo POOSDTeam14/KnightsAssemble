@@ -607,10 +607,10 @@ exports.setApp = function(app, client)
                 return res.status(411).json({error: "New filter not set"});
             }
         }
-        ret = typeFilter;
+        // ret = typeFilter;
     
         const db = client.db('KnightsAssembleDatabase');
-        /*
+        
         const filterResults = await db.collection('Events').find(filter).toArray();
         
         // If events fit filter criteria, return all events that match
@@ -629,7 +629,7 @@ exports.setApp = function(app, client)
         {
             return res.status(404).json({error: "Filtered data does not exist!"});
         }
-        */
+        
         // Refresh token at end of CRUD events
         var newToken = null;
         try 
