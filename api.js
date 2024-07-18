@@ -538,7 +538,7 @@ exports.setApp = function(app, client)
 
         var finalResults = [];
         searchResults.forEach( user => {
-            if ( (user.Type===typeFilter && typeFilter!=="") && (user.Time>dateFilter && dateFilter>datePreset) )
+            if ( (user.Type===typeFilter && typeFilter!==""))
             {
                 try
                 {
