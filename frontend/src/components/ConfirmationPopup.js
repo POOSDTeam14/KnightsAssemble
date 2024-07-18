@@ -107,7 +107,6 @@ function ConfirmationPopup( {show, onClose, refreshEvents, deleteEvent}) {
                     <button id="updateEventStatus-No" onClick={closeRemoveEventVerification} disabled={isLoading}>
                         No
                     </button>
-                    <span className = "requirementFields">{message}</span>
                 </div>
             </div>
         </div>
