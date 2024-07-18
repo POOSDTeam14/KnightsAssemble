@@ -2,6 +2,8 @@ require('express');
 const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
 const {createVerifyCode} = require('./createVerificationCode');
+dateFilter = "";
+typeFilter = "";
 
 exports.setApp = function(app, client)
 {
