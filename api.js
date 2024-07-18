@@ -582,7 +582,7 @@ exports.setApp = function(app, client)
     
         const db = client.db('KnightsAssembleDatabase');
 
-        try
+        /* try
         {
             await db.collection('Events').createIndex({Name: "text", Type: "text", Location : "text", Time: "date", Capacity: "integer"});
             console.log("Index has been created");
@@ -592,8 +592,8 @@ exports.setApp = function(app, client)
             console.error("Error attempting index");
             return res.status(500).json({error: "Search index not created"});
         }
-
-        const searchTerms = {};
+        */
+        const filterObject = {};
 
         if ( filter ) 
         {
@@ -610,9 +610,9 @@ exports.setApp = function(app, client)
 
         const filterResults = await db.collection('Events').find(filterObject).toArray();
 
-        console.log("Search results are: ", filterResults);
+        console.log("Filtered results: ", filterResults);
         
-        // If matching event is found returns all documents with matching keywords
+        // If events fit filter criteria, return all events that match
         if ( filterResults.length>0 )
         {
             try 
