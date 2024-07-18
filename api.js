@@ -519,9 +519,7 @@ exports.setApp = function(app, client)
         {
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
-                { Location: { $regex: search, $options: 'i' } },
-                { Date: { $regex: dateFilter, $options: 'i' } },
-                { Type: { $regex: typeFilter, $options: 'i' } }
+                { Location: { $regex: search, $options: 'i' } }
             ];
         }
 
@@ -532,21 +530,27 @@ exports.setApp = function(app, client)
         console.log("Search results are: ", searchResults);
         
         // If matching event is found returns all documents with matching keywords
-        if (searchResults.length > 0)
-        {
-            try 
-            {
-                var ret = searchResults;
-            } 
-            catch (error) 
-            {
-                return res.status(500).json({error: "Something went wrong with getting the search results"});
-            }
-        }
-        else
+        if (searchResults.length <= 0)
         {
             return res.status(404).json({error: "No matches!"});
         }
+
+        var finalResults = [];
+        searchResults.forEach( user => {
+            if ( user.Type===typeFilter && user.Time>timeFilter)
+            {
+                try
+                {
+                    finalResults.push(searchResults[i]);
+                }
+                catch (error)
+                {
+                    return res.status(500).json({error: "Something went wrong with getting the search results"});
+                }
+            }
+        });
+
+        ret = finalResults;
             
         // Refresh token at end of CRUD events
         var newToken = null;
