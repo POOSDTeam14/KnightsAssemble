@@ -625,7 +625,7 @@ exports.setApp = function(app, client)
                 { Location: { $regex: search, $options: 'i' } }
             ];
         }
-        else if (search)
+        else
         {
             searchTerms.$and = [
                 { Time: { $gte: curDate } }
