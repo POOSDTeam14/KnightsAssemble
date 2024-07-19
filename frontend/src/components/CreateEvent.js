@@ -120,8 +120,9 @@ function CreateEvent(){
                         <div className = "row g-0 createEvent-TypeRow">
 
                             <div className = "col createEvent-InfoTextInput">
+                                <label htmlFor="event-type" className="visually-hidden">Event Type</label>
                                 <p>Event Type</p>
-                                <select value={eventType} onChange={(e) => setEventType(e.target.value)}>
+                                <select id="event-type" value={eventType} onChange={(e) => setEventType(e.target.value)}>
                                     <option value = "" disabled selected>Event Type</option>
                                     <option value = "Sports">Sports</option>
                                     <option value = "Food">Food</option>
@@ -140,8 +141,9 @@ function CreateEvent(){
                         <div className = "row g-0 createEvent-DateRow">
                                 
                             <div className = "col createEvent-InfoTextInput">
+                                <label htmlFor="event-date" className="visually-hidden">Event Date</label>
                                 <p>Event Date</p>
-                                <input type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
+                                <input id="event-date" type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
                             </div>
 
                         </div>
@@ -149,8 +151,9 @@ function CreateEvent(){
                         <div className = "row g-0 createEvent-TimeRow">
     
                             <div className = "col createEvent-InfoTextInput">
+                                <label htmlFor="event-StartTime" className="visually-hidden">Event Start Time</label>
                                 <p>Start Time</p>
-                                <select value={eventTime} onChange={(e) => setEventTime(e.target.value)}>
+                                <select id="event-StartTime" value={eventTime} onChange={(e) => setEventTime(e.target.value)}>
                                         <option value = "" disabled selected>Start Time</option>
                                         <option value = "00:00">12:00 am</option>
                                         <option value = "00:30">12:30 am</option>

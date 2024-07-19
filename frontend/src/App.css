@@ -577,6 +577,18 @@
   width: 75%;
   height: 50%;
 }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 /*********  CreateEvent CSS ***************/
 
 /*********  MyEvents CSS ***************/
@@ -617,7 +629,7 @@
 
 .eventCard-Display {
   height: 100%;
-  border: 2px solid black;
+  border: 7px solid black;
   display: flex;
   flex-direction: row;
   margin-left: 3%;
@@ -634,6 +646,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color:ivory;
 }
 
 .eventCard-Info h5, .eventCard-Info p {
@@ -641,7 +654,7 @@
   white-space: normal; 
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1366px) {
   .eventCard-Info p {
     font-size: 14px; 
   }
@@ -771,7 +784,7 @@
 }
 
 .eventSearchRow{
-  height: 25%;
+  height: 10%;
   width: 100%;
   display: flex;
   flex: column;
@@ -781,7 +794,8 @@
 
 .eventSearchRow input,
 .eventSearchRow select,
-.eventSearchRow button {
+.eventSearchRow button,
+.eventSearchRow .dateSearch {
   border: 2px solid black; 
   border-radius: 5px;
   margin-left: 5%; 
@@ -789,7 +803,7 @@
 }
 
 .eventSearchRow input {
-  width: 50%;
+  width: 35%;
   padding-left: 40px; /* Space for the search icon */
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="black" d="M21.71 20.29l-5.33-5.33A7.93 7.93 0 0 0 18 10c0-4.41-3.59-8-8-8s-8 3.59-8 8 3.59 8 8 8a7.93 7.93 0 0 0 5.96-2.67l5.33 5.33a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>');
   background-size: 24px;
@@ -798,12 +812,12 @@
 }
 
 
-.eventSearchRow select{
+.eventSearchRow select, .eventSearchRow .dateSearch{
   width: 15%;
 }
 
 .eventSearchRow button{
-  width: 15%;
+  width: 10%;
   margin-right: 5%;
   background-color: black; 
   border: 2px solid gold; 
@@ -814,12 +828,123 @@
 }
 
 .mainEventsDisplay{
-  height: 75%;
+  height: 80%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+.mainEventsDisplay-Top, .mainEventsDisplay-Bottom{
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mainEventCard-Display {
+  height: 90%;
+  display: flex;
+  flex-direction: row;
+  margin-left: 2.25%;
+  border: none;
+}
+
+.col-2-5 {
+    flex: 0 0 22%;
+    max-width: 22%;
+}
+
+.mainEventCard-Display .eventCard-Info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top: 7px solid black;
+  border-bottom: 7px solid black;
+  border-right: 7px solid black;
+  background-color: ivory;
+}
+
+.mainEventCard-Display .eventCard-Info h5, .mainEventCard-Display .eventCard-Info p {
+  text-align: center; 
+  white-space: normal; 
+}
+
+@media (max-width: 1366px) {
+  .mainEventCard-Display .eventCard-Info p {
+    font-size: 14px; 
+  }
+  .mainEventCard-Display .eventCard-Info h5{
+    font-size: 15px;
+  }
+
+  .mainEventsDisplay-Button button {
+    padding: 2px 4px; 
+    font-size: 14px; 
+  }
+} 
+
+@media (max-width: 1366px) {
+  .mainEventCard-Display .eventCard-Info p {
+    font-size: 14px; 
+  }
+  .mainEventCard-Display .eventCard-Info h5{
+    font-size: 15px;
+  }
+
+  .mainEventsDisplay-Button button {
+    padding: 2px 4px; 
+    font-size: 14px; 
+  }
+} 
+
+@media (max-width: 1030px) {
+  .mainEventCard-Display .eventCard-Info p {
+    font-size: 12px; 
+  }
+  .mainEventCard-Display .eventCard-Info h5{
+    font-size: 13px;
+  }
+} 
 
 
+.mainEventCard-Display .eventCard-Img {
+  border-top: 7px solid black;
+  border-left: 7px solid black;
+  border-bottom: 7px solid black;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.mainEventsDisplay-Button{
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mainEventsDisplay-Button button {
+  font-size: 16px;
+  background-color: black; 
+  border: 2px solid gold; 
+  color: white; 
+  font-weight: bold; 
+  cursor: pointer;
+  height: 40px;
+  width: 80px;
+}
+
+.mainEventsDisplay-Button button:disabled {
+  opacity: 0.5; /* Reduce opacity when disabled */
+  cursor: not-allowed; /* Change cursor to not-allowed when disabled */
+}
 
 
 /******** Main Events Page CSS *********/
