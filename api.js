@@ -601,7 +601,7 @@ exports.setApp = function(app, client)
 
         console.log("Search results are: ", searchResults);
 
-        var typeResults;
+        var typeResults = [];
         if ( type )
         {
             try
