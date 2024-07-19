@@ -585,7 +585,8 @@ exports.setApp = function(app, client)
             return res.status(500).json({error: "Something went wrong creating search index"});
         }
         const start = new Date(date);
-        const end = new Date(start.getDate() + 1);
+        const end = new Date(date);
+        end.setDate(start.getDate() + 1);
         const searchTerms = {};
 
         if (type && date) 
