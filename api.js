@@ -555,10 +555,10 @@ exports.setApp = function(app, client)
     // filter incoming:
     // filter: ""
     // token:
-    app.post('/api/filterType', async (req, res, next) =>
+    app.post('/api/filterEvents', async (req, res, next) =>
     {
         // Get paramters for filter
-        const {filter, token} = req.body
+        const {type, search, token} = req.body
             
         // Check for expired token
         try 
@@ -573,52 +573,55 @@ exports.setApp = function(app, client)
             return res.status(401).json({error: "Something is wrong with your session"});
         }
 
-        // If no filter, make the filter an empty string
-        if ( filter == "")
-        {
-            try
-            {
-                typeFilter = "";
-            }
-            catch
-            {
-                return res.status(411).json({error: "New filter not set"});
-            }
-        }
-        else
-        {
-            try
-            {
-                typeFilter = filter;
-            }
-            catch
-            {
-                return res.status(411).json({error: "New filter not set"});
-            }
-        }
-        ret = typeFilter;
-    
         const db = client.db('KnightsAssembleDatabase');
-        /*
-        const filterResults = await db.collection('Events').find(filter).toArray();
-        
-        // If events fit filter criteria, return all events that match
-        if ( filterResults.length>0 )
+        try
         {
-            try 
+            await db.collection('Events').createIndex({Name: "text", Location : "text"});
+            console.log("Index created");
+        }
+        catch(error)
+        {
+            console.error("Error making index");
+            return res.status(500).json({error: "Something went wrong creating search index"});
+        }
+        
+        const searchTerms = {};
+
+        if (search) 
+        {
+            searchTerms.$or = [
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } }
+            ];
+        }
+
+        console.log("Search terms are: ", searchTerms);
+
+        const searchResults = await db.collection('Events').find(searchTerms).toArray();
+
+        console.log("Search results are: ", searchResults);
+
+        var typeResults = [];
+        if ( type )
+        {
+            try
             {
-                var ret = filterResults;
-            } 
-            catch (error) 
-            {
-                return res.status(500).json({error: "Could not get filter results"});
+                typeResults = await searchResults.find( (e) => e.Type.includes(type) ).toArray();
             }
+            catch (error)
+            {
+                return res.status(405).json({error: "Something went wrong filtering..."});
+            }
+        }
+
+        if ( typeResults.length > 0)
+        {
+            ret = typeResults;
         }
         else
         {
-            return res.status(404).json({error: "Filtered data does not exist!"});
+            ret = searchResults;
         }
-        */
         // Refresh token at end of CRUD events
         var newToken = null;
         try 
