@@ -3,20 +3,57 @@ import { jwtDecode } from "jwt-decode";
 const { retrieveToken, storeEventID } = require('../storage.js');
 
 const eventTypeImages = {
-    Sports: "https://i.imgur.com/SaiXbOK.png",
-    Food: "https://i.imgur.com/4SfvabH.png",
-    Clubs: "https://i.imgur.com/uWBwSuI.png",
-    Academic: "https://i.imgur.com/XW4b06x.png",
-    Entertainment: "https://i.imgur.com/ZsBFgO5.png",
-    Volunteer: "https://i.imgur.com/yQ3ApTx.png"
-}
+    Sports: [
+        "https://i.imgur.com/SaiXbOK.png",
+        "https://i.imgur.com/taD6UEv.jpeg",
+        "https://i.imgur.com/zaulALr.jpeg",
+        "https://i.imgur.com/TcxD6P6.jpeg",
+        "https://i.imgur.com/XJ7FXfT.jpeg"
+    ],
+    Food: [
+        "https://i.imgur.com/4SfvabH.png",
+        "https://i.imgur.com/2ROGwEa.jpeg",
+        "https://i.imgur.com/0TrhxQl.jpeg",
+        "https://i.imgur.com/5W9ShuG.jpeg",
+        "https://i.imgur.com/pwDmIJB.jpeg"
+    ],
+    Clubs: [
+        "https://i.imgur.com/uWBwSuI.png",
+        "https://i.imgur.com/qRyaZrO.jpeg",
+        "https://i.imgur.com/obSFPk1.jpeg",
+        "https://i.imgur.com/rTlbgRx.jpeg",
+        "https://i.imgur.com/cxzZtRZ.jpeg"
+    ],
+    Academic: [
+        "https://i.imgur.com/XW4b06x.png",
+        "https://i.imgur.com/mXBYiL6.jpeg",
+        "https://i.imgur.com/QSudyBb.jpeg",
+        "https://i.imgur.com/OOZ2pur.jpeg",
+        "https://i.imgur.com/Azzol6b.jpeg"
+    ],
+    Entertainment: [
+        "https://i.imgur.com/ZsBFgO5.png",
+        "https://i.imgur.com/E1PMqwU.jpeg",
+        "https://i.imgur.com/MNOUbQc.jpeg",
+        "https://i.imgur.com/QJzdpiD.jpeg",
+        "https://i.imgur.com/D67jKkj.jpeg"
+    ],
+    Volunteer: [
+        "https://i.imgur.com/yQ3ApTx.png",
+        "https://i.imgur.com/EnYTTpK.jpeg",
+        "https://i.imgur.com/gYtkyES.jpeg",
+        "https://i.imgur.com/PRpWnsT.jpeg",
+        "https://i.imgur.com/qmzdqRh.jpeg"
+    ]
+};
 
 
 function EventsUI() {   
     const [message, setMessage] = useState("");
-    const [eventType, setEventType] = useState("");
-    const [search, setSearch] = useState("");
     const [events, setEvents] = useState([]);
+    const [eventType, setEventType] = useState(""); // Added eventType state
+    const [eventDate, setEventDate] = useState(""); // Added eventDate state
+    const [searchFilter, setSearchFilter] = useState(""); // Added search state
 
     const eventsPerPage = 8;
     const [currentEventPage, setCurrentEventPage] = useState(1);
@@ -26,13 +63,15 @@ function EventsUI() {
 
     const initialFetchEvents = async () => {
         var obj = {
-            search: search,
-            token: token
+            search: searchFilter,
+            token: token,
+            type: eventType,
+            date: eventDate
         };
         let js = JSON.stringify(obj);
 
         try {
-            const response = await fetch(bp.buildPath('api/searchEvent'), {
+            const response = await fetch(bp.buildPath('api/filterEvents'), {
                 method: 'POST',
                 body: js,
                 headers: { 'Content-Type': 'application/json' }
@@ -51,11 +90,68 @@ function EventsUI() {
             alert(e.toString());
             return;
         }
+    };
+
+    const fetchFilteredEvents = async () => {
+        var obj = {
+            search: searchFilter,
+            token: token,
+            type: eventType,
+            date: eventDate
+        };
+        let js = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(bp.buildPath('api/filterEvents'), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            let res = JSON.parse(await response.text());
+
+            if ('error' in res) {
+                setMessage(res.error);
+                setEvents([]);
+            } else {
+                setEvents(res.ret);
+                setMessage('');
+            }
+        } catch (e) {
+            alert(e.toString());
+            return;
+        }
+    };
+
+    const handleEventTypeChange = (e) => {
+        setEventType(e.target.value);
+    };
+
+    const handleEventDateChange = (e) => {
+        setEventDate(e.target.value);
+    };
+
+    const handleSearchFilterChange = (e) => {
+        setSearchFilter(e.target.value);
+    };
+
+    const clearFilters = () => {
+        setEventDate("");
+        setEventType("");
+        setSearchFilter("");
     }
 
     useEffect(() => {
         initialFetchEvents();
     }, []);
+
+    useEffect(() => {
+        fetchFilteredEvents();
+    }, [eventType, eventDate, searchFilter]);
+
+    function getRandomImage(images) {
+        return images[Math.floor(Math.random() * images.length)];
+    }
 
     /************* Main Events Top ***************/
     const indexOfLastEvent = currentEventPage * eventsPerPage;
@@ -64,7 +160,6 @@ function EventsUI() {
     const currentEventsTop = events.slice(indexOfFirstEvent, indexOfFirstEvent + 4);
     const currentEventsBottom = events.slice(indexOfFirstEvent + 4, indexOfLastEvent);
 
-    
     const nextEventPage = () => {
         if (currentEventPage < Math.ceil(events.length / eventsPerPage)) {
             setCurrentEventPage(currentEventPage + 1);
@@ -76,7 +171,6 @@ function EventsUI() {
             setCurrentEventPage(currentEventPage - 1);
         }
     };
-
 
     function convertUTCtoEST(utcDateString) {
         const date = new Date(utcDateString);
@@ -98,14 +192,12 @@ function EventsUI() {
         const estTime = new Date(date.getTime() + utcOffset + adjustedEstOffset);
         return estTime.toLocaleString('en-US', { timeZone: 'America/New_York' });
     }
-    
 
-    return(
+    return (
         <div className="mainEventsPage-container">
             <div className="row g-0 eventSearchRow">
-                
                 <label htmlFor="event-type" className="visually-hidden">Event Type</label>
-                <select id="event-type" value={eventType} onChange={(e) => setEventType(e.target.value)}>
+                <select id="event-type" value={eventType} onChange={handleEventTypeChange}>
                     <option value="" disabled selected>Event Type</option>
                     <option value="Sports">Sports</option>
                     <option value="Food">Food</option>
@@ -116,20 +208,18 @@ function EventsUI() {
                 </select>
 
                 <label htmlFor="event-date" className="visually-hidden">Event Date</label>
-                <input id="event-date" type="date" className="dateSearch" />
+                <input id="event-date" type="date" className="dateSearch" value={eventDate} onChange={handleEventDateChange} />
 
-                <input type="text" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                <input type="text" placeholder="Search" value={searchFilter} onChange={handleSearchFilterChange} />
 
-                <button>Search</button>
+                <button onClick={clearFilters}>Clear</button>
             </div>
 
             <div className="row g-0 mainEventsDisplay">
-
-                <div className = "row g-0 mainEventsDisplay-Top">
-                    
+                <div className="row g-0 mainEventsDisplay-Top">
                     {currentEventsTop.map(event => (
                         <button key={event._id} className="col-2-5 mainEventCard-Display">
-                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventTypeImages[event.Type]})` }}>
+                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${getRandomImage(eventTypeImages[event.Type])})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
@@ -139,13 +229,12 @@ function EventsUI() {
                             </div>
                         </button>
                     ))}
-
                 </div>
 
-                <div className = "row g-0 mainEventsDisplay-Bottom">
+                <div className="row g-0 mainEventsDisplay-Bottom">
                     {currentEventsBottom.map(event => (
                         <button key={event._id} className="col-2-5 mainEventCard-Display">
-                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventTypeImages[event.Type]})` }}>
+                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${getRandomImage(eventTypeImages[event.Type])})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
@@ -156,12 +245,11 @@ function EventsUI() {
                         </button>
                     ))}
                 </div>
-
             </div>
 
             <div className="row g-0 mainEventsDisplay-Button">
-                <button onClick={prevEventPage} disabled={currentEventPage===1}>Prev</button>
-                <button onClick={nextEventPage} disabled={events.length===0 || currentEventPage === Math.ceil(events.length / eventsPerPage)}>Next</button>
+                <button onClick={prevEventPage} disabled={currentEventPage === 1}>Prev</button>
+                <button onClick={nextEventPage} disabled={events.length === 0 || currentEventPage === Math.ceil(events.length / eventsPerPage)}>Next</button>
             </div>
         </div>
     );

@@ -4,13 +4,49 @@ import ConfirmationPopup from './ConfirmationPopup';
 const { retrieveToken, storeEventID } = require('../storage.js');
 
 const eventTypeImages = {
-    Sports: "https://i.imgur.com/SaiXbOK.png",
-    Food: "https://i.imgur.com/4SfvabH.png",
-    Clubs: "https://i.imgur.com/uWBwSuI.png",
-    Academic: "https://i.imgur.com/XW4b06x.png",
-    Entertainment: "https://i.imgur.com/ZsBFgO5.png",
-    Volunteer: "https://i.imgur.com/yQ3ApTx.png"
-}
+    Sports: [
+        "https://i.imgur.com/SaiXbOK.png",
+        "https://i.imgur.com/taD6UEv.jpeg",
+        "https://i.imgur.com/zaulALr.jpeg",
+        "https://i.imgur.com/TcxD6P6.jpeg",
+        "https://i.imgur.com/XJ7FXfT.jpeg"
+    ],
+    Food: [
+        "https://i.imgur.com/4SfvabH.png",
+        "https://i.imgur.com/2ROGwEa.jpeg",
+        "https://i.imgur.com/0TrhxQl.jpeg",
+        "https://i.imgur.com/5W9ShuG.jpeg",
+        "https://i.imgur.com/pwDmIJB.jpeg"
+    ],
+    Clubs: [
+        "https://i.imgur.com/uWBwSuI.png",
+        "https://i.imgur.com/qRyaZrO.jpeg",
+        "https://i.imgur.com/obSFPk1.jpeg",
+        "https://i.imgur.com/rTlbgRx.jpeg",
+        "https://i.imgur.com/cxzZtRZ.jpeg"
+    ],
+    Academic: [
+        "https://i.imgur.com/XW4b06x.png",
+        "https://i.imgur.com/mXBYiL6.jpeg",
+        "https://i.imgur.com/QSudyBb.jpeg",
+        "https://i.imgur.com/OOZ2pur.jpeg",
+        "https://i.imgur.com/Azzol6b.jpeg"
+    ],
+    Entertainment: [
+        "https://i.imgur.com/ZsBFgO5.png",
+        "https://i.imgur.com/E1PMqwU.jpeg",
+        "https://i.imgur.com/MNOUbQc.jpeg",
+        "https://i.imgur.com/QJzdpiD.jpeg",
+        "https://i.imgur.com/D67jKkj.jpeg"
+    ],
+    Volunteer: [
+        "https://i.imgur.com/yQ3ApTx.png",
+        "https://i.imgur.com/EnYTTpK.jpeg",
+        "https://i.imgur.com/gYtkyES.jpeg",
+        "https://i.imgur.com/PRpWnsT.jpeg",
+        "https://i.imgur.com/qmzdqRh.jpeg"
+    ]
+};
 
 function MyEvents() {
     const [message, setMessage] = useState('');
@@ -117,7 +153,10 @@ function MyEvents() {
     }
     
     
-    
+    function getRandomImage(images) {
+        return images[Math.floor(Math.random() * images.length)];
+    }
+
 
     /************* Hosted Events Page ***************/
     const indexOfLastHostedEvent = currentHostedEventPage * eventsPerPage;
@@ -184,7 +223,7 @@ function MyEvents() {
             <div className="row g-0 hostingEvents-row">
                
                 <div className="row g-0 MyEvents-Header">
-                    <h2>Events You're Hosting</h2>
+                    <h3>Events You're Hosting</h3>
                     <div className="row g-0 overlay-buttons">
                         <div className="pagination-buttons">
                             <button onClick={prevHostedEventPage} disabled={currentHostedEventPage === 1}>Prev</button>
@@ -196,7 +235,7 @@ function MyEvents() {
                 <div className="row g-0 displayMyEvents-row">
                     {currentHostedEvents.map(event => (
                         <div key={event._id} className="col-3-5 eventCard-Display">
-                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventTypeImages[event.Type]})` }}>
+                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${getRandomImage(eventTypeImages[event.Type])})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
@@ -216,7 +255,7 @@ function MyEvents() {
 
             <div className="row g-0 attendingEvents-row">
                 <div className="row g-0 MyEvents-Header">
-                    <h2>Events You're Attending</h2>
+                    <h3>Events You're Attending</h3>
                     <div className="row g-0 overlay-buttons">
                         <div className="pagination-buttons">
                             <button onClick={prevAttendedEventPage} disabled={currentAttendedEventPage === 1}>Prev</button>
@@ -227,7 +266,7 @@ function MyEvents() {
                 <div className="row g-0 displayMyEvents-row">
                     {currentAttendedEvents.map(event => (
                         <div key={event._id} className="col-3-5 eventCard-Display">
-                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventTypeImages[event.Type]})` }}>
+                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${getRandomImage(eventTypeImages[event.Type])})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>

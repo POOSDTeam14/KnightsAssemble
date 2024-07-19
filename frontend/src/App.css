@@ -617,6 +617,7 @@
   z-index: 0; /* Ensure header content is behind overlay-buttons */
 }
 
+
 .displayMyEvents-row {
   height: 80%;
   width: 100%;
@@ -849,6 +850,12 @@
   flex-direction: row;
   margin-left: 2.25%;
   border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mainEventCard-Display:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .col-2-5 {
@@ -937,14 +944,15 @@
   color: white; 
   font-weight: bold; 
   cursor: pointer;
-  height: 40px;
-  width: 80px;
+  height: 50px;
+  width: 100px;
 }
 
 .mainEventsDisplay-Button button:disabled {
   opacity: 0.5; /* Reduce opacity when disabled */
   cursor: not-allowed; /* Change cursor to not-allowed when disabled */
 }
+
 
 
 /******** Main Events Page CSS *********/
