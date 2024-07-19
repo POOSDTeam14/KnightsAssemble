@@ -601,12 +601,12 @@ exports.setApp = function(app, client)
 
         console.log("Search results are: ", searchResults);
 
-        var typeResults = [];
+        var typeResults;
         if ( type )
         {
             try
             {
-                typeResults = await searchResults.find( (e) => e.Type.includes(type) ).toArray();
+                typeResults = await searchResults.find( (user) => user.Type === type ).toArray();
             }
             catch (error)
             {
