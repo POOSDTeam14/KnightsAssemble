@@ -635,7 +635,8 @@ exports.setApp = function(app, client)
 
         console.log("Search results are: ", searchResults);
         
-        ret = searchResults;
+        //ret = searchResults;
+        ret = start;
         // Refresh token at end of CRUD events
         var newToken = null;
         try 
