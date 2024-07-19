@@ -2,9 +2,6 @@ require('express');
 const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
 const {createVerifyCode} = require('./createVerificationCode');
-var datePreset = new Date(2020, 1, 1, 0, 0, 0);
-var dateFilter = new Date(2020, 1, 1, 0, 0, 0);
-var typeFilter = "";
 
 exports.setApp = function(app, client)
 {
@@ -531,27 +528,14 @@ exports.setApp = function(app, client)
         console.log("Search results are: ", searchResults);
         
         // If matching event is found returns all documents with matching keywords
-        if (searchResults.length <= 0)
+        if (searchResults.length > 0)
+        {
+            ret = searchResults;
+        }
+        else
         {
             return res.status(404).json({error: "No matches!"});
         }
-
-        var finalResults = [];
-        searchResults.forEach( user => {
-            if ( 1===1 /*user.Type===typeFilter && !(typeFilter==="")*/ )
-            {
-                try
-                {
-                    finalResults.push(searchResults[i]);
-                }
-                catch (error)
-                {
-                    return res.status(500).json({error: "Something went wrong with getting the search results"});
-                }
-            }
-        });
-
-        ret = finalResults;
             
         // Refresh token at end of CRUD events
         var newToken = null;
@@ -613,95 +597,6 @@ exports.setApp = function(app, client)
             }
         }
         ret = typeFilter;
-    
-        const db = client.db('KnightsAssembleDatabase');
-        /*
-        const filterResults = await db.collection('Events').find(filter).toArray();
-        
-        // If events fit filter criteria, return all events that match
-        if ( filterResults.length>0 )
-        {
-            try 
-            {
-                var ret = filterResults;
-            } 
-            catch (error) 
-            {
-                return res.status(500).json({error: "Could not get filter results"});
-            }
-        }
-        else
-        {
-            return res.status(404).json({error: "Filtered data does not exist!"});
-        }
-        */
-        // Refresh token at end of CRUD events
-        var newToken = null;
-        try 
-        {
-            newToken = refreshToken(token);
-        } 
-        catch (error) 
-        {
-            console.log(error);
-        }
-            
-        // Respond with search result documents and token
-        res.status(200).json({ret, token: newToken});
-    });
-
-    // filter incoming:
-    // filter: Date
-    // token:
-    app.post('/api/filterDate', async (req, res, next) =>
-    {
-        // Get paramters for filter
-        const {filter, token} = req.body
-            
-        // Check for expired token
-        try 
-        {
-            if (isTokenExpired(token))
-            {
-                 return res.status(401).json({error: "Your session is no longer valid"});
-            }
-        } 
-        catch (error) 
-        {
-            return res.status(401).json({error: "Something is wrong with your session"});
-        }
-
-        if ( !(Object.prototype.toString.call(date) === '[object Date]') )
-        {
-            return res.status(402).json({error: "Filter object not date!"});
-        }
-        
-        var curDate = new Date();
-        
-        // If no filter, make the filter an empty string
-        if ( !(curDate<dateFilter) && !(curDate>dateFilter))
-        {
-            try
-            {
-                dateFilter = new Date(2020, 1, 1);
-            }
-            catch
-            {
-                return res.status(411).json({error: "New filter not set"});
-            }
-        }
-        else
-        {
-            try
-            {
-                dateFilter = filter;
-            }
-            catch
-            {
-                return res.status(411).json({error: "New filter not set"});
-            }
-        }
-        ret = dateFilter;
     
         const db = client.db('KnightsAssembleDatabase');
         /*
