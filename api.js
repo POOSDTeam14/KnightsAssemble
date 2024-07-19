@@ -558,7 +558,7 @@ exports.setApp = function(app, client)
     app.post('/api/filterEvents', async (req, res, next) =>
     {
         // Get paramters for filter
-        const {type, search, token} = req.body
+        const {type, date, search, token} = req.body
             
         // Check for expired token
         try 
@@ -584,10 +584,23 @@ exports.setApp = function(app, client)
             console.error("Error making index");
             return res.status(500).json({error: "Something went wrong creating search index"});
         }
-        
+        const start = new Date(date);
+        const end = start.getDate() + 1;
         const searchTerms = {};
 
-        if (type) 
+        if (type && date) 
+        {
+            searchTerms.$and = [
+                { Type: {$regex: type, $options: 'i' } },
+                { Time: { $gte: start } },
+                { Time: { $lte: end } }
+            ];
+            searchTerms.$or = [
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } }
+            ];
+        }
+        else if (type && !date)
         {
             searchTerms.$and = [
                 { Type: {$regex: type, $options: 'i' } }
@@ -596,7 +609,17 @@ exports.setApp = function(app, client)
                 { Name: { $regex: search, $options: 'i' } },
                 { Location: { $regex: search, $options: 'i' } }
             ];
-
+        }
+        else if (date && !type)
+        {
+            searchTerms.$and = [
+                { Time: { $gte: start } },
+                { Time: { $lte: end } }
+            ];
+            searchTerms.$or = [
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } }
+            ];
         }
         else if (search)
         {
@@ -611,29 +634,7 @@ exports.setApp = function(app, client)
         const searchResults = await db.collection('Events').find(searchTerms).toArray();
 
         console.log("Search results are: ", searchResults);
-        /*
-        var typeResults = [];
-        if ( type )
-        {
-            try
-            {
-                typeResults = await searchResults.find( (user) => user.Type === type ).toArray();
-            }
-            catch (error)
-            {
-                return res.status(405).json({error: "Something went wrong filtering..."});
-            }
-        }
-
-        if ( typeResults.length > 0)
-        {
-            ret = typeResults;
-        }
-        else
-        {
-            ret = searchResults;
-        }
-        */
+        
         ret = searchResults;
         // Refresh token at end of CRUD events
         var newToken = null;
