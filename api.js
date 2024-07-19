@@ -774,7 +774,7 @@ exports.setApp = function(app, client)
         var userObjectId = new ObjectId(userid);
         const searchTerms = {};
         searchTerms.$and = [
-            { Attendees: { $regex: userObjectId, $options: 'i' } },
+            { Attendees: userObjectId },
             { Time: { $gte: curDate } }
         ];
         var eventResults = await db.collection('Events').find(searchTerms).toArray();
