@@ -584,6 +584,8 @@ exports.setApp = function(app, client)
             console.error("Error making index");
             return res.status(500).json({error: "Something went wrong creating search index"});
         }
+
+        const curDate = new Date();
         const start = new Date(date);
         const end = new Date(date);
         end.setDate(start.getDate() + 1);
@@ -604,7 +606,8 @@ exports.setApp = function(app, client)
         else if (type && !date)
         {
             searchTerms.$and = [
-                { Type: {$regex: type, $options: 'i' } }
+                { Type: {$regex: type, $options: 'i' } },
+                { Time: { $gte: curDate } }
             ];
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
@@ -624,6 +627,9 @@ exports.setApp = function(app, client)
         }
         else if (search)
         {
+            searchTerms.$and = [
+                { Time: { $gte: curDate } }
+            ];
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
                 { Location: { $regex: search, $options: 'i' } }
