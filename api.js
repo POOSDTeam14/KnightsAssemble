@@ -590,10 +590,13 @@ exports.setApp = function(app, client)
         if (type) 
         {
             searchTerms.$and = [
-                { Name: { $regex: search, $options: 'i' } },
-                { Location: { $regex: search, $options: 'i' } },
                 { Type: {$regex: type, $options: 'i' } }
             ];
+            searchTerms.$or = [
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } }
+            ];
+
         }
         else if (search)
         {
