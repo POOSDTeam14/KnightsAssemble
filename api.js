@@ -602,7 +602,7 @@ exports.setApp = function(app, client)
                 { Location: { $regex: search, $options: 'i' } }
             ];
         }
-        else if (!search && !type)
+        else if (!search && type)
         {
             searchTerms.$or = [
                 { Type: {$regex: type, $options: 'i' } }
