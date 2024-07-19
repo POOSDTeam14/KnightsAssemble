@@ -243,6 +243,7 @@ exports.setApp = function(app, client)
         }
 
         var userObjectId = new ObjectId(userid);
+        
         const db = client.db('KnightsAssembleDatabase');
         var eventResults = await db.collection('Events').find( { HostID: userObjectId } ).toArray();
         
@@ -769,8 +770,14 @@ exports.setApp = function(app, client)
         }
         
         const db = client.db('KnightsAssembleDatabase');
+        const curDate = new Date();
         var userObjectId = new ObjectId(userid);
-        var eventResults = await db.collection('Events').find( { Attendees: userObjectId } ).toArray();
+        const searchTerms = {};
+        searchTerms.$and = [
+            { Attendees: { $regex: userObjectId, $options: 'i' } },
+            { Time: { $gte: curDate } }
+        ];
+        var eventResults = await db.collection('Events').find(searchTerms).toArray();
         
         // Look for user in all events, return to array if found
         if ( eventResults.length>0 )
