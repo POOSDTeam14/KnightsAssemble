@@ -587,25 +587,17 @@ exports.setApp = function(app, client)
         
         const searchTerms = {};
 
-        if (search && type) 
+        if (type) 
         {
             searchTerms.$or = [
-                { Name: { $regex: search, $options: 'i' } },
-                { Location: { $regex: search, $options: 'i' } },
                 { Type: {$regex: type, $options: 'i' } }
             ];
         }
-        else if (search && !type)
+        else if (search)
         {
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
                 { Location: { $regex: search, $options: 'i' } }
-            ];
-        }
-        else if (!search && type)
-        {
-            searchTerms.$or = [
-                { Type: {$regex: type, $options: 'i' } }
             ];
         }
 
