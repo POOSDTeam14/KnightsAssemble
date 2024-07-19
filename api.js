@@ -594,7 +594,7 @@ exports.setApp = function(app, client)
             searchTerms.$and = [
                 { Type: {$regex: type, $options: 'i' } },
                 { Time: { $gte: start } },
-                { Time: { $lte: end } }
+                { Time: { $lt: end } }
             ];
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
@@ -615,7 +615,7 @@ exports.setApp = function(app, client)
         {
             searchTerms.$and = [
                 { Time: { $gte: start } },
-                { Time: { $lte: end } }
+                { Time: { $lt: end } }
             ];
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
