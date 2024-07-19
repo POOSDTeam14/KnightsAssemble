@@ -587,7 +587,15 @@ exports.setApp = function(app, client)
         
         const searchTerms = {};
 
-        if (search) 
+        if (search && type) 
+        {
+            searchTerms.$or = [
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } },
+                { Type: {$regex: type, $options: 'i' } }
+            ];
+        }
+        else if (search && !type)
         {
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
@@ -600,7 +608,7 @@ exports.setApp = function(app, client)
         const searchResults = await db.collection('Events').find(searchTerms).toArray();
 
         console.log("Search results are: ", searchResults);
-
+        /*
         var typeResults = [];
         if ( type )
         {
@@ -622,6 +630,8 @@ exports.setApp = function(app, client)
         {
             ret = searchResults;
         }
+        */
+        ret = searchResults;
         // Refresh token at end of CRUD events
         var newToken = null;
         try 
