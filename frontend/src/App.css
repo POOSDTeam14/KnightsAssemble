@@ -894,21 +894,7 @@
   }
 } 
 
-@media (max-width: 1366px) {
-  .mainEventCard-Display .eventCard-Info p {
-    font-size: 14px; 
-  }
-  .mainEventCard-Display .eventCard-Info h5{
-    font-size: 15px;
-  }
-
-  .mainEventsDisplay-Button button {
-    padding: 2px 4px; 
-    font-size: 14px; 
-  }
-} 
-
-@media (max-width: 1030px) {
+@media (max-width: 1050px) {
   .mainEventCard-Display .eventCard-Info p {
     font-size: 12px; 
   }
