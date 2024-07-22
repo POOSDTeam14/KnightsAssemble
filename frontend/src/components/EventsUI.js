@@ -47,10 +47,10 @@ const eventTypeImages = {
     ]
 };
 
-
 function EventsUI() {   
     const [message, setMessage] = useState("");
     const [events, setEvents] = useState([]);
+    const [eventImages, setEventImages] = useState({});
     const [eventType, setEventType] = useState(""); // Added eventType state
     const [eventDate, setEventDate] = useState(""); // Added eventDate state
     const [searchFilter, setSearchFilter] = useState(""); // Added search state
@@ -85,6 +85,7 @@ function EventsUI() {
             } else {
                 setEvents(res.ret);
                 setMessage('');
+                initializeEventImages(res.ret);
             }
         } catch (e) {
             alert(e.toString());
@@ -116,6 +117,7 @@ function EventsUI() {
             } else {
                 setEvents(res.ret);
                 setMessage('');
+                initializeEventImages(res.ret);
             }
         } catch (e) {
             alert(e.toString());
@@ -139,7 +141,7 @@ function EventsUI() {
         setEventDate("");
         setEventType("");
         setSearchFilter("");
-    }
+    };
 
     useEffect(() => {
         initialFetchEvents();
@@ -151,6 +153,16 @@ function EventsUI() {
 
     function getRandomImage(images) {
         return images[Math.floor(Math.random() * images.length)];
+    }
+
+    function initializeEventImages(events) {
+        const newEventImages = {};
+        events.forEach(event => {
+            if (!eventImages[event._id]) {
+                newEventImages[event._id] = getRandomImage(eventTypeImages[event.Type]);
+            }
+        });
+        setEventImages(prevImages => ({ ...prevImages, ...newEventImages }));
     }
 
     /************* Main Events Top ***************/
@@ -192,7 +204,8 @@ function EventsUI() {
         const estTime = new Date(date.getTime() + utcOffset + adjustedEstOffset);
         return estTime.toLocaleString('en-US', { timeZone: 'America/New_York' });
     }
-
+    
+    
     return (
         <div className="mainEventsPage-container">
             <div className="row g-0 eventSearchRow">
@@ -219,7 +232,7 @@ function EventsUI() {
                 <div className="row g-0 mainEventsDisplay-Top">
                     {currentEventsTop.map(event => (
                         <button key={event._id} className="col-2-5 mainEventCard-Display">
-                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${getRandomImage(eventTypeImages[event.Type])})` }}>
+                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventImages[event._id]})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
@@ -234,7 +247,7 @@ function EventsUI() {
                 <div className="row g-0 mainEventsDisplay-Bottom">
                     {currentEventsBottom.map(event => (
                         <button key={event._id} className="col-2-5 mainEventCard-Display">
-                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${getRandomImage(eventTypeImages[event.Type])})` }}>
+                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventImages[event._id]})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>

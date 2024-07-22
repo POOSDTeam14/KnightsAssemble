@@ -138,7 +138,7 @@
   margin-top: 3%;
   cursor: pointer; 
   width: 75%;
-  height: 5%;
+  height: 40px;
 }
 
 #loginButton:hover {
@@ -254,9 +254,9 @@
 }
 
 .right-signUp .signUp-registerButton  {
-  height: 15%;
+  height: 40px;
   width: 100%;
-  margin-top: 15%;
+  margin-top: 10%;
 }
 
 #registerButton {
@@ -276,10 +276,16 @@
   color: gold; 
 }
 
-@media (max-height: 695px) {
+@media (max-width: 1366px) {
   .right-signUp .signUp-registerButton  {
     margin-top: 2%;
+    height: 30px;
   }
+  .right-signUp h1{
+    font-size: 26px;
+  }
+  
+  
 }
 /*********  Register CSS ***************/
 
@@ -536,7 +542,7 @@
 }
 
 .createEvent-Col1 input, .createEvent-Col1 select, .createEvent-Col2 select, .createEvent-Col2 input{
-  height: 40%;
+  height: 50px;
   margin-bottom: 3%;
   width: 50%;
   padding: 5px;
@@ -575,7 +581,7 @@
   margin-top: 0px;
   cursor: pointer; 
   width: 75%;
-  height: 50%;
+  height: 40px;
 }
 
 .visually-hidden {
@@ -587,6 +593,24 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+@media (max-width: 1366px){
+  .createEvent-Col1 input, .createEvent-Col1 select, .createEvent-Col2 select, .createEvent-Col2 input{
+    height: 35px;
+  }
+
+  #createEvent-Button{
+    height: 30px;
+    margin-left: 10px;
+  }
+
+}
+
+@media (max-width: 1140px){
+  .createEvent-BottomRow p{
+    font-size: 16px;
+  }
 }
 
 /*********  CreateEvent CSS ***************/
@@ -885,7 +909,7 @@
     font-size: 14px; 
   }
   .mainEventCard-Display .eventCard-Info h5{
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .mainEventsDisplay-Button button {
@@ -896,10 +920,10 @@
 
 @media (max-width: 1050px) {
   .mainEventCard-Display .eventCard-Info p {
-    font-size: 12px; 
+    font-size: 13px; 
   }
   .mainEventCard-Display .eventCard-Info h5{
-    font-size: 13px;
+    font-size: 14px;
   }
 } 
 

@@ -95,7 +95,7 @@ function UpdateEvent() {
           setMessage(res.error);
         } else {
           setMessage('');
-          window.location.href = '/events';
+          window.location.href = '/myevents';
         }
       } catch (e) {
         alert(e.toString());

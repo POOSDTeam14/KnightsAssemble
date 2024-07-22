@@ -54,11 +54,11 @@ function MyEvents() {
     const [attendedEvents, setAttendedEvents] = useState([]);
     const [currentHostedEventPage, setCurrentHostedEventPage] = useState(1);
     const [currentAttendedEventPage, setCurrentAttendedEventPage] = useState(1);
+    const [eventImages, setEventImages] = useState({});
     const eventsPerPage = 3;
 
     const [showDeleteEventPopup, setShowDeleteEventPopup] = useState(false);
     const [showLeaveEventPopup, setShowLeaveEventPopup] = useState(false);
-
 
     let bp = require('./Path.js');
 
@@ -87,6 +87,7 @@ function MyEvents() {
             } else {
                 setHostedEvents(res.ret);
                 setMessage('');
+                initializeEventImages(res.ret, 'hosted');
             }
         } catch (e) {
             alert(e.toString());
@@ -119,6 +120,7 @@ function MyEvents() {
             } else {
                 setAttendedEvents(res.ret);
                 setMessage('');
+                initializeEventImages(res.ret, 'attended');
             }
         } catch (e) {
             alert(e.toString());
@@ -157,6 +159,15 @@ function MyEvents() {
         return images[Math.floor(Math.random() * images.length)];
     }
 
+    function initializeEventImages(events, type) {
+        const newEventImages = {};
+        events.forEach(event => {
+            if (!eventImages[event._id]) {
+                newEventImages[event._id] = getRandomImage(eventTypeImages[event.Type]);
+            }
+        });
+        setEventImages(prevImages => ({ ...prevImages, ...newEventImages }));
+    }
 
     /************* Hosted Events Page ***************/
     const indexOfLastHostedEvent = currentHostedEventPage * eventsPerPage;
@@ -193,22 +204,21 @@ function MyEvents() {
     };
 
     const leaveEventClicked = async event => {
-      storeEventID(event._id);
-      setShowLeaveEventPopup(true);
+        storeEventID(event._id);
+        setShowLeaveEventPopup(true);
     };
     
-    const updateEventClicked = async event => 
-    {
+    const updateEventClicked = async event => {
         storeEventID(event._id);
         window.location.href = '/updateevent';
     };
 
-    const deleteEventClicked  = async event => {
+    const deleteEventClicked = async event => {
         storeEventID(event._id);
         setShowDeleteEventPopup(true); // Show the delete event popup
     };
 
-    const closeConfirmationPopup  = () => {
+    const closeConfirmationPopup = () => {
         setShowDeleteEventPopup(false); // Close the delete event popup
         setShowLeaveEventPopup(false);
     };
@@ -221,7 +231,6 @@ function MyEvents() {
     return (
         <div className="myEvents-container">
             <div className="row g-0 hostingEvents-row">
-               
                 <div className="row g-0 MyEvents-Header">
                     <h3>Events You're Hosting</h3>
                     <div className="row g-0 overlay-buttons">
@@ -235,7 +244,7 @@ function MyEvents() {
                 <div className="row g-0 displayMyEvents-row">
                     {currentHostedEvents.map(event => (
                         <div key={event._id} className="col-3-5 eventCard-Display">
-                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${getRandomImage(eventTypeImages[event.Type])})` }}>
+                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventImages[event._id]})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
@@ -266,7 +275,7 @@ function MyEvents() {
                 <div className="row g-0 displayMyEvents-row">
                     {currentAttendedEvents.map(event => (
                         <div key={event._id} className="col-3-5 eventCard-Display">
-                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${getRandomImage(eventTypeImages[event.Type])})` }}>
+                            <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventImages[event._id]})` }}>
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
