@@ -1193,7 +1193,7 @@ exports.setApp = function(app, client)
                 switch ( true )
                 {
                     case location.includes('CB1'):
-                        ret = {lat: -55.345, long: 34.978};
+                        ret = {lat: -28.60393, long: -81.20044};
                         break;
                     default:
                         return res.status(404).json({error: "Could not find location on map"});
