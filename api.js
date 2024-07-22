@@ -1160,5 +1160,65 @@ exports.setApp = function(app, client)
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
+
+    // markLocation incoming:
+    // lat: double
+    // long: double
+    // title: ""
+    // token:
+    app.post('/api/markLocation', async (req, res, next) =>
+    {
+        // Get eventid to add attendees to it
+        const {location, token} = req.body
+
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
     
+        const db = client.db('KnightsAssembleDatabase');
+
+        if ( location )
+        {
+            try
+            {
+                switch ( location )
+                {
+                    case 'CB1':
+                        ret = {-55.345, 34.978};
+                        break;
+                }
+            }
+            catch (error)
+            {
+                return res.status(401).json({error: "Something went wrong trying to find location on map"});
+            }
+        }
+        else
+        {
+            return res.status(404).json({error: "Location invalid"});
+        }
+        
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+        
+        // Respond with event and token
+        res.status(200).json({ret, token: newToken});
+    });
 }
