@@ -1195,6 +1195,78 @@ exports.setApp = function(app, client)
                     case location.includes('CB1'):
                         ret = {lat: 28.60393, long: -81.20044};
                         break;
+                    case location.includes('CB2'):
+                        ret = {lat: 28.60439, long: -81.20033};
+                        break;
+                    case location.includes('ENG1'):
+                        ret = {lat: 28.60158, long: -81.19828};
+                        break;
+                    case location.includes('ENG2'):
+                        ret = {lat: 28.60200, long: -81.19874};
+                        break;
+                    case location.includes('HS1'):
+                        ret = {lat: 28.60306, long: -81.19865};
+                        break;
+                    case location.includes('HS2'):
+                        ret = {lat: 28.60324, long: -81.19816};
+                        break;
+                    case location.includes('BA1'):
+                        ret = {lat: 28.60123, long: -81.19909};
+                        break;
+                    case location.includes('BA2'):
+                        ret = {lat: 28.60090, long: -81.19872};
+                        break;
+                    case location.includes('TCH'):
+                        ret = {lat: 28.60206, long: -81.20323};
+                        break;
+                    case location.includes('PSY'):
+                        ret = {lat: 28.60497, long: -81.19936};
+                        break;
+                    case location.includes('HEC'):
+                        ret = {lat: 28.60062, long: -81.19773};
+                        break;
+                    case location.includes('ARB'):
+                        ret = {lat: 28.60069, long: -81.19681};
+                        break;
+                    case location.includes('PSB'):
+                        ret = {lat: 28.59992, long: -81.19865};
+                        break;
+                    case location.includes('BIO'):
+                        ret = {lat: 28.60017, long: -81.19865};
+                        break;
+                    case location.includes('CHEM'):
+                        ret = {lat: 28.59998, long: -81.19970};
+                        break;
+                    case location.includes('MSB'):
+                        ret = {lat: 28.59949, long: -81.20050};
+                        break;
+                    case location.includes('LIB'):
+                        ret = {lat: 28.60048, long: -81.20142};
+                        break;
+                    case location.includes('TA'):
+                        ret = {lat: 28.59929, long: -81.20396};
+                        break;
+                    case location.includes('BHC'):
+                        ret = {lat: 28.60231, long: -81.20181};
+                        break;
+                    case location.includes('VAB'):
+                        ret = {lat: 28.60283, long: -81.20302};
+                        break;
+                    case location.includes('PAC'):
+                        ret = {lat: 28.60256, long: -81.20454};
+                        break;
+                    case location.includes('CAH'):
+                        ret = {lat: 28.60442, long: -81.20256};
+                        break;
+                    case location.includes('NSC'):
+                        ret = {lat: 28.60395, long: -81.20293};
+                        break;
+                    case location.includes('CSB'):
+                        ret = {lat: 28.60106, long: -81.20006};
+                        break;
+                    case location.includes('STUN'):
+                        ret = {lat: 28.60189, long: -81.20048};
+                        break;
                     default:
                         return res.status(404).json({error: "Could not find location on map"});
                         break;
