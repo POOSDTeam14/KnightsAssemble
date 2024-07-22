@@ -1190,9 +1190,9 @@ exports.setApp = function(app, client)
         {
             try
             {
-                switch ( location.substring(0, 3) )
+                switch ( location )
                 {
-                    case 'CB1':
+                    case location.includes('CB1'):
                         ret = {lat: -55.345, long: 34.978};
                         break;
                     default:
