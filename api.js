@@ -1190,7 +1190,7 @@ exports.setApp = function(app, client)
         {
             try
             {
-                switch ( location )
+                switch ( location.substring(0, 3) )
                 {
                     case 'CB1':
                         ret = {lat: -55.345, long: 34.978};
