@@ -1160,7 +1160,7 @@ exports.setApp = function(app, client)
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
-/*
+
     // markLocation incoming:
     // lat: double
     // long: double
@@ -1193,13 +1193,16 @@ exports.setApp = function(app, client)
                 switch ( location )
                 {
                     case 'CB1':
-                        ret = {-55.345, 34.978};
+                        ret = {lat: -55.345, long: 34.978};
+                        break;
+                    default:
+                        return res.status(404).json({error: "Could not find location on map"});
                         break;
                 }
             }
             catch (error)
             {
-                return res.status(401).json({error: "Something went wrong trying to find location on map"});
+                return res.status(405).json({error: "Something went wrong trying to find location on map"});
             }
         }
         else
@@ -1221,5 +1224,5 @@ exports.setApp = function(app, client)
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
-    */
+    
 }
