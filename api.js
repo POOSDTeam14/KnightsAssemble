@@ -1160,7 +1160,7 @@ exports.setApp = function(app, client)
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
-
+/*
     // markLocation incoming:
     // lat: double
     // long: double
@@ -1221,4 +1221,5 @@ exports.setApp = function(app, client)
         // Respond with event and token
         res.status(200).json({ret, token: newToken});
     });
+    */
 }
