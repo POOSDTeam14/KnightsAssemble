@@ -59,13 +59,13 @@ return (
         <div class="content">
             <div class="row">
                 <div class="col-md-8">
-                    <h1 value={eventName} onChange={(e) => setEventName(e.target.value)}>Event Name</h1>
-                    <p value={eventType} onChange={(e) => setEventType(e.target.value)}><strong>Event Type:</strong> Type</p>
-                    <p value={eventDate} onChange={(e) => setEventDate(e.target.value)}><strong>Date:</strong> mm/dd/yyyy</p>
-                    <p value={eventTime} onChange={(e) => setEventTime(e.target.value)}><strong>Time:</strong> 00:00</p>
-                    <p value={eventLocation} onChange={(e) => setEventLocation(e.target.value)}><strong>Location:</strong> location</p>
+                    <h1 innerHTML={eventName} onChange={(e) => setEventName(e.target.value)}>Event Name</h1>
+                    <p innerHTML={eventType} onChange={(e) => setEventType(e.target.value)}><strong>Event Type:</strong> Type</p>
+                    <p innerHTML={eventDate} onChange={(e) => setEventDate(e.target.value)}><strong>Date:</strong> mm/dd/yyyy</p>
+                    <p innerHTML={eventTime} onChange={(e) => setEventTime(e.target.value)}><strong>Time:</strong> 00:00</p>
+                    <p innerHTML={eventLocation} onChange={(e) => setEventLocation(e.target.value)}><strong>Location:</strong> location</p>
                     <p><strong>Description:</strong></p>
-                    <p value={description} onChange={(e) => setDescription(e.target.value)}>Bello</p>
+                    <p innerHTML={description} onChange={(e) => setDescription(e.target.value)}>Bello</p>
                 </div>
                 <div class="col-md-4">
                     <div class="chat-box">
