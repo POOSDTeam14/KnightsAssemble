@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { buildPath } from './Path';
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { retrieveToken, retrieveEventID } from '../storage';
 
 function EventDetails() {
