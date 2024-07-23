@@ -76,6 +76,36 @@ function EventDetails() {
         fetchEventMessages();
     }, [eventId, token]);
 
+    const handleKeyPress = async (event) => {
+        if (event.key === 'Enter' && newMessage.trim()) {
+            const obj = {
+                eventid: eventId,
+                token: token,
+                text: newMessage
+            };
+            const js = JSON.stringify(obj);
+
+            try {
+                const response = await fetch(buildPath('api/postMessage'), {
+                    method: 'POST',
+                    body: js,
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const res = await response.json();
+
+                if (res.ret && res.ret.error) {
+                    console.error('Error sending message:', res.ret.error);
+                } else {
+                    setMessages([...messages, { text: newMessage }]);
+                    setNewMessage('');
+                }
+            } catch (error) {
+                console.error('Failed to send message', error);
+            }
+        }
+    };
+
     return (
         <div className="container">
             <div className="content">
@@ -94,7 +124,15 @@ function EventDetails() {
                                 <p key={message._id}><strong>{message.Text}</strong></p>
                             ))}
                         </div>
-                        <input type="text" id="newMessage" className="form-control" placeholder="Chat"></input>
+                        <input
+                            type="text"
+                            id="newMessage"
+                            className="form-control"
+                            placeholder="Chat"
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                        />
                     </div>
                 </div>
             </div>
