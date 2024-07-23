@@ -70,11 +70,9 @@ function EventDetails() {
                 setEventDate(new Date(res.ret.Time).toISOString().split('T')[0]);
                 setEventTime(new Date(res.ret.Time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
                 setDescription(res.ret.Description);
-                let attendees = res.ret.Attendees
-                for(let i = 0; i < attendees.length; ++i)
-                {
-                    if(userId == attendees[i])
-                    {
+                let attendees = res.ret.Attendees;
+                for (let i = 0; i < attendees.length; ++i) {
+                    if (userId === attendees[i]) {
                         setIsUserJoined(true);
                     }
                 }
@@ -186,7 +184,7 @@ function EventDetails() {
             <div className="card shadow-sm">
                 <div className="card-body">
                     <div className="row">
-                        <div className="col-md-8">
+                        <div className="col-lg-8 col-md-7">
                             <h1 className="card-title">{eventName}</h1>
                             <p><strong>Event Type:</strong> {eventType}</p>
                             <p><strong>Date:</strong> {eventDate}</p>
@@ -195,7 +193,7 @@ function EventDetails() {
                             <p><strong>Description:</strong></p>
                             <p>{description}</p>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-lg-4 col-md-5">
                             {isUserJoined ? (
                                 <>
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
@@ -212,12 +210,12 @@ function EventDetails() {
                                         onChange={(e) => setNewMessage(e.target.value)}
                                         onKeyPress={handleKeyPress}
                                     />
-                                    <button className="btn btn-danger mt-2" onClick={handleLeaveEvent}>
+                                    <button className="btn btn-danger mt-2 w-100" onClick={handleLeaveEvent}>
                                         Leave Event
                                     </button>
                                 </>
                             ) : (
-                                <button className="btn btn-primary mt-2" onClick={handleJoinEvent}>
+                                <button className="btn btn-primary mt-2 w-100" onClick={handleJoinEvent}>
                                     Join Event
                                 </button>
                             )}

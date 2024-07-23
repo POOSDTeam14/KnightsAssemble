@@ -981,6 +981,8 @@
   height: 200px;
   overflow-y: auto;
   background-color: #f8f9fa;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .chat-box p {
