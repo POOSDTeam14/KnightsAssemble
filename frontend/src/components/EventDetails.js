@@ -17,6 +17,32 @@ function EventDetails() {
     const eventId = retrieveEventID();
     const userId = jwtDecode(token).userInfo.userid;
 
+    const fetchEventMessages = async () => {
+        const obj = {
+            eventid: eventId,
+            token: token
+        };
+        const js = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(buildPath('api/getEventMessages'), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const res = await response.json();
+
+            if ('error' in res) {
+                console.error('Error fetching event messages:', res.ret.error);
+            } else {
+                setMessages(res.ret);
+            }
+        } catch (error) {
+            console.error('Failed to fetch event messages', error);
+        }
+    };
+
     useEffect(() => {
         const fetchEventDetails = async () => {
             const obj = {
@@ -46,32 +72,6 @@ function EventDetails() {
                 }
             } catch (error) {
                 console.error('Failed to fetch event details', error);
-            }
-        };
-
-        const fetchEventMessages = async () => {
-            const obj = {
-                eventid: eventId,
-                token: token
-            };
-            const js = JSON.stringify(obj);
-
-            try {
-                const response = await fetch(buildPath('api/getEventMessages'), {
-                    method: 'POST',
-                    body: js,
-                    headers: { 'Content-Type': 'application/json' }
-                });
-
-                const res = await response.json();
-
-                if ('error' in res) {
-                    console.error('Error fetching event messages:', res.ret.error);
-                } else {
-                    setMessages(res.ret);
-                }
-            } catch (error) {
-                console.error('Failed to fetch event messages', error);
             }
         };
 
