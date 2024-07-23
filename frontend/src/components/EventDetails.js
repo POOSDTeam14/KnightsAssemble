@@ -74,7 +74,7 @@ return (
                         <p><strong>Person3:</strong> I can bring the drinks if you want?</p>
                         <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
                     </div>
-                    <input type="text" class="form-control" placeholder="Chat"></input>
+                    <input type="text" id ="newMessage" placeholder="Chat"></input>
                 </div>
             </div>
         </div>

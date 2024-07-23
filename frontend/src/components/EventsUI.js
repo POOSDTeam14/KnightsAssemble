@@ -237,7 +237,7 @@ function EventsUI() {
             <div className="row g-0 mainEventsDisplay">
                 <div className="row g-0 mainEventsDisplay-Top">
                     {currentEventsTop.map(event => (
-                        <button key={event._id} className="col-2-5 mainEventCard-Display">
+                        <button key={event._id} onClick={() => goToEventDetails(event._id)} className="col-2-5 mainEventCard-Display">
                             <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventImages[event._id]})` }}>
                             </div>
                             <div className="col eventCard-Info">
