@@ -54,7 +54,7 @@ function EventDetails() {
             const js = JSON.stringify(obj);
 
             try {
-                const response = await fetch(buildPath('/api/getEventMessages'), {
+                const response = await fetch(buildPath('api/getEventMessages'), {
                     method: 'POST',
                     body: js,
                     headers: { 'Content-Type': 'application/json' }
