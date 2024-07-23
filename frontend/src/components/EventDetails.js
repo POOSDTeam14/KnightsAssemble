@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { buildPath } from './Path';
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { retrieveToken, retrieveEventID } from '../storage';
 
 function EventDetails() {
@@ -118,32 +118,35 @@ function EventDetails() {
     }, [messages]);
 
     return (
-        <div className="container">
-            <div className="content">
-                <div className="row">
-                    <div className="col-md-8">
-                        <h1>{eventName}</h1>
-                        <p><strong>Event Type:</strong> {eventType}</p>
-                        <p><strong>Date:</strong> {eventDate}</p>
-                        <p><strong>Time:</strong> {eventTime}</p>
-                        <p><strong>Location:</strong> {eventLocation}</p>
-                        <p><strong>Description:</strong> {description}</p>
-                    </div>
-                    <div className="col-md-4">
-                        <div className="chat-box" ref={chatBoxRef}>
-                            {messages.map((message) => (
-                                <p key={message._id}><strong>{message.Text}</strong></p>
-                            ))}
+        <div className="container my-4">
+            <div className="card shadow-sm">
+                <div className="card-body">
+                    <div className="row">
+                        <div className="col-md-8">
+                            <h1 className="card-title">{eventName}</h1>
+                            <p><strong>Event Type:</strong> {eventType}</p>
+                            <p><strong>Date:</strong> {eventDate}</p>
+                            <p><strong>Time:</strong> {eventTime}</p>
+                            <p><strong>Location:</strong> {eventLocation}</p>
+                            <p><strong>Description:</strong></p>
+                            <p>{description}</p>
                         </div>
-                        <input
-                            type="text"
-                            id="newMessage"
-                            className="form-control"
-                            placeholder="Chat"
-                            value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
-                            onKeyPress={handleKeyPress}
-                        />
+                        <div className="col-md-4">
+                            <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
+                                {messages.map((message) => (
+                                    <p key={message._id}><strong>{message.Text}</strong></p>
+                                ))}
+                            </div>
+                            <input
+                                type="text"
+                                id="newMessage"
+                                className="form-control"
+                                placeholder="Type a message and press Enter"
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                onKeyPress={handleKeyPress}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
