@@ -9,7 +9,7 @@ function EventDetails() {
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
     const [description, setDescription] = useState('');
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState([]); // Initialize as an empty array
 
     const token = retrieveToken();
     const eventId = retrieveEventID();
@@ -23,7 +23,7 @@ function EventDetails() {
             const js = JSON.stringify(obj);
 
             try {
-                const response = await fetch(buildPath(`api/provideEventInfo`), {
+                const response = await fetch(buildPath('api/provideEventInfo'), {
                     method: 'POST',
                     body: js,
                     headers: { 'Content-Type': 'application/json' }
@@ -31,7 +31,7 @@ function EventDetails() {
 
                 const res = await response.json();
 
-                if ('error' in res.ret) {
+                if (res.ret && res.ret.error) {
                     console.error('Error fetching event details:', res.ret.error);
                 } else {
                     setEventName(res.ret.Name);
@@ -54,7 +54,7 @@ function EventDetails() {
             const js = JSON.stringify(obj);
 
             try {
-                const response = await fetch(buildPath(`api/getEventMessages`), {
+                const response = await fetch(buildPath('api/getEventMessages'), {
                     method: 'POST',
                     body: js,
                     headers: { 'Content-Type': 'application/json' }
@@ -62,7 +62,7 @@ function EventDetails() {
 
                 const res = await response.json();
 
-                if ('error' in res.ret) {
+                if (res.ret && res.ret.error) {
                     console.error('Error fetching event messages:', res.ret.error);
                 } else {
                     setMessages(res.ret.messages);
@@ -90,8 +90,8 @@ function EventDetails() {
                     </div>
                     <div className="col-md-4">
                         <div className="chat-box">
-                            {messages.map((message, index) => (
-                                <p key={index}><strong>{message.text}</strong></p>
+                            {messages.map((message) => (
+                                <p key={message._id}><strong>{message.text}</strong></p>
                             ))}
                         </div>
                         <input type="text" id="newMessage" className="form-control" placeholder="Chat"></input>
