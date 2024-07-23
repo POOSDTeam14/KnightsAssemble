@@ -28,7 +28,7 @@ exports.setApp = function(app, client)
     
         // Check database's users collection to see if there is a matching login and password
         const db = client.db('KnightsAssembleDatabase');
-        const results = await db.collection('Users').find({Username: username});
+        const results = await db.collection('Users').find({Username: username}).toArray();
 
         // Initialize outgoing info
         var firstname = "";
@@ -38,47 +38,45 @@ exports.setApp = function(app, client)
         // outgoing results 
         var ret;
 
+        // user exists
         if (results.length > 0)
         {
-            const hashedPassword = results.Password;
+            const hashedPassword = results[0].Password;
 
             const matchingPassword = await bcrypt.compare(password, hashedPassword);
 
             if (matchingPassword)
             {
-                // If matching user is found populate outgoing info
-                if (results.length > 0)
-                {
-                    firstname = results[0].FirstName;
-                    lastname = results[0].LastName;
-                    email = results[0].Email;
-                    userid = results[0]._id;
                 
-                    const userInfo = {firstname, lastname, email, userid}; 
+                firstname = results[0].FirstName;
+                lastname = results[0].LastName;
+                email = results[0].Email;
+                userid = results[0]._id;
                 
-                    try
-                    {
-                        // Create JWT
-                        ret = {accessToken: createAccessToken(userInfo)};
-                    }
-                    catch(error)
-                    {
-                        ret = {error:e.message};
-                    }
-                }
-                else
+                const userInfo = {firstname, lastname, email, userid}; 
+                
+                try
                 {
-                    ret = {error: "Username or password is incorrect!"};
+                    // Create JWT
+                    ret = {accessToken: createAccessToken(userInfo)};
                 }
+                catch(error)
+                {
+                    ret = {error:e.message};
+                }
+            }
+            else
+            {
+                res.status(404).json({ error: "Username or password is incorrect!"});
             }
         }
         else
         {
-            res.status(404).json({ error: "Username was not found!" });
+            res.status(404).json({ error: "Username or password is incorrect!"});
         }
         res.status(200).json(ret);
     });
-
+    
     // Register Incoming: 
     // Username : ""
     // Password : ""
