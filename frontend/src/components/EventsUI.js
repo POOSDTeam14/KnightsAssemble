@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
+import EventDetails from './EventDetails.js';
 const { retrieveToken, storeEventID } = require('../storage.js');
 
 const eventTypeImages = {
@@ -125,6 +126,11 @@ function EventsUI() {
         }
     };
 
+    const goToEventDetails = (e) => {
+        storeEventID(e);
+        window.location.href = '/eventdetails';
+    }
+
     const handleEventTypeChange = (e) => {
         setEventType(e.target.value);
     };
@@ -246,7 +252,7 @@ function EventsUI() {
 
                 <div className="row g-0 mainEventsDisplay-Bottom">
                     {currentEventsBottom.map(event => (
-                        <button key={event._id} className="col-2-5 mainEventCard-Display">
+                        <button key={event._id} onClick = {() => goToEventDetails(event._id)} className="col-2-5 mainEventCard-Display">
                             <div className="col eventCard-Img" style={{ backgroundImage: `url(${eventImages[event._id]})` }}>
                             </div>
                             <div className="col eventCard-Info">
