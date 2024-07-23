@@ -65,7 +65,7 @@ function EventDetails() {
                 if (res.ret && res.ret.error) {
                     console.error('Error fetching event messages:', res.ret.error);
                 } else {
-                    setMessages(res.ret.messages);
+                    setMessages(res.ret);
                 }
             } catch (error) {
                 console.error('Failed to fetch event messages', error);
