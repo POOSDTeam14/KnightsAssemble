@@ -4,6 +4,7 @@ const { retrieveToken } = require('../storage.js');
 
 function EventDetails()
 {
+    return (
     <div class="container">
         <div class="content">
             <div class="row">
@@ -14,7 +15,7 @@ function EventDetails()
                     <p><strong>Time:</strong> 00:00</p>
                     <p><strong>Location:</strong> location</p>
                     <p><strong>Description:</strong></p>
-                    <p>dfdjal;kdfjadslkjflkdjsalkfjlkdasjklf;jasdl;kfjlf;kasdjfl;kasjdlf;kjasdl;kfjlk;ajfkljasl;kdfjl;kasdljfk;lasdjkfl;kasjdl;kjlasd;kfj;kjasd;lkfj;lkasd;jfkajs;dkjf;lkasjd;lfkj;lkasdjf;ljsadf;jlkasdjfl;jasdl;kfj;lkasdjkfj;lkasdjfl;jasdl;kfjl;asjd;lfkjasdlfjljdfjl;ajs;lkfj;alsdjf;lkajsdl;fj;lkasdjl;fkjl;asdjfl;jkdsaflj;asdfl;kjasd;lkfjl;kajdflj;asldfjl;asjdfl;kjasdlfjk;ljd;klfjlk;asdjkf;ljasdlfj;lksadjfl;jdfas;jkdf;lkjaskdfj;lsadkjf;lk;sdalkfj;sdaljkl;fjalsdkfjlkfjasd;lfkjsdalkfj;sdal;kfjldsajfl;sdajlfjas;ldkfj;lkasdfjas;lkdfj;lasdkjfl;dsajf;lkajsld;kfjl;asdjkfl;jasdfjlkasj;flkjasdlfj;lasjdfjlkasdjf;ljasdlkfj;lasjdflk;jasdlfj;lkasdjkf;lsadjf;lksadjf;ljsdal;fkjasdf;lkasj;flkjasdlfj;lasdjf;lkajsdfl;jksdalfj;lkasjdlfj;lasjdf;lkasjdflkjasdfjlk;asjdf;lkasjdf;lkjasdfl;kjasdf;lksadjflk;asjdfl;kjasdf;lkjasdf;lksdjalfkjasdlfkj;lasdfl;kjasdflkjas;dlkfjasdf;kjasdf;lkjasdf;lkjasdfjlkjasdfjlkasjdflkjasdlf;lkjas;dfklj</p>
+                    <p>Bello</p>
                 </div>
                 <div class="col-md-4">
                     <div class="chat-box">
@@ -23,11 +24,12 @@ function EventDetails()
                         <p><strong>Person3:</strong> I can bring the drinks if you want?</p>
                         <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
                     </div>
-                    <input type="text" class="form-control" placeholder="Chat">
+                    <input type="text" class="form-control" placeholder="Chat"></input>
                 </div>
             </div>
         </div>
     </div>
+    )
 }
 
-export default 
+export default EventDetails;
