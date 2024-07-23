@@ -101,7 +101,7 @@ function EventDetails() {
                 if ('error' in res) {
                     console.error('Error sending message:', res.ret.error);
                 } else {
-                    setMessages([...messages, { text: newMessage }]);
+                    fetchEventMessages();
                     setNewMessage('');
                 }
             } catch (error) {
