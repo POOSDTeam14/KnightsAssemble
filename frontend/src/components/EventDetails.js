@@ -38,7 +38,6 @@ function EventDetails() {
                 console.error('Error fetching event messages:', res.ret.error);
             } else {
                 setMessages(res.ret);
-                chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
             }
         } catch (error) {
             console.error('Failed to fetch event messages', error);
@@ -111,6 +110,12 @@ function EventDetails() {
             }
         }
     };
+
+    useEffect(() => {
+        if (chatBoxRef.current) {
+            chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     return (
         <div className="container">
