@@ -993,15 +993,4 @@
   font-style: italic;
 }
 
-.join-event-btn {
-  width: 75%;
-}
-
-.not-participant-msg {
-  margin-bottom: 1rem;
-  color: #6c757d;
-  font-size: 1rem;
-  text-align: center;
-}
-
 /******** Event Details Page CSS *********/

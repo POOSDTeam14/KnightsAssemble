@@ -12,6 +12,7 @@ function EventDetails() {
     const [description, setDescription] = useState('');
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const [isUserHost, setIsUserHost] = useState(false);
     const [isUserJoined, setIsUserJoined] = useState(false);
     const chatBoxRef = useRef(null);
 
@@ -20,10 +21,7 @@ function EventDetails() {
     const userId = jwtDecode(token).userInfo.userid;
 
     const fetchEventMessages = async () => {
-        const obj = {
-            eventid: eventId,
-            token: token
-        };
+        const obj = { eventid: eventId, token: token };
         const js = JSON.stringify(obj);
 
         try {
@@ -46,10 +44,7 @@ function EventDetails() {
     };
 
     const fetchEventDetails = async () => {
-        const obj = {
-            eventid: eventId,
-            token: token
-        };
+        const obj = { eventid: eventId, token: token };
         const js = JSON.stringify(obj);
 
         try {
@@ -70,6 +65,9 @@ function EventDetails() {
                 setEventDate(new Date(res.ret.Time).toISOString().split('T')[0]);
                 setEventTime(new Date(res.ret.Time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
                 setDescription(res.ret.Description);
+                if (userId === res.ret.HostID) {
+                    setIsUserHost(true);
+                }
                 let attendees = res.ret.Attendees;
                 for (let i = 0; i < attendees.length; ++i) {
                     if (userId === attendees[i]) {
@@ -89,12 +87,7 @@ function EventDetails() {
 
     const handleKeyPress = async (event) => {
         if (event.key === 'Enter' && newMessage.trim()) {
-            const obj = {
-                eventid: eventId,
-                userid: userId,
-                message: newMessage,
-                token: token
-            };
+            const obj = { eventid: eventId, userid: userId, message: newMessage, token: token };
             const js = JSON.stringify(obj);
 
             try {
@@ -119,11 +112,7 @@ function EventDetails() {
     };
 
     const handleJoinEvent = async () => {
-        const obj = {
-            eventid: eventId,
-            userid: userId,
-            token: token
-        };
+        const obj = { eventid: eventId, userid: userId, token: token };
         const js = JSON.stringify(obj);
 
         try {
@@ -147,11 +136,7 @@ function EventDetails() {
     };
 
     const handleLeaveEvent = async () => {
-        const obj = {
-            eventid: eventId,
-            userid: userId,
-            token: token
-        };
+        const obj = { eventid: eventId, userid: userId, token: token };
         const js = JSON.stringify(obj);
 
         try {
@@ -179,12 +164,17 @@ function EventDetails() {
         }
     }, [messages]);
 
+    const handleUpdateEvent = async () => 
+    {
+        window.location.href = '/updateevent';
+    };
+
     return (
         <div className="container my-4">
             <div className="card shadow-sm">
                 <div className="card-body">
                     <div className="row">
-                        <div className="col-lg-8 col-md-7">
+                        <div className="col-lg-8 col-md-7 mb-4">
                             <h1 className="card-title">{eventName}</h1>
                             <p><strong>Event Type:</strong> {eventType}</p>
                             <p><strong>Date:</strong> {eventDate}</p>
@@ -193,8 +183,8 @@ function EventDetails() {
                             <p><strong>Description:</strong></p>
                             <p>{description}</p>
                         </div>
-                        <div className="col-lg-4 col-md-5 d-flex flex-column align-items-center">
-                            {isUserJoined ? (
+                        <div className="col-lg-4 col-md-5">
+                            {isUserHost ? (
                                 <>
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                         {messages.map((message) => (
@@ -210,17 +200,38 @@ function EventDetails() {
                                         onChange={(e) => setNewMessage(e.target.value)}
                                         onKeyPress={handleKeyPress}
                                     />
-                                    <button className="btn btn-danger mt-2 w-100" onClick={handleLeaveEvent}>
-                                        Leave Event
+                                    <button className="btn btn-warning mt-2 w-100" onClick={handleUpdateEvent}>
+                                        Update Event
                                     </button>
                                 </>
                             ) : (
-                                <div className="d-flex flex-column align-items-center mt-4">
-                                    <p className="text-muted mb-3">You are not a participant of this event.</p>
-                                    <button className="btn btn-primary w-75" onClick={handleJoinEvent}>
-                                        Join Event
-                                    </button>
-                                </div>
+                                <>
+                                    {isUserJoined ? (
+                                        <>
+                                            <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
+                                                {messages.map((message) => (
+                                                    <p key={message._id}><strong>{message.Text}</strong></p>
+                                                ))}
+                                            </div>
+                                            <input
+                                                type="text"
+                                                id="newMessage"
+                                                className="form-control"
+                                                placeholder="Type a message and press Enter"
+                                                value={newMessage}
+                                                onChange={(e) => setNewMessage(e.target.value)}
+                                                onKeyPress={handleKeyPress}
+                                            />
+                                            <button className="btn btn-danger mt-2 w-100" onClick={handleLeaveEvent}>
+                                                Leave Event
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <button className="btn btn-primary mt-2 w-100" onClick={handleJoinEvent}>
+                                            Join Event
+                                        </button>
+                                    )}
+                                </>
                             )}
                         </div>
                     </div>
