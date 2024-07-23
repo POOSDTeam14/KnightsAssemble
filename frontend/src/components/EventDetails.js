@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { buildPath } from './Path';
 import { jwtDecode } from "jwt-decode";
 import { retrieveToken, retrieveEventID } from '../storage';
