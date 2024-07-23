@@ -9,7 +9,8 @@ function EventDetails() {
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
     const [description, setDescription] = useState('');
-    const [messages, setMessages] = useState([]); // Initialize as an empty array
+    const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState('');
 
     const token = retrieveToken();
     const eventId = retrieveEventID();
@@ -31,7 +32,7 @@ function EventDetails() {
 
                 const res = await response.json();
 
-                if (res.ret && res.ret.error) {
+                if ('error' in res) {
                     console.error('Error fetching event details:', res.ret.error);
                 } else {
                     setEventName(res.ret.Name);
@@ -62,7 +63,7 @@ function EventDetails() {
 
                 const res = await response.json();
 
-                if (res.ret && res.ret.error) {
+                if ('error' in res) {
                     console.error('Error fetching event messages:', res.ret.error);
                 } else {
                     setMessages(res.ret);
@@ -94,7 +95,7 @@ function EventDetails() {
 
                 const res = await response.json();
 
-                if (res.ret && res.ret.error) {
+                if ('error' in res) {
                     console.error('Error sending message:', res.ret.error);
                 } else {
                     setMessages([...messages, { text: newMessage }]);
