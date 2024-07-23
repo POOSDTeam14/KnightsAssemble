@@ -67,8 +67,14 @@ function EventDetails() {
                             <p><strong>Person2:</strong> Who's bringing the drinks?</p>
                             <p><strong>Person3:</strong> I can bring the drinks if you want?</p>
                             <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
+                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
+                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
+                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
+                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
+                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
+                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
                         </div>
-                        <input type="text" id="newMessage" placeholder="Chat"></input>
+                        <input type="text" id="newMessage" class="form-control" placeholder="Chat"></input>
                     </div>
                 </div>
             </div>
