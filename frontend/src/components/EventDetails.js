@@ -9,13 +9,13 @@ function EventDetails() {
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
     const [description, setDescription] = useState('');
-    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
+
+    const token = retrieveToken();
+    const eventId = retrieveEventID();
 
     useEffect(() => {
         const fetchEventDetails = async () => {
-            const token = retrieveToken();
-            const eventId = retrieveEventID();
-
             const obj = {
                 eventid: eventId,
                 token: token
@@ -32,7 +32,7 @@ function EventDetails() {
                 const res = await response.json();
 
                 if ('error' in res.ret) {
-                    setMessage(res.ret.error);
+                    console.error('Error fetching event details:', res.ret.error);
                 } else {
                     setEventName(res.ret.Name);
                     setEventLocation(res.ret.Location);
@@ -46,8 +46,35 @@ function EventDetails() {
             }
         };
 
+        const fetchEventMessages = async () => {
+            const obj = {
+                eventid: eventId,
+                token: token
+            };
+            const js = JSON.stringify(obj);
+
+            try {
+                const response = await fetch(buildPath('/api/getEventMessages'), {
+                    method: 'POST',
+                    body: js,
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const res = await response.json();
+
+                if ('error' in res.ret) {
+                    console.error('Error fetching event messages:', res.ret.error);
+                } else {
+                    setMessages(res.ret.messages);
+                }
+            } catch (error) {
+                console.error('Failed to fetch event messages', error);
+            }
+        };
+
         fetchEventDetails();
-    }, []);
+        fetchEventMessages();
+    }, [eventId, token]);
 
     return (
         <div className="container">
@@ -63,18 +90,11 @@ function EventDetails() {
                     </div>
                     <div className="col-md-4">
                         <div className="chat-box">
-                            <p><strong>Person1:</strong> I can't wait for this event!!!</p>
-                            <p><strong>Person2:</strong> Who's bringing the drinks?</p>
-                            <p><strong>Person3:</strong> I can bring the drinks if you want?</p>
-                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
-                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
-                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
-                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
-                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
-                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
-                            <p><strong>Person2:</strong> I'm thirsty for anything!!!</p>
+                            {messages.map((message, index) => (
+                                <div key={index}>{message.text}</div>
+                            ))}
                         </div>
-                        <input type="text" id="newMessage" class="form-control" placeholder="Chat"></input>
+                        <input type="text" id="newMessage" className="form-control" placeholder="Chat"></input>
                     </div>
                 </div>
             </div>
