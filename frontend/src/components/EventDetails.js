@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { buildPath } from './Path';
+import { jwtDecode } from "jwt-decode";
 import { retrieveToken, retrieveEventID } from '../storage';
 
 function EventDetails() {
@@ -14,6 +15,7 @@ function EventDetails() {
 
     const token = retrieveToken();
     const eventId = retrieveEventID();
+    const userId = jwtDecode(token).userInfo.userid;
 
     useEffect(() => {
         const fetchEventDetails = async () => {
@@ -81,8 +83,9 @@ function EventDetails() {
         if (event.key === 'Enter' && newMessage.trim()) {
             const obj = {
                 eventid: eventId,
-                token: token,
-                text: newMessage
+                userid: userId,
+                message: newMessage,
+                token: token
             };
             const js = JSON.stringify(obj);
 
