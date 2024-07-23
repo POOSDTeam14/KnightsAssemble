@@ -91,7 +91,7 @@ function EventDetails() {
                     <div className="col-md-4">
                         <div className="chat-box">
                             {messages.map((message, index) => (
-                                <div key={index}>{message.text}</div>
+                                <p key={index}><strong>{message.text}</strong></p>
                             ))}
                         </div>
                         <input type="text" id="newMessage" className="form-control" placeholder="Chat"></input>
