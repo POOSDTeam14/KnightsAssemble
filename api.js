@@ -3,6 +3,7 @@ const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
 const {createVerifyCode} = require('./createVerificationCode');
 const {hashUserPassword} = require ('./passwordHash');
+const bcrypt = require('bcrypt');
 
 exports.setApp = function(app, client)
 {
@@ -18,16 +19,16 @@ exports.setApp = function(app, client)
     {
         // Get username and password from request body
         const {username, password} = req.body
-
+    
         // Error handling for empty username or password
         if (!username || !password)
         {
             return res.status(400).json({ error: "Both a username and password are required!" });
         }
-
+    
         // Check database's users collection to see if there is a matching login and password
         const db = client.db('KnightsAssembleDatabase');
-        const results = await db.collection('Users').find({Username: username, Password: password}).toArray();
+        const results = await db.collection('Users').find({Username: username});
 
         // Initialize outgoing info
         var firstname = "";
@@ -36,34 +37,47 @@ exports.setApp = function(app, client)
         var userid = "";
         // outgoing results 
         var ret;
-        // If matching user is found populate outgoing info
+
         if (results.length > 0)
         {
-            firstname = results[0].FirstName;
-            lastname = results[0].LastName;
-            email = results[0].Email;
-            userid = results[0]._id;
-    
-            const userInfo = {firstname, lastname, email, userid}; 
-    
-            try
+            const hashedPassword = results.Password;
+
+            const matchingPassword = await bcrypt.compare(password, hashedPassword);
+
+            if (matchingPassword)
             {
-                // Create JWT
-                ret = {accessToken: createAccessToken(userInfo)};
-            }
-            catch(error)
-            {
-                ret = {error:e.message};
+                // If matching user is found populate outgoing info
+                if (results.length > 0)
+                {
+                    firstname = results[0].FirstName;
+                    lastname = results[0].LastName;
+                    email = results[0].Email;
+                    userid = results[0]._id;
+                
+                    const userInfo = {firstname, lastname, email, userid}; 
+                
+                    try
+                    {
+                        // Create JWT
+                        ret = {accessToken: createAccessToken(userInfo)};
+                    }
+                    catch(error)
+                    {
+                        ret = {error:e.message};
+                    }
+                }
+                else
+                {
+                    ret = {error: "Username or password is incorrect!"};
+                }
             }
         }
         else
         {
-            ret = {error: "Username or password is incorrect!"};
+            res.status(404).json({ error: "Username was not found!" });
         }
-
         res.status(200).json(ret);
     });
-
 
     // Register Incoming: 
     // Username : ""
