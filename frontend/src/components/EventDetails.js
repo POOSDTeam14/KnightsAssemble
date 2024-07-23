@@ -193,7 +193,7 @@ function EventDetails() {
                             <p><strong>Description:</strong></p>
                             <p>{description}</p>
                         </div>
-                        <div className="col-lg-4 col-md-5">
+                        <div className="col-lg-4 col-md-5 d-flex flex-column align-items-center">
                             {isUserJoined ? (
                                 <>
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
@@ -215,9 +215,12 @@ function EventDetails() {
                                     </button>
                                 </>
                             ) : (
-                                <button className="btn btn-primary mt-2 w-100" onClick={handleJoinEvent}>
-                                    Join Event
-                                </button>
+                                <div className="d-flex flex-column align-items-center mt-4">
+                                    <p className="text-muted mb-3">You are not a participant of this event.</p>
+                                    <button className="btn btn-primary w-75" onClick={handleJoinEvent}>
+                                        Join Event
+                                    </button>
+                                </div>
                             )}
                         </div>
                     </div>
