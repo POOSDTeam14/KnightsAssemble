@@ -5,6 +5,7 @@ import './App.css';
 
 import LoginPage from './pages/LoginPage';
 import EventPage from './pages/EventPage';
+import EventDetailsPage from './pages/EventDetailsPage';
 import RegisterPage from './pages/RegisterPage';
 import CreateEventPage from './pages/CreateEventPage';
 import MyEventPage from './pages/MyEventPage';
@@ -24,6 +25,10 @@ function App() {
 
        <Route path="/events" exact>
          <EventPage/>
+       </Route>
+
+       <Route path="/eventdetails" exact>
+         <EventDetailsPage/>
        </Route>
        
        <Route path = "/register" exact>

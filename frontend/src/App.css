@@ -963,6 +963,23 @@
   cursor: not-allowed; /* Change cursor to not-allowed when disabled */
 }
 
-
-
 /******** Main Events Page CSS *********/
+
+
+/******** Event Details Page CSS *********/
+
+.details 
+{
+  padding: 20px;
+}
+
+.chat-box 
+{
+  height: 200px;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/******** Event Details Page CSS *********/
