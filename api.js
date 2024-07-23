@@ -2,6 +2,7 @@ require('express');
 const { ObjectId } = require('mongodb');
 const {createAccessToken, isTokenExpired, refreshToken} = require('./createJWT');
 const {createVerifyCode} = require('./createVerificationCode');
+const {hashUserPassword} = require ('./passwordHash');
 
 exports.setApp = function(app, client)
 {
@@ -74,37 +75,25 @@ exports.setApp = function(app, client)
     {
         // Get username,password, firstname, lastname, and email from request body
         const {username, password, firstname, lastname, email} = req.body
-
+    
         if (!username | !password | !firstname | !lastname | !email)
         {
             return res.status(400).json({error: "All fields must be filled out!"});
         }
 
-        // Check database's users collection to see if there is an existing username
         const db = client.db('KnightsAssembleDatabase');
-        /*const userResults = await db.collection('Users').find({Username: username}).toArray();
-        const emailResults = await db.collection('Users').find({Email: email}).toArray();
 
-        // User name already exists
-        if (userResults.length > 0)
-        {
-            return res.status(400).json({error: "Username already exists!"});
-        }         
-        
-        // Email already exists
-        if (emailResults.length > 0)
-        {
-            return res.status(400).json({error: "Email is already in use on this site!"});
-        }*/       
-             
+        // hash the user's password
+        const hashedPassword = await hashUserPassword(password);
+                 
         const newUser = {
             Username: username,
-            Password: password,
+            Password: hashedPassword, // We add in the newly hashed password
             FirstName: firstname,
             LastName: lastname,
             Email: email
         };
-            
+                
         try 
         {
             var ret = await db.collection('Users').insertOne(newUser);
