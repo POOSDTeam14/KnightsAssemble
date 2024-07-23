@@ -12,6 +12,7 @@ function EventDetails() {
     const [description, setDescription] = useState('');
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const chatBoxRef = useRef(null);
 
     const token = retrieveToken();
     const eventId = retrieveEventID();
@@ -37,6 +38,7 @@ function EventDetails() {
                 console.error('Error fetching event messages:', res.ret.error);
             } else {
                 setMessages(res.ret);
+                chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
             }
         } catch (error) {
             console.error('Failed to fetch event messages', error);
@@ -123,7 +125,7 @@ function EventDetails() {
                         <p><strong>Description:</strong> {description}</p>
                     </div>
                     <div className="col-md-4">
-                        <div className="chat-box">
+                        <div className="chat-box" ref={chatBoxRef}>
                             {messages.map((message) => (
                                 <p key={message._id}><strong>{message.Text}</strong></p>
                             ))}
