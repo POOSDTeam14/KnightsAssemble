@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { jwtDecode } from "jwt-decode";
-const { retrieveToken } = require('../storage.js');
+const { retrieveToken, retrieveEventID } = require('../storage.js');
 
 function EventDetails()
 {
@@ -13,6 +13,7 @@ function EventDetails()
     const [description, setDescription] = useState('');
     const [message, setMessage] = useState('');
 
+    let bp = require('./Path.js');
     let token = retrieveToken();
     let eventId = retrieveEventID();
 
