@@ -12,6 +12,7 @@ function EventDetails() {
     const [description, setDescription] = useState('');
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const [isUserJoined, setIsUserJoined] = useState(false);
     const chatBoxRef = useRef(null);
 
     const token = retrieveToken();
@@ -44,38 +45,46 @@ function EventDetails() {
         }
     };
 
-    useEffect(() => {
-        const fetchEventDetails = async () => {
-            const obj = {
-                eventid: eventId,
-                token: token
-            };
-            const js = JSON.stringify(obj);
-
-            try {
-                const response = await fetch(buildPath('api/provideEventInfo'), {
-                    method: 'POST',
-                    body: js,
-                    headers: { 'Content-Type': 'application/json' }
-                });
-
-                const res = await response.json();
-
-                if ('error' in res) {
-                    console.error('Error fetching event details:', res.ret.error);
-                } else {
-                    setEventName(res.ret.Name);
-                    setEventLocation(res.ret.Location);
-                    setEventType(res.ret.Type);
-                    setEventDate(new Date(res.ret.Time).toISOString().split('T')[0]);
-                    setEventTime(new Date(res.ret.Time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-                    setDescription(res.ret.Description);
-                }
-            } catch (error) {
-                console.error('Failed to fetch event details', error);
-            }
+    const fetchEventDetails = async () => {
+        const obj = {
+            eventid: eventId,
+            token: token
         };
+        const js = JSON.stringify(obj);
 
+        try {
+            const response = await fetch(buildPath('api/provideEventInfo'), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const res = await response.json();
+
+            if ('error' in res) {
+                console.error('Error fetching event details:', res.ret.error);
+            } else {
+                setEventName(res.ret.Name);
+                setEventLocation(res.ret.Location);
+                setEventType(res.ret.Type);
+                setEventDate(new Date(res.ret.Time).toISOString().split('T')[0]);
+                setEventTime(new Date(res.ret.Time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                setDescription(res.ret.Description);
+                let attendees = res.ret.Attendees
+                for(let i = 0; i < attendees.length; ++i)
+                {
+                    if(userId == attendees[i])
+                    {
+                        setIsUserJoined(true);
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Failed to fetch event details', error);
+        }
+    };
+
+    useEffect(() => {
         fetchEventDetails();
         fetchEventMessages();
     }, [eventId, token]);
@@ -111,6 +120,61 @@ function EventDetails() {
         }
     };
 
+    const handleJoinEvent = async () => {
+        const obj = {
+            eventid: eventId,
+            userid: userId,
+            token: token
+        };
+        const js = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(buildPath('api/joinEvent'), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const res = await response.json();
+
+            if ('error' in res) {
+                console.error('Error joining event:', res.ret.error);
+            } else {
+                setIsUserJoined(true);
+                fetchEventMessages();
+            }
+        } catch (error) {
+            console.error('Failed to join event', error);
+        }
+    };
+
+    const handleLeaveEvent = async () => {
+        const obj = {
+            eventid: eventId,
+            userid: userId,
+            token: token
+        };
+        const js = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(buildPath('api/leaveEvent'), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const res = await response.json();
+
+            if ('error' in res) {
+                console.error('Error leaving event:', res.ret.error);
+            } else {
+                setIsUserJoined(false);
+            }
+        } catch (error) {
+            console.error('Failed to leave event', error);
+        }
+    };
+
     useEffect(() => {
         if (chatBoxRef.current) {
             chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
@@ -132,20 +196,31 @@ function EventDetails() {
                             <p>{description}</p>
                         </div>
                         <div className="col-md-4">
-                            <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
-                                {messages.map((message) => (
-                                    <p key={message._id}><strong>{message.Text}</strong></p>
-                                ))}
-                            </div>
-                            <input
-                                type="text"
-                                id="newMessage"
-                                className="form-control"
-                                placeholder="Type a message and press Enter"
-                                value={newMessage}
-                                onChange={(e) => setNewMessage(e.target.value)}
-                                onKeyPress={handleKeyPress}
-                            />
+                            {isUserJoined ? (
+                                <>
+                                    <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
+                                        {messages.map((message) => (
+                                            <p key={message._id}><strong>{message.Text}</strong></p>
+                                        ))}
+                                    </div>
+                                    <input
+                                        type="text"
+                                        id="newMessage"
+                                        className="form-control"
+                                        placeholder="Type a message and press Enter"
+                                        value={newMessage}
+                                        onChange={(e) => setNewMessage(e.target.value)}
+                                        onKeyPress={handleKeyPress}
+                                    />
+                                    <button className="btn btn-danger mt-2" onClick={handleLeaveEvent}>
+                                        Leave Event
+                                    </button>
+                                </>
+                            ) : (
+                                <button className="btn btn-primary mt-2" onClick={handleJoinEvent}>
+                                    Join Event
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
