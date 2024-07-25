@@ -743,7 +743,7 @@ exports.setApp = function(app, client)
             }
             ];
         }
-        else if (type && !date)
+        /*else if (type && !date)
         {
             searchTerms.$and = [
                 { Type: {$regex: type, $options: 'i' } },
@@ -778,7 +778,7 @@ exports.setApp = function(app, client)
 
         console.log("Search terms are: ", searchTerms);
 
-        //const searchResults = await db.collection('Events').find(searchTerms).toArray();
+        //const searchResults = await db.collection('Events').find(searchTerms).toArray();*/
         const searchResults = await db.collection('Events').aggregate(pipeline).toArray();
         console.log("Search results are: ", searchResults);
         
