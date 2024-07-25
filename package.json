@@ -10,13 +10,14 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@sendgrid/mail": "^8.1.3",
         "bcrypt": "^5.1.1",
         "body-parser": "^1.20.2",
         "cors": "^2.8.5",
         "express": "^4.19.2",
         "jsonwebtoken": "^9.0.2",
+        "moment-timezone": "^0.5.45",
         "mongob": "^1.0.0",
-        "mongodb": "^6.7.0",
-        "@sendgrid/mail" : "^8.1.3"
+        "mongodb": "^6.7.0"
     }
 }
