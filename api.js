@@ -815,12 +815,12 @@ exports.setApp = function(app, client)
         res.status(200).json({ret, token: newToken});
     });
 
-    // findJoinedEvents incoming:
+    // findNames incoming:
     // userid: ""
     // token:
     app.post('/api/findNames', async (req, res, next) =>
     {
-        // Get eventid to add attendees to it
+        // Get userid to find names
         const {userid, token} = req.body
 
         // Check for expired token
@@ -844,7 +844,7 @@ exports.setApp = function(app, client)
         ];
         var eventResults = await db.collection('Users').find(searchTerms).toArray();
         
-        // Look for user in all events, return to array if found
+        // Look for user in database, return to array if found
         if ( eventResults.length>0 )
             try
             {
@@ -852,11 +852,11 @@ exports.setApp = function(app, client)
             }
             catch ( error )
             {
-                return res.status(404).json({error: "Unable to find user in Events!"});
+                return res.status(404).json({error: "Unable to find user!"});
             }
         else
         {
-            return res.status(405).json({error: "User is not in any current Events!"});
+            return res.status(405).json({error: "Weird, this user doesn't exist....!"});
         }
         
         // Refresh token at end of CRUD events
