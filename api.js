@@ -601,9 +601,9 @@ exports.setApp = function(app, client)
         if (type && date) 
         {
             searchTerms.$and = [
-                { Type: {$regex: type, $options: 'i' } },
-                { Time: { $gte: start } },
-                { Time: { $lt: end } }
+                { Type: { $regex: type, $options: 'i' } },
+                { Time: { $gte: moment.tz(start, 'America/New_York').utc().toDate() } },
+                { Time: { $lt: moment.tz(end, 'America/New_York').utc().toDate() } }
             ];
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
@@ -624,8 +624,8 @@ exports.setApp = function(app, client)
         else if (date && !type)
         {
             searchTerms.$and = [
-                { Time: { $gte: start } },
-                { Time: { $lt: end } }
+                { Time: { $gte: moment.tz(start, 'America/New_York').utc().toDate() } },
+                { Time: { $lt: moment.tz(end, 'America/New_York').utc().toDate() } }
             ];
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
