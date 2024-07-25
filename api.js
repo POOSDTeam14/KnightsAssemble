@@ -734,11 +734,11 @@ exports.setApp = function(app, client)
                     $and: [
                         { Type: { $regex: type, $options: 'i' } },
                         { estTime: { $gte: start, $lt: end } }
-                    ],
+                    ]/*,
                     $or: [
                         { Name: { $regex: search, $options: 'i' } },
                         { Location: { $regex: search, $options: 'i' } }
-                    ]
+                    ]*/
                 }
             }
             ];
