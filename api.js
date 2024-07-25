@@ -779,7 +779,7 @@ exports.setApp = function(app, client)
         console.log("Search terms are: ", searchTerms);
 
         //const searchResults = await db.collection('Events').find(searchTerms).toArray();*/
-        const searchResults = await db.collection('Events').aggregate(pipeline).toArray();
+        const searchResults = await collection('Events').aggregate(pipeline).toArray();
         console.log("Search results are: ", searchResults);
         
         ret = searchResults;
