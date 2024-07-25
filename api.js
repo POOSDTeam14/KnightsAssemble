@@ -704,7 +704,7 @@ exports.setApp = function(app, client)
         const end = new Date(date);
         end.setDate(start.getDate() + 1);
         const searchTerms = {};
-        const pipeline = [];
+        const pipeline;
 
         if (type && date) 
         {
