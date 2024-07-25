@@ -602,8 +602,8 @@ exports.setApp = function(app, client)
         {
             searchTerms.$and = [
                 { Type: { $regex: type, $options: 'i' } },
-                { Time: { $gte: moment.tz(start, 'America/New_York').utc().toDate() } },
-                { Time: { $lt: moment.tz(end, 'America/New_York').utc().toDate() } }
+                { Time: { $gte: start } },
+                { Time: { $lt: end } }
             ];
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
@@ -624,8 +624,8 @@ exports.setApp = function(app, client)
         else if (date && !type)
         {
             searchTerms.$and = [
-                { Time: { $gte: moment.tz(start, 'America/New_York').utc().toDate() } },
-                { Time: { $lt: moment.tz(end, 'America/New_York').utc().toDate() } }
+                { Time: { $gte: start } },
+                { Time: { $lt: end } }
             ];
             searchTerms.$or = [
                 { Name: { $regex: search, $options: 'i' } },
@@ -647,6 +647,139 @@ exports.setApp = function(app, client)
 
         const searchResults = await db.collection('Events').find(searchTerms).toArray();
 
+        console.log("Search results are: ", searchResults);
+        
+        ret = searchResults;
+        
+        // Refresh token at end of CRUD events
+        var newToken = null;
+        try 
+        {
+            newToken = refreshToken(token);
+        } 
+        catch (error) 
+        {
+            console.log(error);
+        }
+            
+        // Respond with search result documents and token
+        res.status(200).json({ret, token: newToken});
+    });
+
+    // filter incoming:
+    // filter: ""
+    // token:
+    app.post('/api/filterEvent', async (req, res, next) =>
+    {
+        // Get paramters for filter
+        const {type, date, search, token} = req.body
+            
+        // Check for expired token
+        try 
+        {
+            if (isTokenExpired(token))
+            {
+                 return res.status(401).json({error: "Your session is no longer valid"});
+            }
+        } 
+        catch (error) 
+        {
+            return res.status(401).json({error: "Something is wrong with your session"});
+        }
+
+        const db = client.db('KnightsAssembleDatabase');
+        try
+        {
+            await db.collection('Events').createIndex({Name: "text", Location : "text"});
+            console.log("Index created");
+        }
+        catch(error)
+        {
+            console.error("Error making index");
+            return res.status(500).json({error: "Something went wrong creating search index"});
+        }
+
+        const curDate = new Date();
+        const start = new Date(date);
+        const end = new Date(date);
+        end.setDate(start.getDate() + 1);
+        const searchTerms = {};
+        const pipeline = [];
+
+        if (type && date) 
+        {
+            /*searchTerms.$and = [
+                { Type: { $regex: type, $options: 'i' } },
+                { Time: { $gte: start } },
+                { Time: { $lt: end } }
+            ];
+            searchTerms.$or = [
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } }
+            ];*/
+            const pipeline = [
+            {
+                $addFields: {
+                    estTime: {
+                        $dateToString: {
+                            format: '%Y-%m-%dT%H:%M:%S',
+                            date: { $dateFromString: { dateString: { $dateToString: { format: '%Y-%m-%dT%H:%M:%S.%LZ', date: '$Time' } } } },
+                            timezone: 'America/New_York'
+                        }
+                    }
+                }
+            },
+            {
+                $match: {
+                    $and: [
+                        { Type: { $regex: type, $options: 'i' } },
+                        { estTime: { $gte: start, $lt: end } }
+                    ],
+                    $or: [
+                        { Name: { $regex: search, $options: 'i' } },
+                        { Location: { $regex: search, $options: 'i' } }
+                    ]
+                }
+            }
+            ];
+        }
+        else if (type && !date)
+        {
+            searchTerms.$and = [
+                { Type: {$regex: type, $options: 'i' } },
+                { Time: { $gte: curDate } }
+            ];
+            searchTerms.$or = [
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } }
+            ];
+        }
+        else if (date && !type)
+        {
+            searchTerms.$and = [
+                { Time: { $gte: start } },
+                { Time: { $lt: end } }
+            ];
+            searchTerms.$or = [
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } }
+            ];
+        }
+        else
+        {
+            searchTerms.$and = [
+                { Time: { $gte: curDate } }
+            ];
+            searchTerms.$or = [
+                { Name: { $regex: search, $options: 'i' } },
+                { Location: { $regex: search, $options: 'i' } }
+            ];
+        }
+
+        console.log("Search terms are: ", searchTerms);
+
+        //const searchResults = await db.collection('Events').find(searchTerms).toArray();
+        const searchResults = await db.collection('Events').aggregate(pipeline).toArray();
         console.log("Search results are: ", searchResults);
         
         ret = searchResults;
