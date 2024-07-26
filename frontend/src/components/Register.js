@@ -78,7 +78,7 @@ function Register() {
         if(!testRequirements.isLowerCaseMet){
             setLowerCaseNotMet("Password Must Contain At Least One LowerCase Letter");
             validInput = false;
-            return;
+            return
         }
 
         //Validate Email Format
@@ -97,7 +97,7 @@ function Register() {
             validInput = false;
         }
         if(!lastNameRequirement){
-            setLastNameRequirementNotMet("First name cannot contain numbers or special characters")
+            setLastNameRequirementNotMet("Last name cannot contain numbers or special characters")
             validInput = false;
             return;
         }
@@ -122,7 +122,6 @@ function Register() {
                 validInput = false;
             } else {
                 setMessage("");
-                validInput = true;
             }
         } catch (e) {
             alert(e.toString());

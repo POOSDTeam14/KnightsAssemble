@@ -70,6 +70,7 @@
 .verticalTabContent p{
   margin-top: 20px;
   margin-bottom: 0px;
+  margin-left: 5px;
 }
 /*********  VerticalTab CSS ***************/
 
@@ -276,7 +277,7 @@
   color: gold; 
 }
 
-@media (max-width: 1366px) {
+@media (max-width: 1375px) {
   .right-signUp .signUp-registerButton  {
     margin-top: 2%;
     height: 30px;
@@ -653,11 +654,17 @@
 }
 
 .eventCard-Display {
-  height: 100%;
-  border: 7px solid black;
+  height: 90%;
   display: flex;
   flex-direction: row;
-  margin-left: 3%;
+  margin-left: 2.25%;
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.eventCard-Display:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .col-3-5 {
@@ -671,7 +678,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color:ivory;
+  border-top: 7px solid black;
+  border-bottom: 7px solid black;
+  border-right: 7px solid black;
+  background-color: linen;
 }
 
 .eventCard-Info h5, .eventCard-Info p {
@@ -679,7 +689,12 @@
   white-space: normal; 
 }
 
-@media (max-width: 1366px) {
+.eventCard-Display .eventCard-Info p {
+  margin: 4px 0; 
+  padding: 0; 
+}
+
+@media (max-width: 1375px) {
   .eventCard-Info p {
     font-size: 14px; 
   }
@@ -694,6 +709,9 @@
 }
 
 .eventCard-Display .eventCard-Img {
+  border-top: 7px solid black;
+  border-left: 7px solid black;
+  border-bottom: 7px solid black;
   height: 100%;
   background-size: cover;
   background-position: center;
@@ -896,7 +914,7 @@
   border-top: 7px solid black;
   border-bottom: 7px solid black;
   border-right: 7px solid black;
-  background-color: ivory;
+  background-color: linen;
 }
 
 .mainEventCard-Display .eventCard-Info h5, .mainEventCard-Display .eventCard-Info p {
@@ -904,7 +922,12 @@
   white-space: normal; 
 }
 
-@media (max-width: 1366px) {
+.mainEventCard-Display .eventCard-Info p {
+  margin: 4px 0; 
+  padding: 0; 
+}
+
+@media (max-width: 1375px) {
   .mainEventCard-Display .eventCard-Info p {
     font-size: 14px; 
   }

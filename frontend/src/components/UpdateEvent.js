@@ -41,9 +41,12 @@ function UpdateEvent() {
         } else {
           setEventName(res.ret.Name);
           setEventLocation(res.ret.Location);
+          
           setEventType(res.ret.Type);
-          setEventDate(new Date(res.ret.Time).toISOString().split('T')[0]);
-          setEventTime(new Date(res.ret.Time).toTimeString().split(' ')[0].substring(0, 5));
+          const { formattedDate, formattedTime } = convertUTCtoEST(res.ret.Time);
+          setEventDate(formattedDate);
+          setEventTime(formattedTime);
+          
           setEventCapacity(res.ret.Capacity);
           setDescription(res.ret.Description);
           setMessage('');
@@ -105,6 +108,38 @@ function UpdateEvent() {
       setMessage('Capacity must be an integer!');
     }
   };
+
+  function convertUTCtoEST(utcDateString) {
+    const date = new Date(utcDateString);
+    const utcOffset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
+    const estOffset = -5 * 60 * 60000; // EST offset is UTC-5
+  
+    // Check if the date is during daylight saving time (DST) in EST (typically March to November)
+    const isDST = () => {
+      const year = date.getFullYear();
+      // DST starts on the second Sunday in March (month 2) and ends on the first Sunday in November (month 10)
+      const dstStart = new Date(year, 2, 8 + 7 - new Date(year, 2, 8).getDay());
+      const dstEnd = new Date(year, 10, 1 + 7 - new Date(year, 10, 1).getDay());
+      return date.getTime() >= dstStart.getTime() && date.getTime() < dstEnd.getTime();
+    };
+  
+    // Adjust EST offset to account for DST
+    const adjustedEstOffset = isDST() ? -4 * 60 * 60000 : estOffset;
+  
+    const estTime = new Date(date.getTime() + utcOffset + adjustedEstOffset);
+  
+    // Format date as YYYY-MM-DD and time as HH:MM
+    const year = estTime.getFullYear();
+    const month = String(estTime.getMonth() + 1).padStart(2, '0'); 
+    const day = String(estTime.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`
+  
+    const hours = String(estTime.getHours()).padStart(2, '0');
+    const minutes = String(estTime.getMinutes()).padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}`;
+  
+    return { formattedDate, formattedTime };
+  }
 
   return (
     <div className="createEvent-container">

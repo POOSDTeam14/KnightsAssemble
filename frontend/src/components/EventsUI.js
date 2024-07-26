@@ -194,22 +194,38 @@ function EventsUI() {
         const date = new Date(utcDateString);
         const utcOffset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
         const estOffset = -5 * 60 * 60000; // EST offset is UTC-5
-    
+      
         // Check if the date is during daylight saving time (DST) in EST (typically March to November)
         const isDST = () => {
-            const year = date.getFullYear();
-            // DST starts on the second Sunday in March (month 2) and ends on the first Sunday in November (month 10)
-            const dstStart = new Date(year, 2, 8 + 7 - new Date(year, 2, 8).getDay());
-            const dstEnd = new Date(year, 10, 1 + 7 - new Date(year, 10, 1).getDay());
-            return date.getTime() >= dstStart.getTime() && date.getTime() < dstEnd.getTime();
+          const year = date.getFullYear();
+          // DST starts on the second Sunday in March (month 2) and ends on the first Sunday in November (month 10)
+          const dstStart = new Date(year, 2, 8 + 7 - new Date(year, 2, 8).getDay());
+          const dstEnd = new Date(year, 10, 1 + 7 - new Date(year, 10, 1).getDay());
+          return date.getTime() >= dstStart.getTime() && date.getTime() < dstEnd.getTime();
         };
-    
+      
         // Adjust EST offset to account for DST
         const adjustedEstOffset = isDST() ? -4 * 60 * 60000 : estOffset;
-    
+      
         const estTime = new Date(date.getTime() + utcOffset + adjustedEstOffset);
-        return estTime.toLocaleString('en-US', { timeZone: 'America/New_York' });
-    }
+      
+        // Format date as YYYY-MM-DD and time as HH:MM
+        const year = estTime.getFullYear();
+        const month = String(estTime.getMonth() + 1).padStart(2, '0'); 
+        const day = String(estTime.getDate()).padStart(2, '0');
+        const formattedDate = `${month}/${day}/${year}`;
+      
+        // Format time as HH:MM AM/PM
+        let hours = estTime.getHours();
+        const minutes = String(estTime.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        const formattedTime = `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
+      
+        return { formattedDate, formattedTime };
+      }
+    
     
     
     return (
@@ -242,7 +258,8 @@ function EventsUI() {
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
-                                <p>{convertUTCtoEST(event.Time)}</p>
+                                <p>{convertUTCtoEST(event.Time).formattedDate}</p>
+                                <p>{convertUTCtoEST(event.Time).formattedTime}</p>
                                 <p>{event.Location}</p>
                                 <p>Type: {event.Type}</p>
                             </div>
@@ -257,7 +274,8 @@ function EventsUI() {
                             </div>
                             <div className="col eventCard-Info">
                                 <h5>{event.Name}</h5>
-                                <p>{convertUTCtoEST(event.Time)}</p>
+                                <p>{convertUTCtoEST(event.Time).formattedDate}</p>
+                                <p>{convertUTCtoEST(event.Time).formattedTime}</p>
                                 <p>{event.Location}</p>
                                 <p>Type: {event.Type}</p>
                             </div>
