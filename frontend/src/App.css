@@ -273,6 +273,7 @@
 .right-signUp #username, #emailInput, #newPassword, #confirmPassword {
   width: 55%;
   height: 50px;
+  margin-bottom: 5px;
 }
 
 .right-signUp .signUp-requirementFields{
