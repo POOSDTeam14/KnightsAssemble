@@ -56,7 +56,7 @@ function Login() {
 
       <div className="col h-100">
         <div className="right-login">
-          <h1 id="signIn-heading">Sign In</h1>
+          <h1 id="signIn-heading">Sign in</h1>
           <h2 id="signIn-subheader">
             New to Knights Assemble?{' '}
             <a href="/register" className="links">

@@ -135,7 +135,6 @@
 }
 
 .right-login .links {
-  font-style: italic;
   color: rgb(0, 85, 255);
   cursor: pointer;
   text-decoration: none;
@@ -169,7 +168,12 @@
   display: block;
 }
 
-@media (max-width: 800px) {
+#loginResult 
+{
+  color: red;
+}
+
+@media (max-width: 850px) {
   .loginRow {
     flex-direction: column;
   }
