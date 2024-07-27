@@ -123,7 +123,7 @@
   height: 50px;
   margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid #ababab;
+  border: 1px solid #7e7d7d;
   border-radius: 5px;
 }
 
@@ -205,8 +205,8 @@
 .left-signUp, .right-signUp {
   height: 100%;
   width: 100%;
-  background-size: cover; /* Background image covers the entire container */
-  background-position: center; /* Center the background image */
+  background-size: cover;
+  background-position: center;
 }
 
 .left-signUp {
@@ -214,50 +214,51 @@
 }
 
 .right-signUp {
-  background-image: url("https://i.imgur.com/j9hx0Fb.png"); 
-  font-family: "Arial";
+  background-image: url("https://i.imgur.com/j9hx0Fb.png");
+  font-family: "Arial", sans-serif;
   color: black;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Center horizontally */
-  justify-content: flex-start; /* Align items to the top */
-  padding: 3%; /* Add some padding for better aesthetics */
+  align-items: flex-start;
+  justify-content: center;
+  padding: 5%;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 #signUp-heading {
-  font-weight: normal;
-  margin-top: 3%;
+  font-weight: bold;
+  font-size: 2.5em;
+  margin-bottom: 16px;
 }
 
 #signUp-subheader {
-  font-size: 15px;
+  font-size: 1.2em;
   font-weight: normal;
+  margin-bottom: 26px;
 }
 
-.right-signUp a {
-  font-style: italic;
-  color: blue;
-  cursor: pointer; 
+.right-login a {
+  color: rgb(0, 85, 255);
+  cursor: pointer;
   text-decoration: none;
 }
 
-.right-signUp .row{
-  margin-top: 2%;
+.right-login a:hover {
+  text-decoration: underline;
 }
 
 .signUp-nameRow{
-  height: 10%;
+  height: 50px;
   width: 78%;
 }
 
 .signUp-usernameRow, .signUp-emailRow, .signUp-passwordRow, .signUp-confirmPasswordRow {
-  height: 10%; 
-  width: 100%
-}
-
-.right-signUp .col {
-  height: 100%; /* Ensure columns fill the height of the row */
-  width: 50%;
+  width: 55%;
+  height: 50px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #7e7d7d;
+  border-radius: 5px;
 }
 
 .right-signUp input{
@@ -271,9 +272,9 @@
 }
 
 .signUp-inputText {
-  margin-bottom: 1%;
   font-weight: bold;
   color: black;
+  margin-bottom: 5px;
 }
 
 .right-signUp .signUp-requirementFields{
@@ -289,21 +290,23 @@
   margin-top: 10%;
 }
 
-#registerButton {
-  background-color: black; 
-  border: 2px solid gold; 
-  color: white; 
-  font-weight: bold; 
-  border-radius: 20px; 
-  padding: 10px 20px; 
-  cursor: pointer; 
-  width: calc(100% - 150px);
+#registerButton,
+.popup-button {
+  background-color: black;
+  border: 2px solid gold;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 55%;
+  height: 50px;
 }
 
 #registerButton:hover {
-  background-color: #333; 
+  background-color: #333;
   border-color: transparent;
-  color: gold; 
+  color: gold;
 }
 
 @media (max-width: 1375px) {

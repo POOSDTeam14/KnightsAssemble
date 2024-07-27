@@ -220,7 +220,7 @@ function Register() {
             <div className = "col h-100">
                 <div className="right-signUp">
                     <h1 id="signUp-heading">Create Account</h1>
-                    <h2 id="signUp-subheader">Already have an account? <a href="/login" className="links">Sign In</a></h2>
+                    <h2 id="signUp-subheader">Already have an account? <a href="/login" className="links">Sign in</a></h2>
 
                     <div className = "row signUp-nameRow">
                         <div className = "col h-100">
