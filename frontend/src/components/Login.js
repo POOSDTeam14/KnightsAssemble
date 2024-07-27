@@ -1,92 +1,101 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import ForgetPassword from './ForgetPassword.js';
 const { storeToken } = require('../storage.js');
 
-function Login()
-{
-    let loginName;
-    let loginPassword;
+function Login() {
+  let loginName;
+  let loginPassword;
 
-    const [message,setMessage] = useState('');
-    const [showPopup, setShowPopup] = useState(false);
+  const [message, setMessage] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
 
-    let bp = require('./Path.js');
+  let bp = require('./Path.js');
 
-    const doLogin = async event => 
-      {
-          event.preventDefault();
+  const doLogin = async (event) => {
+    event.preventDefault();
 
-          var obj = {username: loginName.value, password: loginPassword.value};
-          let js = JSON.stringify(obj);
-  
-          try
-          {    
-            const response = await fetch(bp.buildPath('api/login'), 
-              {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+    var obj = { username: loginName.value, password: loginPassword.value };
+    let js = JSON.stringify(obj);
 
-              let res = JSON.parse(await response.text());
+    try {
+      const response = await fetch(bp.buildPath('api/login'), {
+        method: 'POST',
+        body: js,
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-              if ('error' in res) 
-              {
-                setMessage(res.error);
-              }
-              else 
-              {
-                storeToken(res);
+      let res = JSON.parse(await response.text());
 
-                setMessage('');
-                window.location.href = '/events';
-              }
-          }
-          catch(e)
-          {
-              alert(e.toString());
-              return;
-          }    
-      };
+      if ('error' in res) {
+        setMessage(res.error);
+      } else {
+        storeToken(res);
 
-      const forgetPasswordClick = () => {
-        setShowPopup(true);
+        setMessage('');
+        window.location.href = '/events';
       }
+    } catch (e) {
+      alert(e.toString());
+      return;
+    }
+  };
 
-      const closePopup = () => {
-        setShowPopup(false);
-      }
+  const forgetPasswordClick = () => {
+    setShowPopup(true);
+  };
 
-    
-  
+  const closePopup = () => {
+    setShowPopup(false);
+  };
 
-    return(
-           <div class = "row g-0 loginRow"> 
-              <div class = "col h-100">
+  return (
+    <div className="row g-0 loginRow">
+      <div className="col h-100">
+        <div className="left-login"></div>
+      </div>
 
-                <div class = "left-login">
-                </div>
+      <div className="col h-100">
+        <div className="right-login">
+          <h1 id="signIn-heading">Sign In</h1>
+          <h2 id="signIn-subheader">
+            New to Knights Assemble?{' '}
+            <a href="/register" className="links">
+              Create Account
+            </a>
+          </h2>
+          <p id="username-text">Username</p>
+          <input
+            type="text"
+            id="loginName"
+            placeholder="Username"
+            ref={(elem) => (loginName = elem)}
+          />
+          <br />
+          <p id="password-text">Password</p>
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            ref={(elem) => (loginPassword = elem)}
+          />
+          <br />
+          <a
+            id="forgot-password"
+            className="links"
+            onClick={forgetPasswordClick}
+          >
+            Forgot Password
+          </a>
+          <ForgetPassword show={showPopup} onClose={closePopup} />
 
-              </div>
-           
-              <div class = "col h-100">
-
-                <div class = "right-login">
-                  <h1 id="signIn-heading">Sign In</h1>
-                  <h2 id="signIn-subheader">New to Knights Assemble? <a href = "/register" class = "links">Create Account</a></h2>
-                  <p id="username-text">Username</p>
-                  <input type="text" id="loginName" placeholder="Username" ref = {(elem) => loginName = elem}/><br />
-                  <p id="password-text">Password</p>
-                  <input type="password" id="loginPassword" placeholder="Password" ref = {(elem) => loginPassword = elem}/><br />
-  
-                  <a id ="forgot-password" class = "links" onClick={forgetPasswordClick}>Forgot Password</a>
-                  <ForgetPassword show = {showPopup} onClose = {closePopup} />
-
-                  <button id="loginButton" onClick={doLogin}>Sign In</button>
-                  <span id="loginResult">{message}</span>
-                </div>
-
-              </div>
-           
-           
-           </div>
-    );
-};
+          <button id="loginButton" onClick={doLogin}>
+            Sign In
+          </button>
+          <span id="loginResult">{message}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default Login;
