@@ -87,10 +87,10 @@ function Login() {
           </a>
         </h2>
           <ForgetPassword show={showPopup} onClose={closePopup} />
+          <span id="loginResult">{message}</span>
           <button id="loginButton" onClick={doLogin}>
             Sign in
           </button>
-          <span id="loginResult">{message}</span>
         </div>
       </div>
     </div>

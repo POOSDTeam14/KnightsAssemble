@@ -136,7 +136,7 @@
 
 .right-login .links {
   font-style: italic;
-  color: blue;
+  color: rgb(0, 85, 255);
   cursor: pointer;
   text-decoration: none;
 }
@@ -169,7 +169,7 @@
   display: block;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .loginRow {
     flex-direction: column;
   }
@@ -186,7 +186,7 @@
   #loginName,
   #loginPassword,
   #loginButton {
-    width: 55%;
+    width: 60%;
   }
 }
 /*****************  Login CSS *****************/
