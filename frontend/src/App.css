@@ -198,127 +198,93 @@
 /*****************  Login CSS *****************/
 
 /*********  Register CSS ***************/
-.signUpRow {
-  height: calc(100vh - 50px);
-}
+@media screen and (max-width: 768px) {
+  .signUpRow {
+    flex-direction: column;
+  }
 
-.left-signUp, .right-signUp {
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-}
+  .left-signUp {
+    display: none;
+  }
 
-.left-signUp {
-  background-image: url("https://i.imgur.com/vAwpwqL.png"); 
-}
-
-.right-signUp {
-  background-image: url("https://i.imgur.com/j9hx0Fb.png");
-  font-family: "Arial", sans-serif;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 3%;
-  background-color: rgba(255, 255, 255, 0.8);
+  .right-signUp {
+    width: 100%;
+    padding: 20px;
+  }
 }
 
 #signUp-heading {
-  font-weight: bold;
-  font-size: 2.5em;
-  margin-bottom: 16px;
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 #signUp-subheader {
-  font-size: 1.2em;
-  font-weight: normal;
-  margin-bottom: 26px;
-}
-
-.right-login a {
-  color: rgb(0, 85, 255);
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.right-login a:hover {
-  text-decoration: underline;
-}
-
-.signUp-nameRow{
-  height: 50px;
-  width: 78%;
-}
-
-.signUp-usernameRow, .signUp-emailRow, .signUp-passwordRow, .signUp-confirmPasswordRow {
-  width: 55%;
-  height: 50px;
+  font-size: 16px;
   margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #7e7d7d;
-  border-radius: 5px;
-}
-
-.right-signUp input{
-  width: 75%;
-  height: 50%;
-}
-
-.right-signUp #firstName, .right-signUp #lastName{
-  width: 94%;
-  height: 50%;
 }
 
 .signUp-inputText {
+  margin: 10px 0 5px;
   font-weight: bold;
-  color: black;
-  margin-bottom: 5px;
 }
 
-.right-signUp .signUp-requirementFields{
-  color: red;
-  font-size: 15px;
-  text-align: left;
-  width: 80%;
-}
-
-.right-signUp .signUp-registerButton  {
-  height: 40px;
+input[type="text"],
+input[type="email"],
+input[type="password"] {
   width: 100%;
-  margin-top: 10%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-#registerButton,
-.popup-button {
-  background-color: black;
-  border: 2px solid gold;
+.signUp-nameRow .col {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.signUp-requirementFields {
+  color: red;
+  font-size: 14px;
+}
+
+#signUp-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #004080;
   color: white;
-  font-weight: bold;
-  border-radius: 20px;
-  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  width: 55%;
-  height: 50px;
+  margin-top: 20px;
 }
 
-#registerButton:hover {
-  background-color: #333;
-  border-color: transparent;
-  color: gold;
+#signUp-btn:hover {
+  background-color: #002060;
 }
 
-@media (max-width: 1375px) {
-  .right-signUp .signUp-registerButton  {
-    margin-top: 2%;
-    height: 30px;
-  }
-  .right-signUp h1{
-    font-size: 26px;
-  }
-  
-  
+.links {
+  color: #004080;
+  text-decoration: none;
+}
+
+.links:hover {
+  text-decoration: underline;
+}
+
+.left-signUp {
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.right-signUp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+  background-color: #ffffff;
 }
 /*********  Register CSS ***************/
 
