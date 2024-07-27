@@ -209,12 +209,8 @@ function Register() {
 
     return (
         <div className="row g-0 signUpRow ">
-
             <div className = "col h-100">
-
-                <div className = "left-signUp">
-                </div>
-
+                <div className = "left-signUp"></div>
             </div>
 
             <div className = "col h-100">
@@ -223,44 +219,21 @@ function Register() {
                     <h2 id="signUp-subheader">Already have an account? <a href="/login" className="links">Sign in</a></h2>
 
                     <div className = "row signUp-nameRow">
-                        <div className = "col h-100">
-                            <p className = "signUp-inputText">First name</p>
-                            <input type="text" id="firstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required /><br />
-                        </div>
+                        <p className = "signUp-inputText">First name</p>
+                        <input type="text" id="firstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required /><br />
 
-                        <div className = "col h-100">
-                            <p className = "signUp-inputText">Last name</p>
-                            <input type="text" id="lastName" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} required /><br />
-                        </div>
+                        <p className = "signUp-inputText">Last name</p>
+                        <input type="text" id="lastName" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} required /><br />
                     </div>
 
-                    <div className = "row signUp-usernameRow">
-                        <div className = "col h-100">
-                            <p className = "signUp-inputText">Username</p> {/* Added username field */}
-                            <input type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required /><br />
-                        </div>
-                    </div>
-
-                    <div className = "row signUp-emailRow">
-                        <div className = "col h-100">
-                            <p className = "signUp-inputText">Email</p>
-                            <input type="email" id="emailInput" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required /><br />
-                        </div>
-                    </div>
-                    
-                    <div className = "row signUp-passwordRow">
-                        <div className = "col h-100">
-                            <p className = "signUp-inputText">Password</p>
-                            <input type="password" id="newPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required /><br />
-                        </div>
-                    </div>
-
-                    <div className = "row signUp-confirmPasswordRow">
-                        <div className = "col h-100">
-                            <p className = "signUp-inputText">Confirm password</p>
-                            <input type="password" id="confirmPassword" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required /><br />
-                        </div>
-                    </div>
+                    <p className = "signUp-inputText">Username</p> {/* Added username field */}
+                    <input type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required /><br />
+                    <p className = "signUp-inputText">Email</p>
+                    <input type="email" id="emailInput" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required /><br />
+                    <p className = "signUp-inputText">Password</p>
+                    <input type="password" id="newPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required /><br />
+                    <p className = "signUp-inputText">Confirm password</p>
+                    <input type="password" id="confirmPassword" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required /><br />
                     <span className="signUp-requirementFields">{message}</span>
                     <span className = "signUp-requirementFields">{lengthNotMet}</span>
                     <span className = "signUp-requirementFields">{upperCaseNotMet}</span>
@@ -270,14 +243,9 @@ function Register() {
                     <span className = "signUp-requirementFields">{firstNameRequirementNotMet}</span>
                     <span className = "signUp-requirementFields">{lastNameRequirementNotMet}</span>
                     
-                    <div className = "row signUp-registerButton">
-                        <div className = "col h-100">
-                            <button id="registerButton" type="submit" onClick={doRegister}>Register</button>
-                        </div>
-                    </div>                  
-                    
+                    <button id="registerButton" type="submit" onClick={doRegister}>Register</button>
+                    </div>                    
                 </div>
-            </div>
             {showVerificationPopup && <VerificationCode show={true} onClose={closeVerificationPopup} verifyCode = {verifyCode} verificationSuccessful = {onVerificationSuccessful}/>}   
         </div>
 

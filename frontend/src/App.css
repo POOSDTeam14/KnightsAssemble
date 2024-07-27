@@ -200,6 +200,8 @@
 /*********  Register CSS ***************/
 .signUpRow {
   height: calc(100vh - 50px);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .left-signUp, .right-signUp {
@@ -252,17 +254,8 @@
   width: 55%;
 }
 
-.signUp-usernameRow, .signUp-emailRow, .signUp-passwordRow, .signUp-confirmPasswordRow {
-  width: 55%;
-  height: 50px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #7e7d7d;
-  border-radius: 5px;
-}
-
 .right-signUp #firstName, .right-signUp #lastName{
-  width: 94%;
+  width: 100%;
   height: 50px;
 }
 
