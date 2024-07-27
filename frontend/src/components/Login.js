@@ -50,42 +50,46 @@ function Login() {
 
   return (
     <div className="row g-0 loginRow">
-      <div className="col h-100 left-login"></div>
+      <div className="col h-100">
+        <div className="left-login"></div>
+      </div>
 
-      <div className="col h-100 right-login">
-        <h1 id="signIn-heading">Sign In</h1>
-        <h2 id="signIn-subheader">
-          New to Knights Assemble?{' '}
-          <a href="/register" className="links">
-            Create an account
+      <div className="col h-100">
+        <div className="right-login">
+          <h1 id="signIn-heading">Sign In</h1>
+          <h2 id="signIn-subheader">
+            New to Knights Assemble?{' '}
+            <a href="/register" className="links">
+              Create Account
+            </a>
+          </h2>
+          <p id="username-text">Username</p>
+          <input
+            type="text"
+            id="loginName"
+            placeholder="Username"
+            ref={(elem) => (loginName = elem)}
+          />
+          <p id="password-text">Password</p>
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            ref={(elem) => (loginPassword = elem)}
+          />
+          <a
+            id="forgot-password"
+            className="links"
+            onClick={forgetPasswordClick}
+          >
+            Forgot Password
           </a>
-        </h2>
-        <label id="username-text" htmlFor="loginName">Username</label>
-        <input
-          type="text"
-          id="loginName"
-          placeholder="Email address or username"
-          ref={(elem) => (loginName = elem)}
-        />
-        <label id="password-text" htmlFor="loginPassword">Password</label>
-        <input
-          type="password"
-          id="loginPassword"
-          placeholder="Password"
-          ref={(elem) => (loginPassword = elem)}
-        />
-        <a
-          id="forgot-password"
-          className="links"
-          onClick={forgetPasswordClick}
-        >
-          Forgot password?
-        </a>
-        <ForgetPassword show={showPopup} onClose={closePopup} />
-        <button id="loginButton" onClick={doLogin}>
-          Sign In
-        </button>
-        <span id="loginResult">{message}</span>
+          <ForgetPassword show={showPopup} onClose={closePopup} />
+          <button id="loginButton" onClick={doLogin}>
+            Sign In
+          </button>
+          <span id="loginResult">{message}</span>
+        </div>
       </div>
     </div>
   );

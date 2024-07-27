@@ -84,7 +84,7 @@
 .left-login,
 .right-login {
   height: 100%;
-  width: 50%;
+  width: 100%;
   background-size: cover;
   background-position: center;
 }
@@ -94,32 +94,33 @@
 }
 
 .right-login {
-  background-color: white;
+  background-image: url("https://i.imgur.com/j9hx0Fb.png");
   font-family: "Arial", sans-serif;
   color: black;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 5%;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 #signIn-heading {
   font-weight: bold;
-  font-size: 2em;
-  margin-bottom: 10px;
+  font-size: 2.5em;
+  margin-bottom: 20px;
 }
 
 #signIn-subheader {
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: normal;
   margin-bottom: 20px;
 }
 
 #loginName,
 #loginPassword {
-  width: 90%;
-  height: 45px;
+  width: 80%;
+  height: 50px;
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -131,7 +132,6 @@
   font-weight: bold;
   color: black;
   margin-bottom: 5px;
-  align-self: flex-start;
 }
 
 .right-login .links {
@@ -147,29 +147,26 @@
 
 #loginButton,
 .popup-button {
-  background-color: #6d2077;
-  /* Changed to match the Pearson button color */
-  border: none;
-  /* Remove border to match Pearson style */
+  background-color: black;
+  border: 2px solid gold;
   color: white;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: 20px;
   margin-top: 20px;
   cursor: pointer;
-  width: 90%;
+  width: 80%;
   height: 45px;
 }
 
 #loginButton:hover {
-  background-color: #550a61;
-  /* Darken the button on hover */
-  color: white;
+  background-color: #333;
+  border-color: transparent;
+  color: gold;
 }
 
 #forgot-password {
-  margin-top: 5px;
-  margin-bottom: 15px;
-  /* Adjust spacing for better alignment */
+  margin-top: 10px;
+  display: block;
 }
 
 @media (max-width: 768px) {
@@ -177,14 +174,13 @@
     flex-direction: column;
   }
 
-  .left-login,
-  .right-login {
-    width: 100%;
-  }
-
   .right-login {
     align-items: center;
     text-align: center;
+  }
+
+  #signIn-heading {
+    margin-top: 20px;
   }
 
   #loginName,
@@ -203,8 +199,8 @@
 .left-signUp, .right-signUp {
   height: 100%;
   width: 100%;
-  background-size: cover;
-  background-position: center;
+  background-size: cover; /* Background image covers the entire container */
+  background-position: center; /* Center the background image */
 }
 
 .left-signUp {
@@ -217,9 +213,9 @@
   color: black;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 3%;
+  align-items: flex-start; /* Center horizontally */
+  justify-content: flex-start; /* Align items to the top */
+  padding: 3%; /* Add some padding for better aesthetics */
 }
 
 #signUp-heading {
@@ -254,7 +250,7 @@
 }
 
 .right-signUp .col {
-  height: 100%;
+  height: 100%; /* Ensure columns fill the height of the row */
   width: 50%;
 }
 
