@@ -219,18 +219,18 @@ function Register() {
 
             <div className = "col h-100">
                 <div className="right-signUp">
-                    <h1 id="signUp-heading">Create Account</h1>
+                    <h1 id="signUp-heading">Create account</h1>
                     <h2 id="signUp-subheader">Already have an account? <a href="/login" className="links">Sign in</a></h2>
 
                     <div className = "row signUp-nameRow">
                         <div className = "col h-100">
-                            <p className = "signUp-inputText">First Name</p>
-                            <input type="text" id="firstName" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required /><br />
+                            <p className = "signUp-inputText">First name</p>
+                            <input type="text" id="firstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required /><br />
                         </div>
 
                         <div className = "col h-100">
-                            <p className = "signUp-inputText">Last Name</p>
-                            <input type="text" id="lastName" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required /><br />
+                            <p className = "signUp-inputText">Last name</p>
+                            <input type="text" id="lastName" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} required /><br />
                         </div>
                     </div>
 
@@ -257,8 +257,8 @@ function Register() {
 
                     <div className = "row signUp-confirmPasswordRow">
                         <div className = "col h-100">
-                            <p className = "signUp-inputText">Confirm Password</p>
-                            <input type="password" id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required /><br />
+                            <p className = "signUp-inputText">Confirm password</p>
+                            <input type="password" id="confirmPassword" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required /><br />
                         </div>
                     </div>
                     <span className="signUp-requirementFields">{message}</span>
