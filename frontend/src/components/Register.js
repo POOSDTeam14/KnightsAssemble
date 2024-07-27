@@ -27,6 +27,7 @@ function Register() {
     const [showVerificationPopup, setShowVerificationPopup] = useState(false);
     const [verifyCode, setVerifyCode] = useState('');
 
+
     let bp = require('./Path.js');
 
     const doRegister = async event => {
@@ -34,7 +35,7 @@ function Register() {
 
         let validInput = true;
 
-        //Reset Error Messages
+        //Reset Error Messgages
         setMessage("");
         setlengthNotMet("");
         setDigitNotMet("");
@@ -59,31 +60,31 @@ function Register() {
         }
 
         const testRequirements = validatePassword(password);
-        if (!testRequirements.isLengthMet) {
+        if(!testRequirements.isLengthMet){
             setlengthNotMet("Password Length Must Be 8-16 Characters");
             validInput = false;
         }
-
-        if (!testRequirements.isDigitMet) {
+        
+        if(!testRequirements.isDigitMet){
             setDigitNotMet("Password Must Contain At Least One Digit");
             validInput = false;
         }
-
-        if (!testRequirements.isUpperCaseMet) {
+       
+        if(!testRequirements.isUpperCaseMet){
             setUpperCaseNotMet("Password Must Contain At Least One UpperCase Letter");
             validInput = false;
         }
 
-        if (!testRequirements.isLowerCaseMet) {
+        if(!testRequirements.isLowerCaseMet){
             setLowerCaseNotMet("Password Must Contain At Least One LowerCase Letter");
             validInput = false;
-            return;
+            return
         }
 
         //Validate Email Format
         const emailRequirement = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        if (!emailRequirement) {
-            setEmailRequirementNotMet("Email Address is not valid");
+        if(!emailRequirement){
+            setEmailRequirementNotMet("Email Address is not valid")
             validInput = false;
             return;
         }
@@ -91,12 +92,12 @@ function Register() {
         //First Name Format
         const firstNameRequirement = /^[A-Za-z]+$/.test(firstName);
         const lastNameRequirement = /^[A-Za-z]+$/.test(lastName);
-        if (!firstNameRequirement) {
-            setFirstNameRequirementNotMet("First name cannot contain numbers or special characters");
+        if(!firstNameRequirement){
+            setFirstNameRequirementNotMet("First name cannot contain numbers or special characters")
             validInput = false;
         }
-        if (!lastNameRequirement) {
-            setLastNameRequirementNotMet("Last name cannot contain numbers or special characters");
+        if(!lastNameRequirement){
+            setLastNameRequirementNotMet("Last name cannot contain numbers or special characters")
             validInput = false;
             return;
         }
@@ -113,9 +114,9 @@ function Register() {
                 body: js,
                 headers: { 'Content-Type': 'application/json' }
             });
-
+            
             let res = JSON.parse(await response.text());
-
+            
             if ('error' in res) {
                 setMessage(res.error);
                 validInput = false;
@@ -127,8 +128,8 @@ function Register() {
             return;
         }
 
-        //Verify Email
-        if (validInput) {
+        //Verify Email 
+        if(validInput){
             var obj = {
                 email: email
             };
@@ -139,9 +140,9 @@ function Register() {
                     body: js,
                     headers: { 'Content-Type': 'application/json' }
                 });
-
+                
                 let res = JSON.parse(await response.text());
-
+                
                 if ('error' in res) {
                     setMessage(res.error);
                 } else {
@@ -153,13 +154,14 @@ function Register() {
                 return;
             }
         }
+
     };
 
     const validatePassword = (password) => {
         const lengthRequirement = password.length >= 8 && password.length <= 16;
         const upperCaseRequirement = /[A-Z]/.test(password);
-        const lowerCaseRequirement = /[a-z]/.test(password);
-        const digitRequirement = /[0-9]/.test(password);
+        const lowerCaseRequirement= /[a-z]/.test(password);
+        const digitRequirement = /[0-9]/.test(password); 
 
         const requirements = {
             isLengthMet: lengthRequirement,
@@ -175,8 +177,8 @@ function Register() {
         setShowVerificationPopup(false);
     };
 
-    const onVerificationSuccessful = async () => {
-        var obj = {
+    const onVerificationSuccessful = async () =>{
+        var obj = { 
             username: username,
             firstname: firstName,
             lastname: lastName,
@@ -196,7 +198,7 @@ function Register() {
 
             if ('error' in res) {
                 setMessage(res.error);
-            } else {
+            } else{
                 window.location.href = "/login";
             }
         } catch (e) {
@@ -206,63 +208,80 @@ function Register() {
     }
 
     return (
-        <div className="row g-0 signUpRow">
+        <div className="row g-0 signUpRow ">
 
-            <div className="col h-100">
-                <div className="left-signUp"></div>
+            <div className = "col h-100">
+
+                <div className = "left-signUp">
+                </div>
+
             </div>
 
-            <div className="col h-100">
+            <div className = "col h-100">
                 <div className="right-signUp">
                     <h1 id="signUp-heading">Create account</h1>
                     <h2 id="signUp-subheader">Already have an account? <a href="/login" className="links">Sign in</a></h2>
 
-                    <div className="row signUp-nameRow">
-                        <div className="col h-100">
-                            <p className="signUp-inputText">First name</p>
+                    <div className = "row signUp-nameRow">
+                        <div className = "col h-100">
+                            <p className = "signUp-inputText">First name</p>
                             <input type="text" id="firstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required /><br />
                         </div>
 
-                        <div className="col h-100">
-                            <p className="signUp-inputText">Last name</p>
+                        <div className = "col h-100">
+                            <p className = "signUp-inputText">Last name</p>
                             <input type="text" id="lastName" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} required /><br />
                         </div>
                     </div>
 
-                    <p className="signUp-inputText">Username</p>
-                    <input type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required /><br />
+                    <div className = "row signUp-usernameRow">
+                        <div className = "col h-100">
+                            <p className = "signUp-inputText">Username</p> {/* Added username field */}
+                            <input type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required /><br />
+                        </div>
+                    </div>
 
-                    <p className="signUp-inputText">Email</p>
-                    <input type="email" id="emailInput" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required /><br />
+                    <div className = "row signUp-emailRow">
+                        <div className = "col h-100">
+                            <p className = "signUp-inputText">Email</p>
+                            <input type="email" id="emailInput" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required /><br />
+                        </div>
+                    </div>
+                    
+                    <div className = "row signUp-passwordRow">
+                        <div className = "col h-100">
+                            <p className = "signUp-inputText">Password</p>
+                            <input type="password" id="newPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required /><br />
+                        </div>
+                    </div>
 
-                    <p className="signUp-inputText">Password</p>
-                    <input type="password" id="newPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required /><br />
-
-                    <p className="signUp-inputText">Confirm password</p>
-                    <input type="password" id="confirmPassword" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required /><br />
-
+                    <div className = "row signUp-confirmPasswordRow">
+                        <div className = "col h-100">
+                            <p className = "signUp-inputText">Confirm password</p>
+                            <input type="password" id="confirmPassword" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required /><br />
+                        </div>
+                    </div>
                     <span className="signUp-requirementFields">{message}</span>
-                    <span className="signUp-requirementFields">{lengthNotMet}</span>
-                    <span className="signUp-requirementFields">{upperCaseNotMet}</span>
-                    <span className="signUp-requirementFields">{lowerCaseNotMet}</span>
-                    <span className="signUp-requirementFields">{digitNotMet}</span>
-                    <span className="signUp-requirementFields">{emailRequirementNotMet}</span>
-                    <span className="signUp-requirementFields">{firstNameRequirementNotMet}</span>
-                    <span className="signUp-requirementFields">{lastNameRequirementNotMet}</span>
-
-                    <button id="signUp-btn" onClick={doRegister}>Create Account</button>
+                    <span className = "signUp-requirementFields">{lengthNotMet}</span>
+                    <span className = "signUp-requirementFields">{upperCaseNotMet}</span>
+                    <span className = "signUp-requirementFields">{lowerCaseNotMet}</span>
+                    <span className = "signUp-requirementFields">{digitNotMet}</span>
+                    <span className = "signUp-requirementFields">{emailRequirementNotMet}</span>
+                    <span className = "signUp-requirementFields">{firstNameRequirementNotMet}</span>
+                    <span className = "signUp-requirementFields">{lastNameRequirementNotMet}</span>
+                    
+                    <div className = "row signUp-registerButton">
+                        <div className = "col h-100">
+                            <button id="registerButton" type="submit" onClick={doRegister}>Register</button>
+                        </div>
+                    </div>                  
+                    
                 </div>
             </div>
-
-            {showVerificationPopup && (
-                <VerificationCode
-                    email={email}
-                    verifyCode={verifyCode}
-                    onVerificationSuccessful={onVerificationSuccessful}
-                    onClose={closeVerificationPopup}
-                />
-            )}
+            {showVerificationPopup && <VerificationCode show={true} onClose={closeVerificationPopup} verifyCode = {verifyCode} verificationSuccessful = {onVerificationSuccessful}/>}   
         </div>
+
+
     );
 }
 
