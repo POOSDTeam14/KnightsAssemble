@@ -77,6 +77,7 @@ function Login() {
             placeholder="Password"
             ref={(elem) => (loginPassword = elem)}
           />
+        <h2>
           <a
             id="forgot-password"
             className="links"
@@ -84,6 +85,7 @@ function Login() {
           >
             Forgot password?
           </a>
+        </h2>
           <ForgetPassword show={showPopup} onClose={closePopup} />
           <button id="loginButton" onClick={doLogin}>
             Sign in
