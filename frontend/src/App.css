@@ -154,7 +154,7 @@
   border-radius: 20px;
   margin-top: 20px;
   cursor: pointer;
-  width: 80%;
+  width: 65%;
   height: 45px;
 }
 
@@ -186,7 +186,7 @@
   #loginName,
   #loginPassword,
   #loginButton {
-    width: 90%;
+    width: 65%;
   }
 }
 /*****************  Login CSS *****************/

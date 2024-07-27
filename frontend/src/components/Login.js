@@ -60,7 +60,7 @@ function Login() {
           <h2 id="signIn-subheader">
             New to Knights Assemble?{' '}
             <a href="/register" className="links">
-              Create Account
+              Create an account
             </a>
           </h2>
           <p id="username-text">Username</p>
@@ -82,11 +82,11 @@ function Login() {
             className="links"
             onClick={forgetPasswordClick}
           >
-            Forgot Password
+            Forgot password?
           </a>
           <ForgetPassword show={showPopup} onClose={closePopup} />
           <button id="loginButton" onClick={doLogin}>
-            Sign In
+            Sign in
           </button>
           <span id="loginResult">{message}</span>
         </div>
