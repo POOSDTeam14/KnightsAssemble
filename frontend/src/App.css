@@ -170,10 +170,12 @@
 
 #loginResult 
 {
+  font-size: 1.2em;
+  font-weight: normal;
   color: red;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 875px) {
   .loginRow {
     flex-direction: column;
   }
