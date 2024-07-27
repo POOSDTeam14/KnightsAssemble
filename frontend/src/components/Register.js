@@ -47,59 +47,59 @@ function Register() {
 
         //Validate All Inputs Filled
         if (!firstName || !lastName || !username || !email || !password || !confirmPassword) {
-            setMessage('All fields must be filled out!');
+            setMessage('All fields must be filled out.');
+            validInput = false;
+            return;
+        }
+
+        //Name Format
+        const firstNameRequirement = /^[A-Za-z]+$/.test(firstName);
+        const lastNameRequirement = /^[A-Za-z]+$/.test(lastName);
+        if (!firstNameRequirement) {
+            setFirstNameRequirementNotMet("First name cannot contain numbers or special characters")
+            validInput = false;
+        }
+        if (!lastNameRequirement) {
+            setLastNameRequirementNotMet("Last name cannot contain numbers or special characters")
+            validInput = false;
+            return;
+        }
+
+        //Validate Email Format
+        const emailRequirement = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!emailRequirement) {
+            setEmailRequirementNotMet("Email address is not valid.")
             validInput = false;
             return;
         }
 
         //Validate Password
         if (password !== confirmPassword) {
-            setMessage('Passwords do not match');
+            setMessage('Passwords do not match.');
             validInput = false;
             return;
         }
 
         const testRequirements = validatePassword(password);
         if(!testRequirements.isLengthMet){
-            setlengthNotMet("Password Length Must Be 8-16 Characters");
+            setlengthNotMet("Password length must be 8-16 characters.");
             validInput = false;
         }
         
         if(!testRequirements.isDigitMet){
-            setDigitNotMet("Password Must Contain At Least One Digit");
+            setDigitNotMet("Password must contain at least one number.");
             validInput = false;
         }
        
         if(!testRequirements.isUpperCaseMet){
-            setUpperCaseNotMet("Password Must Contain At Least One UpperCase Letter");
+            setUpperCaseNotMet("Password must contain at least one uppercase letter.");
             validInput = false;
         }
 
         if(!testRequirements.isLowerCaseMet){
-            setLowerCaseNotMet("Password Must Contain At Least One LowerCase Letter");
+            setLowerCaseNotMet("Password must contain at least one lowercase letter.");
             validInput = false;
             return
-        }
-
-        //Validate Email Format
-        const emailRequirement = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        if(!emailRequirement){
-            setEmailRequirementNotMet("Email Address is not valid")
-            validInput = false;
-            return;
-        }
-
-        //First Name Format
-        const firstNameRequirement = /^[A-Za-z]+$/.test(firstName);
-        const lastNameRequirement = /^[A-Za-z]+$/.test(lastName);
-        if(!firstNameRequirement){
-            setFirstNameRequirementNotMet("First name cannot contain numbers or special characters")
-            validInput = false;
-        }
-        if(!lastNameRequirement){
-            setLastNameRequirementNotMet("Last name cannot contain numbers or special characters")
-            validInput = false;
-            return;
         }
 
         //Check if Email/Username Taken

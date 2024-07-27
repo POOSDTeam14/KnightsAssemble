@@ -256,6 +256,7 @@
 }
 
 .signUp-nameRow{
+  margin-bottom: 20px;
   width: 55%;
 }
 
@@ -273,7 +274,10 @@
 .right-signUp #username, #emailInput, #newPassword, #confirmPassword {
   width: 55%;
   height: 50px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #7e7d7d;
+  border-radius: 5px;
 }
 
 .right-signUp .signUp-requirementFields{
