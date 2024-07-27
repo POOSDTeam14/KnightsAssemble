@@ -249,20 +249,30 @@
   text-decoration: underline;
 }
 
-.signUp-nameRow{
-  height: 50px;
-  width: 55%;
-}
-
-.right-signUp #firstName, .right-signUp #lastName{
-  width: 100%;
-  height: 50px;
-}
-
 .signUp-inputText {
   font-weight: bold;
   color: black;
   margin-bottom: 5px;
+}
+
+.signUp-nameRow{
+  width: 55%;
+}
+
+.right-signUp #firstName {
+  width: 45%;
+  height: 50px;
+  margin-right: 45px;
+}
+
+.right-signUp #lastName {
+  width: 45%;
+  height: 50px;
+}
+
+.right-signUp #username, #emailInput, #newPassword, #confirmPassword {
+  width: 55%;
+  height: 50px;
 }
 
 .right-signUp .signUp-requirementFields{
