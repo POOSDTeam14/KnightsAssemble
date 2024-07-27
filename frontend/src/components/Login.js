@@ -70,7 +70,6 @@ function Login() {
             placeholder="Username"
             ref={(elem) => (loginName = elem)}
           />
-          <br />
           <p id="password-text">Password</p>
           <input
             type="password"
@@ -78,7 +77,6 @@ function Login() {
             placeholder="Password"
             ref={(elem) => (loginPassword = elem)}
           />
-          <br />
           <a
             id="forgot-password"
             className="links"
@@ -87,7 +85,6 @@ function Login() {
             Forgot Password
           </a>
           <ForgetPassword show={showPopup} onClose={closePopup} />
-
           <button id="loginButton" onClick={doLogin}>
             Sign In
           </button>
