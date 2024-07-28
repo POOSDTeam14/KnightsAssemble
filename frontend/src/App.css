@@ -204,7 +204,8 @@
   flex-wrap: wrap;
 }
 
-.left-signUp, .right-signUp {
+.left-signUp,
+.right-signUp {
   height: 100%;
   width: 100%;
   background-size: cover;
@@ -212,7 +213,7 @@
 }
 
 .left-signUp {
-  background-image: url("https://i.imgur.com/vAwpwqL.png"); 
+  background-image: url("https://i.imgur.com/vAwpwqL.png");
 }
 
 .right-signUp {
@@ -255,22 +256,29 @@
   margin-bottom: 5px;
 }
 
-.signUp-nameRow{
-  margin-bottom: 20px;
+.signUp-nameRow {
+  display: flex;
   width: 55%;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.right-signUp #firstName {
-  width: 45%;
-  height: 50px;
+.signUp-nameRow .col {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
 }
 
+.right-signUp #firstName,
 .right-signUp #lastName {
-  width: 45%;
+  width: 100%;
   height: 50px;
 }
 
-.right-signUp #username, #emailInput, #newPassword, #confirmPassword {
+.right-signUp #username,
+.right-signUp #emailInput,
+.right-signUp #newPassword,
+.right-signUp #confirmPassword {
   width: 55%;
   height: 50px;
   margin-bottom: 20px;
@@ -279,7 +287,7 @@
   border-radius: 5px;
 }
 
-.right-signUp .signUp-requirementFields{
+.right-signUp .signUp-requirementFields {
   font-size: 1.2em;
   font-weight: normal;
   color: red;
@@ -318,17 +326,21 @@
     margin-top: 20px;
   }
 
-    .signUp-usernameRow,
-    .signUp-emailRow,
-    .signUp-passwordRow,
-    .signUp-confirmPasswordRow {
+  .signUp-usernameRow,
+  .signUp-emailRow,
+  .signUp-passwordRow,
+  .signUp-confirmPasswordRow {
     width: 60%;
   }
 
-    .signUp-nameRow
-    {
-      width: 60%;
-    }
+  .signUp-nameRow {
+    width: 60%;
+    flex-direction: column;
+  }
+
+  .signUp-nameRow .col {
+    width: 100%;
+  }
 }
 /*********  Register CSS ***************/
 

@@ -219,11 +219,14 @@ function Register() {
                     <h2 id="signUp-subheader">Already have an account? <a href="/login" className="links">Sign in</a></h2>
 
                     <div className = "row signUp-nameRow">
-                        <p className = "signUp-inputText">First name</p>
-                        <input type="text" id="firstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
-
-                        <p className = "signUp-inputText">Last name</p>
-                        <input type="text" id="lastName" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                        <div className="col">
+                            <p className="signUp-inputText">First name</p>
+                            <input type="text" id="firstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                        </div>
+                        <div className="col">
+                            <p className="signUp-inputText">Last name</p>
+                            <input type="text" id="lastName" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                        </div>
                     </div>
 
                     <p className = "signUp-inputText">Username</p>
