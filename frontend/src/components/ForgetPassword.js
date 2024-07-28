@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import VerificationCode from './VerificationCode';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './ForgetPassword.css';
 
 function ForgetPassword({ show, onClose }) {
     const [showVerificationPopup, setShowVerificationPopup] = useState(false);
