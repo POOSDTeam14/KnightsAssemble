@@ -56,11 +56,11 @@ function Register() {
         const firstNameRequirement = /^[A-Za-z]+$/.test(firstName);
         const lastNameRequirement = /^[A-Za-z]+$/.test(lastName);
         if (!firstNameRequirement) {
-            setFirstNameRequirementNotMet("First name cannot contain numbers or special characters")
+            setFirstNameRequirementNotMet("First name cannot contain numbers or special characters.")
             validInput = false;
         }
         if (!lastNameRequirement) {
-            setLastNameRequirementNotMet("Last name cannot contain numbers or special characters")
+            setLastNameRequirementNotMet("Last name cannot contain numbers or special characters.")
             validInput = false;
             return;
         }
