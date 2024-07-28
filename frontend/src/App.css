@@ -266,14 +266,13 @@
 .signUp-nameRow .col {
   display: flex;
   flex-direction: column;
-  width: 55%;
+  width: 48%;
 }
 
 .right-signUp #firstName,
 .right-signUp #lastName {
   width: 100%;
   height: 50px;
-  padding: 10px;
   border: 1px solid #7e7d7d;
   border-radius: 5px;
 }
@@ -315,7 +314,7 @@
   color: gold;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .signUpRow {
     flex-direction: column;
   }
@@ -332,6 +331,7 @@
   .signUp-nameRow {
     width: 60%;
     flex-direction: column;
+    margin-bottom: 0px;
   }
 
   .signUp-nameRow .col {
