@@ -263,15 +263,9 @@
   margin-bottom: 20px;
 }
 
-.signUp-nameRow .col {
-  display: flex;
-  flex-direction: column;
-  width: 48%;
-}
-
 .right-signUp #firstName,
 .right-signUp #lastName {
-  width: 100%;
+  width: 94%;
   height: 50px;
   border: 1px solid #7e7d7d;
   border-radius: 5px;
@@ -332,10 +326,6 @@
     width: 60%;
     flex-direction: column;
     margin-bottom: 0px;
-  }
-
-  .signUp-nameRow .col {
-    width: 100%;
   }
 
   .right-signUp #firstName,
