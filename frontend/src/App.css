@@ -386,11 +386,11 @@
   background: rgba(0, 0, 0, 0.85);
   border: 3px solid rgba(255, 217, 0, 0.85);
   border-radius: 10px;
-  width: 100%;
+  width: 40%;
+  height: 40%;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 400px;
 }
 
 .popup-content .ucfImg {
@@ -476,56 +476,6 @@
   background-color: #333; 
   border-color: transparent;
   color: gold; 
-  }
-
-  @media (max-width: 875px) {
-   
-    .popup-content {
-      width: 40%;
-      height: 70%;
-    }
-    
-    
-    .popup-content img {
-      width: 15%;
-      height: 15%;
-      margin-bottom: 0px;
-      align-self: center;
-    }
-        
-    .popup-text{
-      margin-bottom: 0px;
-    }
-    
-    #login-emailInput, #verificationInput {
-      width: 75%; 
-      height: 20%;
-      margin-bottom: 0px;
-      margin-top: 0px;
-    }
-
-    #login-newPassword, #login-confirmPassword{
-      padding: 1%;
-      margin-bottom: 0px;
-      margin-top: 0px;
-      width: 75%; 
-      height: 20%;
-    }
-
-    #pegasus-ChangePassword{
-      margin-bottom: 0px;
-    }
-    
-    .popup-button{
-      width: 55%;
-      height: 50px;
-    }
-    
-    .popup-text button:hover {
-      background-color: #333; 
-      border-color: transparent;
-      color: gold; 
-      }
   }
   
 
