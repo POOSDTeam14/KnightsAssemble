@@ -61,13 +61,11 @@ function ForgetPassword({ show, onClose }) {
             <div className="popup-content">
                 <span className="close-btn" onClick={onClose}>×</span>
                 <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
-                <div className="popup-text">
-                    <p>Enter Email Address</p>
-                    <input id="login-emailInput" type="text" placeholder="Email" value={email} onChange={(elem) => setEmail(elem.target.value)}/><br />
-                    <span className = "requirementFields">{message}</span>
-                    <button className = "popup-button" onClick={handleVerification}>Send Verification Code</button>
-                    {showVerificationPopup && <VerificationCode show={true} onClose={closeAllPopups} verifyCode={verifyCode} email = {email} />}
-                </div>
+                <p className= "popup-text">Email</p>
+                <input id="login-emailInput" type="text" placeholder="Email" value={email} onChange={(elem) => setEmail(elem.target.value)}/><br />
+                <span className = "requirementFields">{message}</span>
+                <button className = "popup-button" onClick={handleVerification}>Send verification code</button>
+                {showVerificationPopup && <VerificationCode show={true} onClose={closeAllPopups} verifyCode={verifyCode} email = {email} />}
             </div>
         </div>
     );

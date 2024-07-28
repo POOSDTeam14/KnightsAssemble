@@ -384,24 +384,18 @@
 }
 
 .popup-content {
-  background: black;
-  border: 2px solid gold;
-  border-radius: 5px;
-  width: 30%;
-  height: 55%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-content: flex-start;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(255, 217, 0, 0.8);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
 }
 
-
 .popup-content img {
-  width: 20%;
-  height: 20%;
-  margin-top: 1%;
-  margin-bottom: 10%;
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
+  margin-bottom: 20px;
   align-self: center;
 }
 
@@ -414,8 +408,18 @@
   font-size: 30px;
 }
 
+.close-btn:hover {
+  position: absolute;
+  color: rgba(255, 217, 0, 0.75);
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 30px;
+}
+
 .popup-text{
-  margin-bottom: 10%;
+  font-weight: bold;
+  margin-bottom: 5px;
   color: white;
   display: flex;
   flex-direction: column;
@@ -424,18 +428,15 @@
 
 
 .passwordInputsError, .requirementFields{
+  font-size: 1.2em;
+  font-weight: normal;
   color: red;
-  font-size: 14px;
-  text-align: left;
-  margin-left: 10%;
-  width: 80%;
 }
 
 #login-emailInput, #login-newPassword, #login-confirmPassword, #verificationInput {
-  width: 75%; 
-  height: 30%;
-  margin-bottom: 1%;  
-  padding: 2%;
+  width: 55%; 
+  height: 50px;
+  margin-bottom: 20px;  
 }
 
 #login-newPassword, #login-confirmPassword{
@@ -503,10 +504,8 @@
     }
     
     .popup-button{
-      width: 75%;
-      height: 30%;
-      margin-top: 13%;
-      border-radius: 5%;
+      width: 55%;
+      height: 50px;
     }
     
     .popup-text button:hover {
