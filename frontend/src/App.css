@@ -258,17 +258,17 @@
 
 .signUp-nameRow {
   display: flex;
-  width: calc(55% + 48px);
+  width: 55%;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
 .right-signUp .colFirstName {
-  width: calc(50% + 12px);
+  width: calc(50% - 12px);
 }
 
 .right-signUp .colLastName {
-  width: calc(50% + 12px);
+  width: calc(50% - 12px);
 }
 
 .right-signUp #firstName,
