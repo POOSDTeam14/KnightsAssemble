@@ -12,8 +12,10 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
 
             if(window.location.pathname === "/register")
                 await verificationSuccessful();
-            else
+            else{
                 setShowChangePasswordPopup(true);
+                onClose();
+            }
         }
         else
             setMessage("Verification code incorrect!")
@@ -22,28 +24,34 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
 
     const closeAllPopups = () => {
         setShowChangePasswordPopup(false);
-        onClose(); // Close the ForgetPassword popup as well
     };
 
 
-    if(!show)
+    if(!show && !showChangePasswordPopup)
         return null;
 
 
     return (
-        <div className="popup-overlay">
-            <div className="popup-content">
-                <span className="close-btn" onClick={onClose}>×</span>
-                <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
-                <div className="popup-text">
-                    <p>Verification Code sent to Email</p>
-                    <input id="verificationInput" type="text" placeholder="Verification Code" value={verificationCode} onChange={(elem) => setVerificationCode(elem.target.value)}/><br />
-                    <span className = "requirementFields">{message}</span>
-                    <button className = "popup-button" onClick={verificationButtonClick}>Enter verification code</button>
-                    {showChangePasswordPopup && <ChangePassword show={true} onClose={closeAllPopups}  email={email}/>}
+        <>
+            {show &&
+                <div className="popup-overlay">
+                    <div className="popup-content">
+                        <span className="close-btn" onClick={onClose}>×</span>
+                        <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
+                        <div className="popup-text">
+                            <p>Verification Code sent to Email</p>
+                            <input id="verificationInput" type="text" placeholder="Verification Code" value={verificationCode} onChange={(elem) => setVerificationCode(elem.target.value)}/><br />
+                            <span className = "requirementFields">{message}</span>
+                            <button className = "popup-button" onClick={verificationButtonClick}>Enter verification code</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            }
+
+            {showChangePasswordPopup && 
+                <ChangePassword show={true} onClose={closeAllPopups}  email={email}/>
+            }
+        </>
     );
 }
 
