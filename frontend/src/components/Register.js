@@ -218,7 +218,7 @@ function Register() {
                     <h1 id="signUp-heading">Create account</h1>
                     <h2 id="signUp-subheader">Already have an account? <a href="/login" className="links">Sign in</a></h2>
 
-                    <div className = "row signUp-nameRow">
+                    <div className = "signUp-nameRow">
                         <div className="colFirstName">
                             <p className="signUp-inputText">First name</p>
                             <input type="text" id="firstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
