@@ -409,16 +409,13 @@
 
 .close-btn {
   color: gold;
-  margin-left: 38%;
+  margin-left: 98%;
   cursor: pointer;
   font-size: 30px;
 }
 
 .close-btn:hover {
-  position: absolute;
   color: rgba(255, 217, 0, 0.75);
-  cursor: pointer;
-  font-size: 30px;
 }
 
 .popup-text{
