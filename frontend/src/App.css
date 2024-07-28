@@ -408,7 +408,7 @@
 
 .close-btn {
   color: gold;
-  margin-left: 98%;
+  margin-left: 95%;
   cursor: pointer;
   font-size: 30px;
 }
@@ -468,7 +468,12 @@
   border-color: transparent;
   color: gold; 
   }
-  
+
+@media (max-width: 1500px) {
+  .popup-content {
+      width: 55%;
+    }
+}
 
 /*********  ForgetPassword CSS ***************/
 
