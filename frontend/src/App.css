@@ -260,8 +260,7 @@
   display: flex;
   width: 55%;
   justify-content: space-between;
-  margin-left: 12px;
-  margin-right: 0px;
+  padding: 12px;
   margin-bottom: 20px;
 }
 
