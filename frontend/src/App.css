@@ -260,7 +260,7 @@
   display: flex;
   width: 55%;
   justify-content: space-between;
-  padding-left: 12px;
+  margin: 0px;
   margin-bottom: 20px;
 }
 
