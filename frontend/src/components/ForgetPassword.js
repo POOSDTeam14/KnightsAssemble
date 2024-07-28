@@ -50,14 +50,15 @@ function ForgetPassword({ show, onClose }) {
     };
 
     const closeAllPopups = async closeAll => {
-        setEmail("");
         setMessage("");
 
         setShowVerificationPopup(false);
         if(!closeAll)
             setShowChangePasswordPopup(true);
-        else
+        else{
             setShowChangePasswordPopup(false);
+            setEmail("");
+        }
     };
 
     if (!show && !showVerificationPopup && !showChangePasswordPopup) 
