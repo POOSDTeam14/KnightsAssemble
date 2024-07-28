@@ -372,13 +372,9 @@
 
 /*********  ForgetPassword CSS ***************/
 .popup-overlay{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  height: calc(100vh - 50px);
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   z-index: 1000;
 }
 
@@ -387,17 +383,20 @@
   border: 3px solid rgba(255, 217, 0, 0.85);
   border-radius: 10px;
   width: 40%;
-  height: 40%;
+  height: fit-content;
+  font-family: "Arial", sans-serif;
+  display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 5%;
 }
 
 .popup-content .ucfImg {
   width: 100px;
   height: 100px;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 22px;
   align-self: center;
 }
 
@@ -455,7 +454,7 @@
   font-weight: bold;
   border-radius: 20px;
   margin-top: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   cursor: pointer;
   width: 55%;
   height: 50px;
