@@ -2,27 +2,19 @@ import React, { useState } from 'react';
 import VerificationCode from './VerificationCode';
 
 function ForgetPassword({ show, onClose }) {
-    //Verification Popup
     const [showVerificationPopup, setShowVerificationPopup] = useState(false);
     const [verifyCode, setVerifyCode] = useState('');
-     
-    //Requirements Message
     const [message, setMessage] = useState("");
-    
-    //Email Input
     const [email, setEmail] = useState('');
-    
+
     let bp = require('./Path.js');
 
     const handleVerification = async event => {
-        //Validate Email Format
         const emailRequirement = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        if(!emailRequirement)
-            setMessage("Email Address is not valid")      
-        else{
-            var obj = {
-                email: email
-            };
+        if (!emailRequirement) {
+            setMessage("Email is not valid.");
+        } else {
+            var obj = { email: email };
             let js = JSON.stringify(obj);
             try {
                 const response = await fetch(bp.buildPath('api/forgotPassword'), {
@@ -30,9 +22,9 @@ function ForgetPassword({ show, onClose }) {
                     body: js,
                     headers: { 'Content-Type': 'application/json' }
                 });
-                
+
                 let res = JSON.parse(await response.text());
-                
+
                 if ('error' in res) {
                     setMessage(res.error);
                 } else {
@@ -50,23 +42,31 @@ function ForgetPassword({ show, onClose }) {
         setEmail("");
         setMessage("");
         setShowVerificationPopup(false);
-        onClose(); // Close the ForgetPassword popup as well
+        onClose();
     };
 
-    if (!show) 
-        return null; 
+    if (!show) return null;
 
     return (
-        <div className="popup-overlay">
-            <div className="popup-content">
-                <span className="close-btn" onClick={onClose}>×</span>
-                <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
-                <div className="popup-text">
-                    <p>Enter Email Address</p>
-                    <input id="login-emailInput" type="text" placeholder="Email" value={email} onChange={(elem) => setEmail(elem.target.value)}/><br />
-                    <span className = "requirementFields">{message}</span>
-                    <button className = "popup-button" onClick={handleVerification}>Send Verification Code</button>
-                    {showVerificationPopup && <VerificationCode show={true} onClose={closeAllPopups} verifyCode={verifyCode} email = {email} />}
+        <div className="popup-overlay d-flex justify-content-center align-items-center">
+            <div className="popup-content bg-dark text-light p-4 rounded">
+                <button type="button" className="close text-light" aria-label="Close" onClick={closeAllPopups}>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" className="img-fluid mx-auto d-block mb-4" />
+                <div className="popup-text text-center">
+                    <p>Email</p>
+                    <input
+                        id="login-emailInput"
+                        type="text"
+                        className="form-control mb-2"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(elem) => setEmail(elem.target.value)}
+                    />
+                    <span className="requirementFields text-danger">{message}</span>
+                    <button className="btn btn-gold mt-3 w-100" onClick={handleVerification}>Send Verification Code</button>
+                    {showVerificationPopup && <VerificationCode show={true} onClose={closeAllPopups} verifyCode={verifyCode} email={email} />}
                 </div>
             </div>
         </div>
