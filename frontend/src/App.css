@@ -258,7 +258,7 @@
 
 .signUp-nameRow {
   display: flex;
-  width: 55%;
+  width: calc(55% + 48px);
   justify-content: space-between;
   margin-bottom: 20px;
 }
