@@ -117,7 +117,7 @@ function ChangePassword( {show, onClose, email}) {
     return (
         <div className="popup-overlay">
             <div className="popup-content">
-                <span className="close-btn" onClick={onClose}>×</span>
+                <span className="close-btn" onClick={() => onClose(true)}>×</span>
                 <img id= "ucfImg" src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
                 <div className="popup-text">
                     <p>New password</p>

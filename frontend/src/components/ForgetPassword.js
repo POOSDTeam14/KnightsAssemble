@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import VerificationCode from './VerificationCode';
+import ChangePassword from './ChangePassword';
 
 function ForgetPassword({ show, onClose }) {
     // Verification Popup
     const [showVerificationPopup, setShowVerificationPopup] = useState(false);
+    const [showChangePasswordPopup, setShowChangePasswordPopup] = useState(false);
     const [verifyCode, setVerifyCode] = useState('');
      
     // Requirements Message
@@ -11,6 +13,7 @@ function ForgetPassword({ show, onClose }) {
     
     // Email Input
     const [email, setEmail] = useState('');
+
     
     let bp = require('./Path.js');
 
@@ -46,13 +49,18 @@ function ForgetPassword({ show, onClose }) {
         }
     };
 
-    const closeAllPopups = () => {
+    const closeAllPopups = async closeAll => {
         setEmail("");
         setMessage("");
+
         setShowVerificationPopup(false);
+        if(!closeAll)
+            setShowChangePasswordPopup(true);
+        else
+            setShowChangePasswordPopup(false);
     };
 
-    if (!show && !showVerificationPopup) 
+    if (!show && !showVerificationPopup && !showChangePasswordPopup) 
         return null; 
 
     return (
@@ -78,7 +86,10 @@ function ForgetPassword({ show, onClose }) {
                 </div>
             )}
             {showVerificationPopup && (
-                <VerificationCode show={true} onClose={closeAllPopups} verifyCode={verifyCode} email={email}/>
+                <VerificationCode show={showVerificationPopup} onClose={closeAllPopups} verifyCode={verifyCode} email={email}/>
+            )}
+            {showChangePasswordPopup && (
+                <ChangePassword show={showChangePasswordPopup} onClose={closeAllPopups}  email={email}/>
             )}
         </>
     );

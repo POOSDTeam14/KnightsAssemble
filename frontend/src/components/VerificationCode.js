@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import ChangePassword from './ChangePassword';
 
 function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, email}) {
-    const [showChangePasswordPopup, setShowChangePasswordPopup] = useState(false);
     const [verificationCode, setVerificationCode] = useState("");
 
     const[message, setMessage] = useState("");
@@ -13,8 +11,7 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
             if(window.location.pathname === "/register")
                 await verificationSuccessful();
             else{
-                onClose();
-                setShowChangePasswordPopup(true);
+                onClose(false);
             }
         }
         else
@@ -22,12 +19,8 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
 
     };
 
-    const closeAllPopups = () => {
-        setShowChangePasswordPopup(false);
-    };
 
-
-    if(!show && !showChangePasswordPopup)
+    if(!show)
         return null;
 
 
@@ -36,7 +29,7 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
             {show && (
                 <div className="popup-overlay">
                     <div className="popup-content">
-                        <span className="close-btn" onClick={onClose}>×</span>
+                        <span className="close-btn" onClick={() => onClose(true)}>×</span>
                         <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
                         <div className="popup-text">
                             <p>Verification Code sent to Email</p>
@@ -46,10 +39,6 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
                         </div>
                     </div>
                 </div>
-            )}
-
-            {showChangePasswordPopup && (
-                <ChangePassword show={true} onClose={closeAllPopups}  email={email}/>
             )}
         </>
     );
