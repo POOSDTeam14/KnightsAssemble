@@ -118,11 +118,11 @@ function ChangePassword( {show, onClose, email}) {
         <div className="popup-overlay">
             <div className="popup-content">
                 <span className="close-btn" onClick={onClose}>×</span>
-                <img id = "pegasus-ChangePassword" src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
+                <img id= "ucfImg" src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
                 <div className="popup-text">
-                    <p>Enter New Password</p>
+                    <p>New password</p>
                     <input id="login-newPassword" type="password" placeholder="Password" value = {password} onChange={(elem) => setPassword(elem.target.value)}/><br />
-                    <p>Confirm Password</p>
+                    <p>Confirm password</p>
                     <input id = "login-confirmPassword" type="password" placeholder='Confirm Password' value = {confirmPassword} onChange={(elem) => setConfirmPassword(elem.target.value)}/><br/>
                     <span className = "passwordInputsError">{message}</span>
                     <span style={{ color: 'green' }}>{passwordSuccessful}</span>

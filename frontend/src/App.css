@@ -192,6 +192,7 @@
   #loginName,
   #loginPassword,
   #loginButton {
+    text-align: center;
     width: 60%;
   }
 }
@@ -351,6 +352,7 @@
   .right-signUp #firstName,
   .right-signUp #lastName
   {
+    text-align: center;
     margin-bottom: 20px;
   }
 
@@ -359,6 +361,7 @@
   .right-signUp #newPassword,
   .right-signUp #confirmPassword 
     {
+      text-align: center;
       margin-bottom: 20px;
       width: 60%;
     }
@@ -405,10 +408,8 @@
 }
 
 .close-btn {
-  position: absolute;
   color: gold;
-  top: 10px;
-  right: 10px;
+  margin-left: 38%;
   cursor: pointer;
   font-size: 30px;
 }
@@ -416,8 +417,6 @@
 .close-btn:hover {
   position: absolute;
   color: rgba(255, 217, 0, 0.75);
-  top: 10px;
-  right: 10px;
   cursor: pointer;
   font-size: 30px;
 }
@@ -438,18 +437,10 @@
 }
 
 #login-emailInput, #login-newPassword, #login-confirmPassword, #verificationInput {
+  text-align: center;
   width: 55%; 
   height: 50px;
   margin-bottom: 20px;  
-}
-
-#login-newPassword, #login-confirmPassword{
-  padding: 1%;
-  height: 20%;
-}
-
-#pegasus-ChangePassword{
-  margin-bottom: 3%;
 }
 
 .popup-button{

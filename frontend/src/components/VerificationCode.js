@@ -39,7 +39,7 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
                     <p>Verification Code sent to Email</p>
                     <input id="verificationInput" type="text" placeholder="Verification Code" value={verificationCode} onChange={(elem) => setVerificationCode(elem.target.value)}/><br />
                     <span className = "requirementFields">{message}</span>
-                    <button className = "popup-button" onClick={verificationButtonClick}>Enter Verification Code</button>
+                    <button className = "popup-button" onClick={verificationButtonClick}>Enter verification code</button>
                     {showChangePasswordPopup && <ChangePassword show={true} onClose={closeAllPopups}  email={email}/>}
                 </div>
             </div>
