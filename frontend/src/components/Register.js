@@ -239,13 +239,13 @@ function Register() {
                     <input type="password" id="confirmPassword" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
 
                     <span className="signUp-requirementFields">{message}</span>
+                    <span className="signUp-requirementFields">{firstNameRequirementNotMet}</span>
+                    <span className="signUp-requirementFields">{lastNameRequirementNotMet}</span>
+                    <span className="signUp-requirementFields">{emailRequirementNotMet}</span>
                     <span className = "signUp-requirementFields">{lengthNotMet}</span>
-                    <span className = "signUp-requirementFields">{upperCaseNotMet}</span>
                     <span className = "signUp-requirementFields">{lowerCaseNotMet}</span>
+                    <span className="signUp-requirementFields">{upperCaseNotMet}</span>
                     <span className = "signUp-requirementFields">{digitNotMet}</span>
-                    <span className = "signUp-requirementFields">{emailRequirementNotMet}</span>
-                    <span className = "signUp-requirementFields">{firstNameRequirementNotMet}</span>
-                    <span className = "signUp-requirementFields">{lastNameRequirementNotMet}</span>
                     
                     <button id="registerButton" type="submit" onClick={doRegister}>Register</button>
                     </div>                    
