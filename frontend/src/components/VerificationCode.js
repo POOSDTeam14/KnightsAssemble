@@ -13,8 +13,8 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
             if(window.location.pathname === "/register")
                 await verificationSuccessful();
             else{
-                setShowChangePasswordPopup(true);
                 onClose();
+                setShowChangePasswordPopup(true);
             }
         }
         else
@@ -33,7 +33,7 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
 
     return (
         <>
-            {show &&
+            {show && (
                 <div className="popup-overlay">
                     <div className="popup-content">
                         <span className="close-btn" onClick={onClose}>×</span>
@@ -46,11 +46,11 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
                         </div>
                     </div>
                 </div>
-            }
+            )}
 
-            {showChangePasswordPopup && 
+            {showChangePasswordPopup && (
                 <ChangePassword show={true} onClose={closeAllPopups}  email={email}/>
-            }
+            )}
         </>
     );
 }
