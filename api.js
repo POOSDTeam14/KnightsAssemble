@@ -1065,13 +1065,15 @@ exports.setApp = function(app, client)
 
         const emailResults = await db.collection('Users').find({Email: email}).toArray();
 
+        const hashedPassword = await hashUserPassword(password);
+
         if (emailResults.length > 0)
         {
             try 
             {
                 var ret = await db.collection('Users').updateOne(
                     {Email : email},
-                    {$set : {Password : password}}
+                    {$set : {Password : hashedPassword}}
                 );
                 return res.status(200).json(ret);
             } 
