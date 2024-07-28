@@ -339,10 +339,18 @@
     margin-bottom: 0px;
   }
 
+  .right-signUp .colFirstName {
+    margin-right: 0px;
+    width: 100%;
+  }
+  
+  .right-signUp .colLastName {
+    width: 100%;
+  }
+
   .right-signUp #firstName,
   .right-signUp #lastName
   {
-    width: 100%;
     margin-bottom: 20px;
   }
 
