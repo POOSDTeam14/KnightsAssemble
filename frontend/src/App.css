@@ -266,13 +266,16 @@
 .signUp-nameRow .col {
   display: flex;
   flex-direction: column;
-  width: 48%;
+  width: 50%;
 }
 
 .right-signUp #firstName,
 .right-signUp #lastName {
   width: 100%;
   height: 50px;
+  padding: 10px;
+  border: 1px solid #7e7d7d;
+  border-radius: 5px;
 }
 
 .right-signUp #username,
@@ -312,7 +315,7 @@
   color: gold;
 }
 
-@media (max-width: 875px) {
+@media (max-width: 1200px) {
   .signUpRow {
     flex-direction: column;
   }
@@ -326,13 +329,6 @@
     margin-top: 20px;
   }
 
-  .signUp-usernameRow,
-  .signUp-emailRow,
-  .signUp-passwordRow,
-  .signUp-confirmPasswordRow {
-    width: 60%;
-  }
-
   .signUp-nameRow {
     width: 60%;
     flex-direction: column;
@@ -341,6 +337,22 @@
   .signUp-nameRow .col {
     width: 100%;
   }
+
+    .right-signUp #firstName,
+    .right-signUp #lastName,
+    .right-signUp #username,
+    .right-signUp #emailInput,
+    .right-signUp #newPassword,
+    .right-signUp #confirmPassword 
+    {
+      margin-bottom: 20px;
+      width: 60%;
+    }
+
+    #registerButton, 
+    .popup-button {
+      width: 60%;
+    }
 }
 /*********  Register CSS ***************/
 
