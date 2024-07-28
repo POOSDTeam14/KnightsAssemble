@@ -227,16 +227,16 @@ function Register() {
                     </div>
 
                     <p className = "signUp-inputText">Username</p>
-                    <input type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required /><br />
+                    <input type="text" id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
 
                     <p className = "signUp-inputText">Email</p>
-                    <input type="email" id="emailInput" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required /><br />
+                    <input type="email" id="emailInput" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
                     <p className = "signUp-inputText">Password</p>
-                    <input type="password" id="newPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required /><br />
+                    <input type="password" id="newPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
                     <p className = "signUp-inputText">Confirm password</p>
-                    <input type="password" id="confirmPassword" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required /><br />
+                    <input type="password" id="confirmPassword" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
 
                     <span className="signUp-requirementFields">{message}</span>
                     <span className = "signUp-requirementFields">{lengthNotMet}</span>
