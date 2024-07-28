@@ -263,7 +263,12 @@
   margin-bottom: 20px;
 }
 
+.right-signUp .colFirstName {
+  width: 50%;
+}
+
 .right-signUp .colLastName {
+  width: 50%;
   padding: 0px
 }
 
