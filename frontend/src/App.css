@@ -266,7 +266,7 @@
 .signUp-nameRow .col {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 55%;
 }
 
 .right-signUp #firstName,
@@ -338,12 +338,16 @@
     width: 100%;
   }
 
-    .right-signUp #firstName,
-    .right-signUp #lastName,
-    .right-signUp #username,
-    .right-signUp #emailInput,
-    .right-signUp #newPassword,
-    .right-signUp #confirmPassword 
+  .right-signUp #firstName,
+  .right-signUp #lastName
+  {
+    margin-bottom: 20px;
+  }
+
+  .right-signUp #username,
+  .right-signUp #emailInput,
+  .right-signUp #newPassword,
+  .right-signUp #confirmPassword 
     {
       margin-bottom: 20px;
       width: 60%;
