@@ -257,9 +257,7 @@
 }
 
 .signUp-nameRow {
-  display: flex;
   width: 55%;
-  justify-content: space-between;
   margin: 0px;
   margin-bottom: 20px;
 }
