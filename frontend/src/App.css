@@ -266,10 +266,13 @@
 }
 
 .right-signUp .colFirstName {
+  padding: 0px;
+  margin-right: 24px;
   width: calc(50% - 12px);
 }
 
 .right-signUp .colLastName {
+  padding: 0px;
   width: calc(50% - 12px);
 }
 
