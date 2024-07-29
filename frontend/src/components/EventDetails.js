@@ -84,8 +84,8 @@ function EventDetails() {
 
     const fetchSenderNames = async (userId) => {
         const uniqueUserIds = [...new Set(userId)];
-        const requests = uniqueUserIds.map(userID => {
-            const obj = { userid: userID, token: token };
+        const requests = uniqueUserIds.map(userId => {
+            const obj = { userid: userId, token: token };
             const js = JSON.stringify(obj);
 
             return fetch(buildPath('api/findNames'), {
@@ -99,7 +99,7 @@ function EventDetails() {
             const responses = await Promise.all(requests);
             const names = responses.reduce((acc, res) => {
                 if (!('error' in res)) {
-                    acc[res.ret.userid] = `${res.ret.first} ${res.ret.last}`;
+                    acc[userId] = `${res.ret.first} ${res.ret.last}`;
                 }
                 return acc;
             }, {});
