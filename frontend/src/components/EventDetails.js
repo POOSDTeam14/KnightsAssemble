@@ -169,6 +169,30 @@ function EventDetails() {
         window.location.href = '/updateevent';
     };
 
+    const getMessageSender = async (userID) => 
+    {
+        const obj = { userid: userID, token: token };
+        const js = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(buildPath('api/findNames'), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const res = await response.json();
+
+            if ('error' in res) {
+                console.error('Error leaving event:', res.ret.error);
+            } else {
+                return res.ret.first + " " + res.ret.last + ": ";
+            }
+        } catch (error) {
+            console.error('Failed to leave event', error);
+        }
+    }
+
     return (
         <div className="container my-4">
             <div className="card shadow-sm">
@@ -188,7 +212,7 @@ function EventDetails() {
                                 <>
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                         {messages.map((message) => (
-                                            <p key={message._id}><strong>{message.Text}</strong></p>
+                                            <p key={message._id}><strong>{getMessageSender(message.userid)}{message.Text}</strong></p>
                                         ))}
                                     </div>
                                     <input
@@ -201,7 +225,7 @@ function EventDetails() {
                                         onKeyPress={handleKeyPress}
                                     />
                                     <button className="btn btn-warning mt-2 w-100" onClick={handleUpdateEvent}>
-                                        Update Event
+                                        Update event
                                     </button>
                                 </>
                             ) : (
@@ -223,12 +247,12 @@ function EventDetails() {
                                                 onKeyPress={handleKeyPress}
                                             />
                                             <button className="btn btn-danger mt-2 w-100" onClick={handleLeaveEvent}>
-                                                Leave Event
+                                                Leave event
                                             </button>
                                         </>
                                     ) : (
                                         <button className="btn btn-primary mt-2 w-100" onClick={handleJoinEvent}>
-                                            Join Event
+                                            Join event
                                         </button>
                                     )}
                                 </>
