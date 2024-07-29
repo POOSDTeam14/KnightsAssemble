@@ -30,13 +30,11 @@ function VerificationCode( {show, onClose, verifyCode, verificationSuccessful, e
                 <div className="popup-overlay">
                     <div className="popup-content">
                         <span className="close-btn" onClick={() => onClose(true)}>×</span>
-                        <img src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
-                        <div className="popup-text">
-                            <p>Verification Code sent to Email</p>
-                            <input id="verificationInput" type="text" placeholder="Verification Code" value={verificationCode} onChange={(elem) => setVerificationCode(elem.target.value)}/><br />
-                            <span className = "requirementFields">{message}</span>
-                            <button className = "popup-button" onClick={verificationButtonClick}>Enter verification code</button>
-                        </div>
+                        <img className="ucfImg" src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
+                        <p className="popup-text">Verification code</p>
+                        <input id="login-emailInput" type="text" placeholder="Verification code" value={verificationCode} onChange={(elem) => setVerificationCode(elem.target.value)}/>
+                        <span className = "requirementFields">{message}</span>
+                        <button className = "popup-button" onClick={verificationButtonClick}>Enter verification code</button>
                     </div>
                 </div>
             )}

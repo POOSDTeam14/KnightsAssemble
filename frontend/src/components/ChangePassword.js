@@ -119,19 +119,17 @@ function ChangePassword( {show, onClose, email}) {
             <div className="popup-content">
                 <span className="close-btn" onClick={() => onClose(true)}>×</span>
                 <img id= "ucfImg" src="https://i.imgur.com/Yl8TFRU.png" alt="Gold Pegasus" />
-                <div className="popup-text">
-                    <p>New password</p>
-                    <input id="login-newPassword" type="password" placeholder="Password" value = {password} onChange={(elem) => setPassword(elem.target.value)}/><br />
-                    <p>Confirm password</p>
-                    <input id = "login-confirmPassword" type="password" placeholder='Confirm Password' value = {confirmPassword} onChange={(elem) => setConfirmPassword(elem.target.value)}/><br/>
-                    <span className = "passwordInputsError">{message}</span>
-                    <span style={{ color: 'green' }}>{passwordSuccessful}</span>
-                    <span className = "requirementFields">{lengthNotMet}</span>
-                    <span className = "requirementFields">{upperCaseNotMet}</span>
-                    <span className = "requirementFields">{lowerCaseNotMet}</span>
-                    <span className = "requirementFields">{digitNotMet}</span>
-                    <button className = "popup-button" id = "button-finalizePassword" onClick={doChangePassword}>Finalize Password</button>
-                </div>
+                <p className="popup-text">New password</p>
+                <input id="login-newPassword" type="password" placeholder="Password" value = {password} onChange={(elem) => setPassword(elem.target.value)}/>
+                <p className="popup-text">Confirm password</p>
+                <input id = "login-confirmPassword" type="password" placeholder='Confirm password' value = {confirmPassword} onChange={(elem) => setConfirmPassword(elem.target.value)}/>
+                <span className = "passwordInputsError">{message}</span>
+                <span style={{ color: 'green' }}>{passwordSuccessful}</span>
+                <span className = "requirementFields">{lengthNotMet}</span>
+                <span className="requirementFields">{lowerCaseNotMet}</span>
+                <span className = "requirementFields">{upperCaseNotMet}</span>
+                <span className = "requirementFields">{digitNotMet}</span>
+                <button className="popup-button" id= "popup-button" onClick={doChangePassword}>Change password</button>
             </div>
         </div>
     );

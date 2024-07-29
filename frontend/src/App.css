@@ -7,6 +7,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  z-index: 2000;
 }
 
 .upperBox img {
@@ -408,7 +409,7 @@
 
 .close-btn {
   color: gold;
-  margin-top: 4%;
+  margin-top: 1%;
   margin-left: 96%;
   justify-content: center;
   cursor: pointer;
@@ -464,16 +465,6 @@
   border-color: transparent;
   color: gold;
 }
-
-#button-finalizePassword{
-  margin-top: 8%;
-}
-
-.popup-text button:hover {
-  background-color: #333; 
-  border-color: transparent;
-  color: gold; 
-  }
 
 @media (max-width: 1500px) {
   .popup-content {
