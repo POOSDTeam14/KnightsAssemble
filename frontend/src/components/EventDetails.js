@@ -99,7 +99,7 @@ function EventDetails() {
             const res = await response.json();
 
             if (!('error' in res)) {
-                setMessageSender(prevState => new Map(prevState).set(userId, res.ret.first + " " + res.ret.last + ": "));
+                setMessageSender(prevState => new Map(prevState).set(userId, res.ret.first + " " + res.ret.last));
             }
         } catch (error) {
             console.error('Failed to fetch message sender', error);
@@ -214,7 +214,7 @@ function EventDetails() {
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                         {messages.map((message) => (
                                             <p key={message._id}>
-                                                <strong>{messageSender.get(message.User) || 'Unknown'}: </strong> {message.Text}
+                                                <strong>{messageSender.get(message.User) || 'Unknown'} </strong> {message.Text}
                                             </p>
                                         ))}
                                     </div>
@@ -238,7 +238,7 @@ function EventDetails() {
                                             <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                                 {messages.map((message) => (
                                                     <p key={message._id}>
-                                                        <strong>{messageSender.get(message.User) || 'Unknown'}: </strong> {message.Text}
+                                                        <strong>{messageSender.get(message.User) || 'Unknown'} </strong> {message.Text}
                                                     </p>
                                                 ))}
                                             </div>
