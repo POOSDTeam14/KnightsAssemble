@@ -40,7 +40,7 @@ function EventDetails() {
                 setMessages(res.ret);
                 for(let i = 0; i < res.ret.length; ++i)
                 {
-                    fetchSenderNames(res.ret.userid);
+                    fetchSenderNames(res.ret[i].userid);
                 }
             }
         } catch (error) {
