@@ -14,12 +14,12 @@ function EventDetails() {
     const [newMessage, setNewMessage] = useState('');
     const [isUserHost, setIsUserHost] = useState(false);
     const [isUserJoined, setIsUserJoined] = useState(false);
-    const [senderNames, setSenderNames] = useState({});
     const chatBoxRef = useRef(null);
 
     const token = retrieveToken();
     const eventId = retrieveEventID();
     const userId = jwtDecode(token).userInfo.userid;
+    const messageSender = Set();
 
     const fetchEventMessages = async () => {
         const obj = { eventid: eventId, token: token };
@@ -38,7 +38,10 @@ function EventDetails() {
                 console.error('Error fetching event messages:', res.ret.error);
             } else {
                 setMessages(res.ret);
-                fetchSenderNames(res.ret.map(message => message.User));
+                for(let i = 0; i < res.ret.length; ++i)
+                {
+                    fetchSenderNames(res.ret.userid);
+                }
             }
         } catch (error) {
             console.error('Failed to fetch event messages', error);
@@ -82,32 +85,31 @@ function EventDetails() {
         }
     };
 
-    const fetchSenderNames = async (userId) => {
-        const uniqueUserIds = [...new Set(userId)];
-        const requests = uniqueUserIds.map(userId => {
-            const obj = { userid: userId, token: token };
-            const js = JSON.stringify(obj);
+    const fetchSenderNames = async (userId) => 
+    {
+        const obj = { userid: userId, token: token };
+        const js = JSON.stringify(obj);
 
-            return fetch(buildPath('api/findNames'), {
+        try 
+        {
+            const response = await fetch(buildPath('api/findNames'), {
                 method: 'POST',
                 body: js,
                 headers: { 'Content-Type': 'application/json' }
-            }).then(response => response.json());
-        });
+            });
 
-        try {
-            const responses = await Promise.all(requests);
-            const names = responses.reduce((acc, res) => {
-                if (!('error' in res)) {
-                    acc[userId] = `${res.ret.first} ${res.ret.last}`;
-                }
-                return acc;
-            }, {});
-            setSenderNames(names);
-        } catch (error) {
-            console.error('Failed to fetch sender names', error);
+            const res = await response.json();
+
+            if (!('error' in res)) 
+            {
+                messageSender.add(res.ret.first + " " + res.ret.last + ": ");
+            } 
         }
-    };
+        catch (error) 
+        {
+            console.error('Failed to fetch message sender', error);
+        }
+    }
 
     const handleKeyPress = async (event) => {
         if (event.key === 'Enter' && newMessage.trim()) {
@@ -217,7 +219,7 @@ function EventDetails() {
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                         {messages.map((message) => (
                                             <p key={message._id}>
-                                                <strong>{senderNames[message.User] || 'Unknown'}: </strong> {message.Text}
+                                                <strong>{messageSender[message.User] || 'Unknown'}: </strong> {message.Text}
                                             </p>
                                         ))}
                                     </div>
@@ -241,7 +243,7 @@ function EventDetails() {
                                             <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                                 {messages.map((message) => (
                                                     <p key={message._id}>
-                                                        <strong>{senderNames[message.User] || 'Unknown'}: </strong> {message.Text}
+                                                        <strong>{messageSender[message.User] || 'Unknown'}: </strong> {message.Text}
                                                     </p>
                                                 ))}
                                             </div>
