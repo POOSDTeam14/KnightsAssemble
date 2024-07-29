@@ -408,8 +408,7 @@
 
 .close-btn {
   color: gold;
-  margin-top: 1%;
-  margin-left: 96%;
+  margin-left: 95%;
   justify-content: center;
   cursor: pointer;
   height: 20px;
@@ -436,6 +435,12 @@
   font-size: 1.2em;
   font-weight: normal;
   color: red;
+}
+
+.successfulChange {
+  font-size: 1.2em;
+  font-weight: normal;
+  color: green;
 }
 
 #login-emailInput, #login-newPassword, #login-confirmPassword, #verificationInput {

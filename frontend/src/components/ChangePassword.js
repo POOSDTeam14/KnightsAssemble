@@ -124,7 +124,7 @@ function ChangePassword( {show, onClose, email}) {
                 <p className="popup-text">Confirm password</p>
                 <input id = "login-confirmPassword" type="password" placeholder='Confirm password' value = {confirmPassword} onChange={(elem) => setConfirmPassword(elem.target.value)}/>
                 <span className = "passwordInputsError">{message}</span>
-                <span style={{ color: 'green' }}>{passwordSuccessful}</span>
+                <span className = "successfulChange">{passwordSuccessful}</span>
                 <span className = "requirementFields">{lengthNotMet}</span>
                 <span className="requirementFields">{lowerCaseNotMet}</span>
                 <span className = "requirementFields">{upperCaseNotMet}</span>
