@@ -19,7 +19,7 @@ function EventDetails() {
     const token = retrieveToken();
     const eventId = retrieveEventID();
     const userId = jwtDecode(token).userInfo.userid;
-    const messageSender = Set();
+    const messageSender = new Set();
 
     const fetchEventMessages = async () => {
         const obj = { eventid: eventId, token: token };
