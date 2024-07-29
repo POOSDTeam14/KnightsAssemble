@@ -82,8 +82,8 @@ function EventDetails() {
         }
     };
 
-    const fetchSenderNames = async (userIds) => {
-        const uniqueUserIds = [...new Set(userIds)];
+    const fetchSenderNames = async (userId) => {
+        const uniqueUserIds = [...new Set(userId)];
         const requests = uniqueUserIds.map(userID => {
             const obj = { userid: userID, token: token };
             const js = JSON.stringify(obj);
