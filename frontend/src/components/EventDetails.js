@@ -1,7 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 import { buildPath } from './Path';
 import { jwtDecode } from "jwt-decode";
 import { retrieveToken, retrieveEventID } from '../storage';
+
+// Fix Leaflet icon issue
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+});
 
 function EventDetails() {
     const [eventName, setEventName] = useState('');
@@ -9,6 +20,8 @@ function EventDetails() {
     const [eventType, setEventType] = useState('');
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
+    const [numberOfAttendees, setNumberOfAttendees] = useState(0); 
+    const [capacity, setCapacity] = useState(0); 
     const [description, setDescription] = useState('');
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
@@ -16,6 +29,8 @@ function EventDetails() {
     const [isUserJoined, setIsUserJoined] = useState(false);
     const [messageSender, setMessageSender] = useState(new Map());
     const chatBoxRef = useRef(null);
+
+    const [eventCoordinates, setEventCoordinates] = useState(null);
 
     const token = retrieveToken();
     const eventId = retrieveEventID();
@@ -70,6 +85,8 @@ function EventDetails() {
                 setEventDate(new Date(res.ret.Time).toISOString().split('T')[0]);
                 setEventTime(new Date(res.ret.Time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
                 setDescription(res.ret.Description);
+                setNumberOfAttendees((res.ret.Attendees).length); 
+                setCapacity(res.ret.Capacity); 
                 if (userId === res.ret.HostID) {
                     setIsUserHost(true);
                 }
@@ -80,9 +97,25 @@ function EventDetails() {
                     }
                 }
             }
+
+            const locationResponse = await fetch(buildPath('api/markLocation'), {
+                method: 'POST',
+                body: JSON.stringify({ location: res.ret.Location, token: token }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+    
+            const locationRes = await locationResponse.json();
+            if ('error' in locationRes) {
+                console.error('Error fetching location coordinates:', locationRes.error);
+            } else {
+                setEventCoordinates({ lat: locationRes.ret.lat, long: locationRes.ret.long });
+            }
+            
         } catch (error) {
             console.error('Failed to fetch event details', error);
         }
+        
+
     };
 
     const fetchSenderNames = async (userId) => {
@@ -205,8 +238,26 @@ function EventDetails() {
                             <p><strong>Date:</strong> {eventDate}</p>
                             <p><strong>Time:</strong> {eventTime}</p>
                             <p><strong>Location:</strong> {eventLocation}</p>
+                            <p><strong>Capacity: </strong> {numberOfAttendees}/{capacity}</p>
                             <p><strong>Description:</strong></p>
                             <p>{description}</p>
+                            {eventCoordinates && (
+                                    <MapContainer
+                                        center={[eventCoordinates.lat, eventCoordinates.long]}
+                                        zoom={15}
+                                        style={{ height: '400px', width: '100%' }}
+                                    >
+                                        <TileLayer
+                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                        />
+                                        <Marker position={[eventCoordinates.lat, eventCoordinates.long]}>
+                                            <Popup>
+                                                {eventName} <br /> {eventLocation}
+                                            </Popup>
+                                        </Marker>
+                                    </MapContainer>
+                             )}
                         </div>
                         <div className="col-lg-4 col-md-5">
                             {isUserHost ? (

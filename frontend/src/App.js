@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
+import 'leaflet/dist/leaflet.css';
 import './App.css';
 
 
