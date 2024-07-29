@@ -241,7 +241,7 @@ function EventDetails() {
                                             <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                                 {messages.map((message) => (
                                                     <p key={message._id}>
-                                                        <strong>{senderNames[message.userid] || 'Unknown'}: {message.Text}</strong>
+                                                        <strong>{senderNames[message.User] || 'Unknown'}: {message.Text}</strong>
                                                     </p>
                                                 ))}
                                             </div>
