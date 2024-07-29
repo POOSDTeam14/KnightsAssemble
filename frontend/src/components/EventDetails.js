@@ -38,7 +38,7 @@ function EventDetails() {
                 console.error('Error fetching event messages:', res.ret.error);
             } else {
                 setMessages(res.ret);
-                fetchSenderNames(res.ret.map(message => message.userid));
+                fetchSenderNames(res.ret.map(message => message.User));
             }
         } catch (error) {
             console.error('Failed to fetch event messages', error);
