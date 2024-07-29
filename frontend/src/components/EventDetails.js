@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { buildPath } from './Path';
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { retrieveToken, retrieveEventID } from '../storage';
 
 function EventDetails() {
@@ -14,12 +14,12 @@ function EventDetails() {
     const [newMessage, setNewMessage] = useState('');
     const [isUserHost, setIsUserHost] = useState(false);
     const [isUserJoined, setIsUserJoined] = useState(false);
+    const [messageSender, setMessageSender] = useState(new Map());
     const chatBoxRef = useRef(null);
 
     const token = retrieveToken();
     const eventId = retrieveEventID();
     const userId = jwtDecode(token).userInfo.userid;
-    const messageSender = new Map();
 
     const fetchEventMessages = async () => {
         const obj = { eventid: eventId, token: token };
@@ -37,11 +37,11 @@ function EventDetails() {
             if ('error' in res) {
                 console.error('Error fetching event messages:', res.ret.error);
             } else {
-                setMessages(res.ret);
-                for(let i = 0; i < res.ret.length; ++i)
-                {
-                    fetchSenderNames(res.ret[i].User);
-                }
+                const messages = res.ret;
+                setMessages(messages);
+
+                const fetchSenderPromises = messages.map(message => fetchSenderNames(message.User));
+                await Promise.all(fetchSenderPromises);
             }
         } catch (error) {
             console.error('Failed to fetch event messages', error);
@@ -85,13 +85,11 @@ function EventDetails() {
         }
     };
 
-    const fetchSenderNames = async (userId) => 
-    {
+    const fetchSenderNames = async (userId) => {
         const obj = { userid: userId, token: token };
         const js = JSON.stringify(obj);
 
-        try 
-        {
+        try {
             const response = await fetch(buildPath('api/findNames'), {
                 method: 'POST',
                 body: js,
@@ -100,16 +98,13 @@ function EventDetails() {
 
             const res = await response.json();
 
-            if (!('error' in res)) 
-            {
-                messageSender.set(userId, res.ret.first + " " + res.ret.last + ": ");
-            } 
-        }
-        catch (error) 
-        {
+            if (!('error' in res)) {
+                setMessageSender(prevState => new Map(prevState).set(userId, res.ret.first + " " + res.ret.last + ": "));
+            }
+        } catch (error) {
             console.error('Failed to fetch message sender', error);
         }
-    }
+    };
 
     const handleKeyPress = async (event) => {
         if (event.key === 'Enter' && newMessage.trim()) {
@@ -256,13 +251,10 @@ function EventDetails() {
                                                 onChange={(e) => setNewMessage(e.target.value)}
                                                 onKeyPress={handleKeyPress}
                                             />
-                                            <button className="btn btn-danger mt-2 w-100" onClick={handleLeaveEvent}>
-                                                Leave event
-                                            </button>
                                         </>
                                     ) : (
-                                        <button className="btn btn-primary mt-2 w-100" onClick={handleJoinEvent}>
-                                            Join event
+                                        <button className="btn btn-primary w-100" onClick={handleJoinEvent}>
+                                            Join Event
                                         </button>
                                     )}
                                 </>
