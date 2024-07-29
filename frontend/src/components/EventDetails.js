@@ -214,7 +214,7 @@ function EventDetails() {
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                         {messages.map((message) => (
                                             <p key={message._id}>
-                                                <strong>{messageSender.get(message.User) || 'Unknown'} </strong> {message.Text}
+                                                <strong>{messageSender.get(message.User) || 'Unknown'}: </strong> {message.Text} <br/> {message.TimeSent}
                                             </p>
                                         ))}
                                     </div>
@@ -238,7 +238,7 @@ function EventDetails() {
                                             <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                                 {messages.map((message) => (
                                                     <p key={message._id}>
-                                                        <strong>{messageSender.get(message.User) || 'Unknown'} </strong> {message.Text}
+                                                        <strong>{messageSender.get(message.User) || 'Unknown'}: </strong> {message.Text} <br /> {message.TimeSent}
                                                     </p>
                                                 ))}
                                             </div>
@@ -250,7 +250,10 @@ function EventDetails() {
                                                 value={newMessage}
                                                 onChange={(e) => setNewMessage(e.target.value)}
                                                 onKeyPress={handleKeyPress}
-                                            />
+                                                />
+                                                <button className="btn btn-danger mt-2 w-100" onClick={handleLeaveEvent}>
+                                                    Leave event
+                                                </button>
                                         </>
                                     ) : (
                                         <button className="btn btn-primary w-100" onClick={handleJoinEvent}>
