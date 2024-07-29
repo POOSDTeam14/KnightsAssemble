@@ -14,6 +14,7 @@ function EventDetails() {
     const [newMessage, setNewMessage] = useState('');
     const [isUserHost, setIsUserHost] = useState(false);
     const [isUserJoined, setIsUserJoined] = useState(false);
+    const [senderNames, setSenderNames] = useState({});
     const chatBoxRef = useRef(null);
 
     const token = retrieveToken();
@@ -37,6 +38,7 @@ function EventDetails() {
                 console.error('Error fetching event messages:', res.ret.error);
             } else {
                 setMessages(res.ret);
+                fetchSenderNames(res.ret.map(message => message.userid));
             }
         } catch (error) {
             console.error('Failed to fetch event messages', error);
@@ -80,10 +82,32 @@ function EventDetails() {
         }
     };
 
-    useEffect(() => {
-        fetchEventDetails();
-        fetchEventMessages();
-    }, [eventId, token]);
+    const fetchSenderNames = async (userIds) => {
+        const uniqueUserIds = [...new Set(userIds)];
+        const requests = uniqueUserIds.map(userID => {
+            const obj = { userid: userID, token: token };
+            const js = JSON.stringify(obj);
+
+            return fetch(buildPath('api/findNames'), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' }
+            }).then(response => response.json());
+        });
+
+        try {
+            const responses = await Promise.all(requests);
+            const names = responses.reduce((acc, res) => {
+                if (!('error' in res)) {
+                    acc[res.ret.userid] = `${res.ret.first} ${res.ret.last}`;
+                }
+                return acc;
+            }, {});
+            setSenderNames(names);
+        } catch (error) {
+            console.error('Failed to fetch sender names', error);
+        }
+    };
 
     const handleKeyPress = async (event) => {
         if (event.key === 'Enter' && newMessage.trim()) {
@@ -159,39 +183,19 @@ function EventDetails() {
     };
 
     useEffect(() => {
+        fetchEventDetails();
+        fetchEventMessages();
+    }, [eventId, token]);
+
+    useEffect(() => {
         if (chatBoxRef.current) {
             chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
         }
     }, [messages]);
 
-    const handleUpdateEvent = async () => 
-    {
+    const handleUpdateEvent = async () => {
         window.location.href = '/updateevent';
     };
-
-    const getMessageSender = async (userID) => 
-    {
-        const obj = { userid: userID, token: token };
-        const js = JSON.stringify(obj);
-
-        try {
-            const response = await fetch(buildPath('api/findNames'), {
-                method: 'POST',
-                body: js,
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            const res = await response.json();
-
-            if ('error' in res) {
-                console.error('Error leaving event:', res.ret.error);
-            } else {
-                return res.ret.first + " " + res.ret.last + ": ";
-            }
-        } catch (error) {
-            console.error('Failed to leave event', error);
-        }
-    }
 
     return (
         <div className="container my-4">
@@ -212,7 +216,9 @@ function EventDetails() {
                                 <>
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                         {messages.map((message) => (
-                                            <p key={message._id}><strong>{getMessageSender(message.userid)}{message.Text}</strong></p>
+                                            <p key={message._id}>
+                                                <strong>{senderNames[message.userid] || 'Unknown'}: {message.Text}</strong>
+                                            </p>
                                         ))}
                                     </div>
                                     <input
@@ -234,7 +240,9 @@ function EventDetails() {
                                         <>
                                             <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                                 {messages.map((message) => (
-                                                    <p key={message._id}><strong>{message.Text}</strong></p>
+                                                    <p key={message._id}>
+                                                        <strong>{senderNames[message.userid] || 'Unknown'}: {message.Text}</strong>
+                                                    </p>
                                                 ))}
                                             </div>
                                             <input
