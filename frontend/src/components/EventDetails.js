@@ -19,7 +19,7 @@ function EventDetails() {
     const token = retrieveToken();
     const eventId = retrieveEventID();
     const userId = jwtDecode(token).userInfo.userid;
-    const messageSender = new Set();
+    const messageSender = new Map();
 
     const fetchEventMessages = async () => {
         const obj = { eventid: eventId, token: token };
@@ -102,7 +102,7 @@ function EventDetails() {
 
             if (!('error' in res)) 
             {
-                messageSender.add(res.ret.first + " " + res.ret.last + ": ");
+                messageSender.set(userId, res.ret.first + " " + res.ret.last + ": ");
             } 
         }
         catch (error) 
@@ -219,7 +219,7 @@ function EventDetails() {
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                         {messages.map((message) => (
                                             <p key={message._id}>
-                                                <strong>{messageSender[message.User] || 'Unknown'}: </strong> {message.Text}
+                                                <strong>{messageSender.get(message.User) || 'Unknown'}: </strong> {message.Text}
                                             </p>
                                         ))}
                                     </div>
