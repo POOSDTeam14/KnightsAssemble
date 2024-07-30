@@ -51,7 +51,7 @@
   background-color: darkgoldenrod;
 }
 
-.container {
+body {
   padding-top: 50px;
   height: calc(100vh - 50px);
 }
@@ -72,10 +72,10 @@
     margin-top: 10px;
   }
 
-  .container {
-    padding-top: 90px;
-    height: calc(100vh - 90px);
-  }
+    body {
+      padding-top: 90px;
+      height: calc(100vh - 90px);
+    }
 }
 
 /*********  TopLogo CSS ***************/
