@@ -75,7 +75,6 @@ function CreateEvent() {
         <div className="createEvent-container">
             <div className="createEvent-header">
                 <h1>Create event</h1>
-                <img src="https://i.imgur.com/zfs6dLN.png" alt="UCF Pegasus Seal" />
             </div>
 
             <div className="createEvent-form">
