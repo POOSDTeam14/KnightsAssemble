@@ -745,12 +745,12 @@ body {
 
 .overlay-buttons {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  gap: 500px;
+  gap: 10px;
 }
 
-.overlay-buttons p {
+.overlay-buttons h3 {
   margin: 0;
   padding-right: 10px;
 }
