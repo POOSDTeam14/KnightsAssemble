@@ -747,7 +747,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
 }
 
 .overlay-buttons h3 {
