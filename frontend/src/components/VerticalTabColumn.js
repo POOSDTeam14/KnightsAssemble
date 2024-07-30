@@ -7,10 +7,10 @@ function VerticalTabColumn() {
                 <p>Events</p>
             </a>
             <a href="/myevents" className="verticalTabLink">
-                <p>My Events</p>
+                <p>My events</p>
             </a>
             <a href="/createevent" className="verticalTabLink">
-                <p>Create Event</p>
+                <p>Create event</p>
             </a>
         </div>
     );
