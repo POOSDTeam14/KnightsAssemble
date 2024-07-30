@@ -57,10 +57,10 @@ function ConfirmationPopup({ show, onClose, refreshEvents, deleteEvent }) {
                         {deleteEvent
                             ? isLoading
                                 ? 'Deleting event...'
-                                : 'Confirm delete event'
+                                : 'Are you sure you want to delete the event?'
                             : isLoading
                                 ? 'Leaving event...'
-                                : 'Confirm leave event'}
+                                : 'Are you sure you want to leave the event?'}
                     </p>
                 </div>
                 <div className="updateEventStatus-Buttons">
