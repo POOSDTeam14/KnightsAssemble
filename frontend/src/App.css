@@ -69,41 +69,72 @@
   .upperBox .topRight-Column button {
     margin-top: 10px;
   }
+
+  body {
+      padding-top: 102px;
+  }
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 52px;
 }
 
 /*********  TopLogo CSS ***************/
 
 /*********  VerticalTab CSS ***************/
-.verticalTabRow{
+.verticalTabRow {
   height: calc(100vh - 50px);
 }
 
-.verticalTabContent{
+.verticalTabContent {
   height: 100%;
-  width: 110px;
+  width: 150px;
   background-color: gold;
   border-right: 2px solid black;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.verticalTabContent a{
+.verticalTabContent a {
   text-decoration: none;
   font-weight: bold;
   color: black;
   cursor: pointer;
+  width: 100%;
 }
 
-.verticalTabContent p{
-  margin-top: 20px;
-  margin-bottom: 0px;
+.verticalTabContent p {
+  margin: 20px 0;
   margin-left: 5px;
+}
+
+.verticalTabContent a:hover p {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .verticalTabContent {
+    width: 100px;
+  }
+
+  .verticalTabContent p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .verticalTabContent {
+    width: 80px;
+  }
+
+  .verticalTabContent p {
+    font-size: 12px;
+    margin: 15px 0;
+  }
 }
 /*********  VerticalTab CSS ***************/
 
