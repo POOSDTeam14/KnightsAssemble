@@ -2,20 +2,16 @@ import React from 'react';
 
 function VerticalTabColumn() {
     return (
-        <div className="row g-0 verticalTabRow">
-            <div className="col h-100">
-                <div className="verticalTabContent">
-                    <a href="/events">
-                        <p>Events</p>
-                    </a>
-                    <a href="/myevents">
-                        <p>My events</p>
-                    </a>
-                    <a href="/createevent">
-                        <p>Create event</p>
-                    </a>
-                </div>
-            </div>
+        <div className="verticalTabColumn">
+            <a href="/events" className="verticalTabLink">
+                <p>Events</p>
+            </a>
+            <a href="/myevents" className="verticalTabLink">
+                <p>My Events</p>
+            </a>
+            <a href="/createevent" className="verticalTabLink">
+                <p>Create Event</p>
+            </a>
         </div>
     );
 }

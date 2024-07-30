@@ -1,4 +1,10 @@
 /*********  TopLogo CSS ***************/
+
+body 
+{
+  padding-top: 50px;
+}
+
 .upperBox {
   background-color: black;
   color: white;
@@ -75,65 +81,41 @@
   }
 }
 
-body {
-  padding-top: 50px;
-}
-
 /*********  TopLogo CSS ***************/
 
 /*********  VerticalTab CSS ***************/
-.verticalTabRow {
-  height: calc(100vh - 50px);
-}
-
-.verticalTabContent {
-  height: 100%;
-  width: 150px;
-  background-color: gold;
-  border-right: 2px solid black;
+.verticalTabColumn {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 10px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  width: 120px;
+  background-color: gold;
+  border-right: 2px solid black;
+  height: 100vh;
+  overflow-y: auto;
 }
 
-.verticalTabContent a {
+.verticalTabLink {
   text-decoration: none;
-  font-weight: bold;
   color: black;
-  cursor: pointer;
+  font-weight: bold;
   width: 100%;
 }
 
-.verticalTabContent p {
-  margin: 20px 0;
-  margin-left: 5px;
+.verticalTabColumn p {
+  margin: 20px;
+  font-size: 1.2em;
+  text-align: center;
+  padding: 10px;
 }
 
-.verticalTabContent a:hover p {
-  text-decoration: underline;
-}
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .verticalTabContent {
+  .verticalTabColumn {
     width: 100px;
   }
 
-  .verticalTabContent p {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 576px) {
-  .verticalTabContent {
-    width: 80px;
-  }
-
-  .verticalTabContent p {
-    font-size: 12px;
-    margin: 15px 0;
+  .verticalTabColumn p {
+    font-size: 1em;
   }
 }
 /*********  VerticalTab CSS ***************/
