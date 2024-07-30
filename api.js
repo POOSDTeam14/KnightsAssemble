@@ -1325,6 +1325,9 @@ exports.setApp = function(app, client)
                     case location.includes('STUN'):
                         ret = {lat: 28.60189, long: -81.20048};
                         break;
+                    case location.includes('ARNA'):
+                        ret = {lat: 28.60757, long: -81.19734};
+                        break;
                     default:
                         return res.status(404).json({error: "Could not find location on map"});
                         break;
