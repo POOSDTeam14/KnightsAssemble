@@ -1,5 +1,11 @@
 /*********  TopLogo CSS ***************/
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
 body 
 {
   padding-top: 50px;
@@ -84,13 +90,20 @@ body
 /*********  TopLogo CSS ***************/
 
 /*********  VerticalTab CSS ***************/
+/* Ensure the parent container takes up the full viewport height */
+.container {
+  display: flex;
+  height: calc(100vh - 50px);
+  overflow: hidden;
+}
+
 .verticalTabColumn {
   display: flex;
   flex-direction: column;
   width: 120px;
   background-color: gold;
   border-right: 2px solid black;
-  height: calc(100vh - 50px);
+  height: 100%;
   overflow-y: auto;
 }
 
