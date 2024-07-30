@@ -256,7 +256,7 @@ function MyEvents() {
             <div className="row g-0 hostingEvents-row">
                 <div className="row g-0 MyEvents-Header">
                     <div className="row g-0 overlay-buttons">
-                        <h3>Events you're hosting</h3>
+                        <p>Events you're hosting</p>
                         <div className="pagination-buttons">
                             <button onClick={prevHostedEventPage} disabled={currentHostedEventPage === 1}>Prev</button>
                             <button onClick={nextHostedEventPage} disabled={currentHostedEventPage === Math.ceil(hostedEvents.length / eventsPerPage) || hostedEvents.length === 0}>Next</button>
@@ -289,7 +289,7 @@ function MyEvents() {
             <div className="row g-0 attendingEvents-row">
                 <div className="row g-0 MyEvents-Header">
                     <div className="row g-0 overlay-buttons">
-                        <h3>Events you're attending</h3>
+                        <p>Events you're attending</p>
                         <div className="pagination-buttons">
                             <button onClick={prevAttendedEventPage} disabled={currentAttendedEventPage === 1}>Prev</button>
                             <button onClick={nextAttendedEventPage} disabled={currentAttendedEventPage === Math.ceil(attendedEvents.length / eventsPerPage) || attendedEvents.length === 0}>Next</button>
