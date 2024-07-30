@@ -12,6 +12,7 @@
   left: 0;
   z-index: 1000;
   border-bottom: 2px solid gold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .upperBox img {
@@ -25,6 +26,10 @@
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
+}
+
+.upperBox .topLeft-Column .site-title {
+  font-weight: bold;
 }
 
 .upperBox .topRight-Column {
@@ -64,6 +69,10 @@
   .upperBox .topRight-Column button {
     margin-top: 10px;
   }
+}
+
+body {
+  padding-top: 60px;
 }
 
 /*********  TopLogo CSS ***************/

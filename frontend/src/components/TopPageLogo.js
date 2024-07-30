@@ -14,7 +14,7 @@ function TopPageLogo() {
         <a href="https://github.com/POOSDTeam14/KnightsAssemble">
           <img src="https://i.imgur.com/IhXxVvE.png" alt="UCF Knight Logo" className="img-fluid" />
         </a>
-        <p className="mb-0">Knights Assemble</p>
+        <p className="mb-0 site-title">Knights Assemble</p>
       </div>
 
       <div className="col-7 col-md-8 col-lg-9 topRight-Column">
