@@ -744,11 +744,12 @@ body {
 }
 
 .overlay-buttons {
+  width: 85%;
   position: relative; /* Ensure stacking context */
 }
 
 .pagination-buttons {
-  width: 90%;
+  width: 100%;
   position: absolute;
   bottom: 0;
   right: 0;
