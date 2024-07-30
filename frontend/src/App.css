@@ -1035,7 +1035,6 @@
 /******** Event Details Page CSS *********/
 
 .container {
-  margin-top: 50px;
   max-width: 1200px;
 }
 
@@ -1058,12 +1057,6 @@
 
 .form-control::placeholder {
   font-style: italic;
-}
-
-@media (max-width: 768px) {
-  .container {
-      margin-top: 90px;
-    }
 }
 
 /******** Event Details Page CSS *********/
