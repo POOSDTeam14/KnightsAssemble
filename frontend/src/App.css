@@ -746,12 +746,13 @@ body {
 .overlay-buttons {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 500px;
 }
 
 .overlay-buttons h3 {
   margin: 0;
-  padding-right: 500px;
+  padding-right: 10px;
 }
 
 .pagination-buttons {
