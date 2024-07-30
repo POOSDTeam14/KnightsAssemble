@@ -4,6 +4,7 @@
   background-color: black;
   color: white;
   padding-top: 10px;
+  margin-bottom: 50px;
   height: 50px;
   width: 100%;
   display: flex;
@@ -55,6 +56,11 @@
   background-color: darkgoldenrod;
 }
 
+.container {
+  padding-top: 50px;
+  height: calc(100vh - 50px);
+}
+
 @media (max-width: 768px) {
   .upperBox {
     flex-direction: column;
@@ -69,6 +75,11 @@
 
   .upperBox .topRight-Column button {
     margin-top: 10px;
+  }
+
+  .container {
+    padding-top: 90px;
+    height: calc(100vh - 90px);
   }
 }
 
