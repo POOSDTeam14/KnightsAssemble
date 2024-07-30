@@ -255,7 +255,7 @@ function MyEvents() {
         <div className="myEvents-container">
             <div className="row g-0 hostingEvents-row">
                 <div className="row g-0 MyEvents-Header">
-                    <h3>Events You're Hosting</h3>
+                    <h3>Events you're hosting</h3>
                     <div className="row g-0 overlay-buttons">
                         <div className="pagination-buttons">
                             <button onClick={prevHostedEventPage} disabled={currentHostedEventPage === 1}>Prev</button>
@@ -288,7 +288,7 @@ function MyEvents() {
 
             <div className="row g-0 attendingEvents-row">
                 <div className="row g-0 MyEvents-Header">
-                    <h3>Events You're Attending</h3>
+                    <h3>Events you're attending</h3>
                     <div className="row g-0 overlay-buttons">
                         <div className="pagination-buttons">
                             <button onClick={prevAttendedEventPage} disabled={currentAttendedEventPage === 1}>Prev</button>

@@ -1022,7 +1022,7 @@ body {
   width: 100px;
 }
 
-.mainEventsDisplay-Button:hover {
+.mainEventsDisplay-Button button:hover {
   background-color: #333;
     border-color: transparent;
     color: gold;
