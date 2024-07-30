@@ -751,14 +751,13 @@ body {
 }
 
 .overlay-buttons h3 {
-  margin-left: 20px;
-  padding-right: 10px;
+  margin-left: 40px;
+  padding-right: 50px;
 }
 
 .pagination-buttons {
   width: 100%;
-  bottom: 0;
-  right: 0;
+  margin-right: 40px;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
