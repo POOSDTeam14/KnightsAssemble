@@ -221,7 +221,7 @@ function UpdateEvent() {
 
               <div className="createEvent-buttonGroup">
                 <span>{message}</span>
-                <button onClick={doCreateEvent}>Update event</button>
+                <button onClick={doUpdateEvent}>Update event</button>
               </div>
             </div>
           </div>
