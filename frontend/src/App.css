@@ -744,8 +744,15 @@ body {
 }
 
 .overlay-buttons {
-  width: 85%;
-  position: relative; /* Ensure stacking context */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.overlay-buttons h3 {
+  margin: 0;
+  padding-right: 500px;
 }
 
 .pagination-buttons {
