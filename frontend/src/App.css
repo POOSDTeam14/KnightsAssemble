@@ -1,9 +1,19 @@
 /*********  TopLogo CSS ***************/
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body 
+{
+  padding-top: 50px;
+}
 
 .upperBox {
   background-color: black;
   color: white;
-  padding-bottom: 50px;
+  padding: 10px;
   height: 50px;
   width: 100%;
   display: flex;
