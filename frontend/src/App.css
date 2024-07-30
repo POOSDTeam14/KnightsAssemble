@@ -528,7 +528,7 @@
 /*********  CreateEvent CSS ***************/
 
 .createEvent-container {
-  margin-top: 75px;
+  margin-top: 60px;
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
@@ -1039,7 +1039,7 @@
 }
 
 .card-body {
-  margin-top: 65px;
+  margin-top: 50px;
 }
 
 .card-title {
