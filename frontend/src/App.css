@@ -545,13 +545,10 @@ body {
   max-width: 800px;
   margin: 0 auto;
   margin-top: 15px;
-  height: 100vh;
-  overflow: hidden;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
 }
 
 .createEvent-header {
