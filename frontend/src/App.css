@@ -3,7 +3,6 @@
 .upperBox {
   background-color: black;
   color: white;
-  padding-top: 10px;
   padding-bottom: 50px;
   height: 50px;
   width: 100%;
@@ -81,6 +80,13 @@
 
 /*********  VerticalTab CSS ***************/
 
+.parent-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Adjust the verticalTabColumn to use full height of its parent */
 .verticalTabColumn {
   display: flex;
   flex-direction: column;
@@ -88,10 +94,12 @@
   background-color: gold;
   border-right: 2px solid black;
   height: 100%;
+  /* Use the full height of the parent container */
   overflow-y: auto;
   box-sizing: border-box;
 }
 
+/* Vertical tab links styling */
 .verticalTabLink {
   text-decoration: none;
   color: black;
@@ -110,10 +118,11 @@
   text-decoration: underline;
 }
 
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .verticalTabColumn {
     height: calc(100vh - 90px);
+    /* Adjust height for smaller screens */
     width: 100px;
   }
 
