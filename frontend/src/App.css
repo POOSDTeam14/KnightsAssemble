@@ -7,6 +7,11 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-bottom: 2px solid gold;
 }
 
 .upperBox img {
@@ -14,7 +19,7 @@
   height: 30px;
 }
 
-.upperBox .topLeft-Column{
+.upperBox .topLeft-Column {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -22,24 +27,43 @@
   gap: 10px;
 }
 
-.upperBox .topRight-Column{
+.upperBox .topRight-Column {
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
-.upperBox .topRight-Column button{
+.upperBox .topRight-Column button {
   background-color: gold;
   border: 1px solid white;
   color: black;
   font-weight: bold;
-  font-style: "Arial";
+  font-family: "Arial", sans-serif;
   height: 30px;
   width: 80px;
+  transition: background-color 0.3s ease;
 }
 
-.upperBox .topRight-Column button:hover{
+.upperBox .topRight-Column button:hover {
   cursor: pointer;
+  background-color: darkgoldenrod;
+}
+
+@media (max-width: 768px) {
+  .upperBox {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+  }
+
+  .upperBox .topLeft-Column,
+  .upperBox .topRight-Column {
+    justify-content: center;
+  }
+
+  .upperBox .topRight-Column button {
+    margin-top: 10px;
+  }
 }
 
 /*********  TopLogo CSS ***************/
