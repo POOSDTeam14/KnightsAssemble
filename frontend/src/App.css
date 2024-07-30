@@ -532,12 +532,6 @@ body
 
 /*********  CreateEvent CSS ***************/
 
-html,
-body {
-  height: 100%;
-  overflow: hidden;
-}
-
 .createEvent-container {
   padding: 20px;
   max-width: 800px;
@@ -646,122 +640,80 @@ body {
 
 .myEvents-container {
   height: 100vh;
-  overflow: hidden;
+  /* Full viewport height */
+  overflow: auto;
+  /* Allow scrolling if content overflows */
   background-color: #f5f5f5;
-}
-
-.hostingEvents-row,
-.attendingEvents-row {
-  width: 100%;
+  /* Light background color */
 }
 
 .MyEvents-Header {
-  height: auto;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+  background-color: #ffffff;
+  /* Background for the header */
+  border-bottom: 1px solid #ddd;
+  /* Subtle border for separation */
+  text-align: center;
 }
 
 .displayMyEvents-row {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
 .eventCard-Display {
-  flex: 1 1 calc(33.333% - 20px);
+  width: 100%;
+  max-width: 300px;
   margin: 10px;
-  border: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  background-color: #ffffff;
 }
 
 .eventCard-Display:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .eventCard-Img {
-  border-top: 7px solid black;
-  border-left: 7px solid black;
-  border-bottom: 7px solid black;
-  height: 200px;
+  height: 150px;
   background-size: cover;
   background-position: center;
 }
 
 .eventCard-Info {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 7px solid black;
-  background-color: white;
   padding: 10px;
-  box-sizing: border-box;
-}
-
-.eventCard-Info h5,
-.eventCard-Info p {
   text-align: center;
-  margin: 5px 0;
 }
 
-@media (max-width: 768px) {
-  .eventCard-Display {
-    flex: 1 1 calc(50% - 20px);
-  }
-
-  .eventCard-Img {
-    height: 150px;
-  }
-
-  .eventCard-Info h5 {
-    font-size: 14px;
-  }
-
-  .eventCard-Info p {
-    font-size: 12px;
-  }
+.eventCard-Info h5 {
+  margin: 0 0 5px 0;
 }
 
-@media (max-width: 480px) {
-  .eventCard-Display {
-    flex: 1 1 100%;
-  }
-
-  .eventCard-Img {
-    height: 100px;
-  }
-
-  .eventCard-Info h5 {
-    font-size: 12px;
-  }
-
-  .eventCard-Info p {
-    font-size: 10px;
-  }
+.eventCard-Info p {
+  margin: 0;
+  color: #666;
 }
 
 .pagination-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  padding: 20px;
+  margin-top: 20px;
 }
 
 .pagination-buttons button {
   padding: 10px 20px;
+  margin: 0 5px;
   font-size: 16px;
-  background-color: black;
-  border: 2px solid gold;
-  color: white;
-  font-weight: bold;
+  background-color: #000;
+  border: 2px solid #FFD700;
+  /* Gold color */
+  color: #fff;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .pagination-buttons button:disabled {
@@ -771,21 +723,39 @@ body {
 
 .effectEventButtons {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 10px;
-  /* Add padding for spacing */
+  margin: 20px 0;
 }
 
 .effectEventButtons button {
-  background-color: gold;
-  border: 2px solid black;
-  color: black;
-  font-weight: bold;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #FFD700;
+  /* Gold color */
+  border: 2px solid #000;
+  color: #000;
   cursor: pointer;
-  padding: 5px 10px;
-  /* Adjust padding */
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .eventCard-Display {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .eventCard-Img {
+    height: 100px;
+  }
+
+  .pagination-buttons button {
+    font-size: 14px;
+  }
+
+  .effectEventButtons button {
+    font-size: 14px;
+  }
 }
 
 
