@@ -108,6 +108,7 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .verticalTabColumn {
+    margin-top: 90px;
     height: calc(100vh - 90px);
     width: 100px;
   }
@@ -527,6 +528,7 @@
 /*********  CreateEvent CSS ***************/
 
 .createEvent-container {
+  margin-top: 50px;
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
@@ -613,6 +615,7 @@
 
 @media (max-width: 875px) {
   .createEvent-container {
+    margin-top: 90px;
     padding: 10px;
   }
 
@@ -633,6 +636,7 @@
 /*********  MyEvents CSS ***************/
 
 .myEvents-container {
+  margin-top: 50px;
   height: 100%;
 }
 
@@ -720,6 +724,12 @@
     padding: 2px 4px; 
     font-size: 14px; 
   }
+}
+
+@media (max-width: 768px) {
+  .myEvents-container {
+      margin-top: 90px;
+    }
 }
 
 .eventCard-Display .eventCard-Img {
@@ -837,6 +847,7 @@
 /******** Main Events Page CSS *********/
 
 .mainEventsPage-container{
+  margin-top: 50px;
   height: 100%;
 }
 
@@ -970,6 +981,11 @@
   }
 } 
 
+@media (max-width: 768px) {
+  .mainEventsPage-container {
+    margin-top: 90px;
+  }
+}
 
 .mainEventCard-Display .eventCard-Img {
   border-top: 7px solid black;
