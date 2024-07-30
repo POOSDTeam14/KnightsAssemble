@@ -178,66 +178,66 @@ function MyEvents() {
         <div className="myEvents-container">
             <div className="MyEvents-Header">
                 <h1>My Events</h1>
-                <div className="displayMyEvents-row">
-                    <div className="hostingEvents-row">
-                        <h2>Events I am hosting</h2>
-                        {getCurrentEvents(hostedEvents, currentHostedEventPage).map((event) => (
-                            <div key={event._id} className="eventCard-Display">
-                                <div
-                                    className="eventCard-Img"
-                                    style={{ backgroundImage: `url(${eventImages[event._id]})` }}
-                                />
-                                <div className="eventCard-Info">
-                                    <h5>{event.eventName}</h5>
-                                    <p>{event.eventType}</p>
-                                    <button onClick={() => handleDeleteEvent(event._id)}>Delete</button>
-                                </div>
+            </div>
+            <div className="displayMyEvents-row">
+                <div className="hostingEvents-row">
+                    <h2>Events I Am Hosting</h2>
+                    {getCurrentEvents(hostedEvents, currentHostedEventPage).map((event) => (
+                        <div key={event._id} className="eventCard-Display">
+                            <div
+                                className="eventCard-Img"
+                                style={{ backgroundImage: `url(${eventImages[event._id]})` }}
+                            />
+                            <div className="eventCard-Info">
+                                <h5>{event.eventName}</h5>
+                                <p>{event.eventType}</p>
+                                <button onClick={() => handleDeleteEvent(event._id)}>Delete Event</button>
                             </div>
-                        ))}
-                        <div className="pagination-buttons">
-                            <button
-                                disabled={currentHostedEventPage === 1}
-                                onClick={() => handlePageChange(currentHostedEventPage - 1, 'hosted')}
-                            >
-                                Previous
-                            </button>
-                            <button
-                                disabled={(currentHostedEventPage * eventsPerPage) >= hostedEvents.length}
-                                onClick={() => handlePageChange(currentHostedEventPage + 1, 'hosted')}
-                            >
-                                Next
-                            </button>
                         </div>
+                    ))}
+                    <div className="pagination-buttons">
+                        <button
+                            disabled={currentHostedEventPage === 1}
+                            onClick={() => handlePageChange(currentHostedEventPage - 1, 'hosted')}
+                        >
+                            Previous
+                        </button>
+                        <button
+                            disabled={(currentHostedEventPage * eventsPerPage) >= hostedEvents.length}
+                            onClick={() => handlePageChange(currentHostedEventPage + 1, 'hosted')}
+                        >
+                            Next
+                        </button>
                     </div>
-                    <div className="attendingEvents-row">
-                        <h2>Events I am attending</h2>
-                        {getCurrentEvents(attendedEvents, currentAttendedEventPage).map((event) => (
-                            <div key={event._id} className="eventCard-Display">
-                                <div
-                                    className="eventCard-Img"
-                                    style={{ backgroundImage: `url(${eventImages[event._id]})` }}
-                                />
-                                <div className="eventCard-Info">
-                                    <h5>{event.eventName}</h5>
-                                    <p>{event.eventType}</p>
-                                    <button onClick={() => handleLeaveEvent(event._id)}>Leave</button>
-                                </div>
+                </div>
+                <div className="attendingEvents-row">
+                    <h2>Events I Am Attending</h2>
+                    {getCurrentEvents(attendedEvents, currentAttendedEventPage).map((event) => (
+                        <div key={event._id} className="eventCard-Display">
+                            <div
+                                className="eventCard-Img"
+                                style={{ backgroundImage: `url(${eventImages[event._id]})` }}
+                            />
+                            <div className="eventCard-Info">
+                                <h5>{event.eventName}</h5>
+                                <p>{event.eventType}</p>
+                                <button onClick={() => handleLeaveEvent(event._id)}>Leave Event</button>
                             </div>
-                        ))}
-                        <div className="pagination-buttons">
-                            <button
-                                disabled={currentAttendedEventPage === 1}
-                                onClick={() => handlePageChange(currentAttendedEventPage - 1, 'attended')}
-                            >
-                                Previous
-                            </button>
-                            <button
-                                disabled={(currentAttendedEventPage * eventsPerPage) >= attendedEvents.length}
-                                onClick={() => handlePageChange(currentAttendedEventPage + 1, 'attended')}
-                            >
-                                Next
-                            </button>
                         </div>
+                    ))}
+                    <div className="pagination-buttons">
+                        <button
+                            disabled={currentAttendedEventPage === 1}
+                            onClick={() => handlePageChange(currentAttendedEventPage - 1, 'attended')}
+                        >
+                            Previous
+                        </button>
+                        <button
+                            disabled={(currentAttendedEventPage * eventsPerPage) >= attendedEvents.length}
+                            onClick={() => handlePageChange(currentAttendedEventPage + 1, 'attended')}
+                        >
+                            Next
+                        </button>
                     </div>
                 </div>
             </div>
@@ -246,6 +246,7 @@ function MyEvents() {
                     title="Delete Event"
                     message="Are you sure you want to delete this event?"
                     onConfirm={() => {
+                        // handle delete event
                         setShowDeleteEventPopup(false);
                     }}
                     onCancel={() => setShowDeleteEventPopup(false)}
