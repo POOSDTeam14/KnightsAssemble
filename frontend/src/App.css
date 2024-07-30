@@ -889,6 +889,12 @@ body
   cursor: pointer; 
 }
 
+.eventSearchRow button:hover {
+  background-color: #333;
+  border-color: transparent;
+  color: gold;
+}
+
 .mainEventsDisplay{
   height: 80%;
   width: 100%;
@@ -1000,10 +1006,18 @@ body
   width: 100px;
 }
 
+.mainEventsDisplay-Button button:hover {
+  background-color: #333;
+  border-color: transparent;
+  color: gold;
+}
+
 .mainEventsDisplay-Button button:disabled {
   opacity: 0.5; /* Reduce opacity when disabled */
   cursor: not-allowed; /* Change cursor to not-allowed when disabled */
 }
+
+
 
 /******** Main Events Page CSS *********/
 
