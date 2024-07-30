@@ -238,26 +238,26 @@ function EventDetails() {
                             <p><strong>Date:</strong> {eventDate}</p>
                             <p><strong>Time:</strong> {eventTime}</p>
                             <p><strong>Location:</strong> {eventLocation}</p>
-                            {eventCoordinates && (
-                                <MapContainer
-                                    center={[eventCoordinates.lat, eventCoordinates.long]}
-                                    zoom={15}
-                                    style={{ height: '400px', width: '100%' }}
-                                >
-                                    <TileLayer
-                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                    />
-                                    <Marker position={[eventCoordinates.lat, eventCoordinates.long]}>
-                                        <Popup>
-                                            {eventName} <br /> {eventLocation}
-                                        </Popup>
-                                    </Marker>
-                                </MapContainer>
-                            )}
                             <p><strong>Capacity: </strong> {numberOfAttendees}/{capacity}</p>
                             <p><strong>Description:</strong></p>
                             <p>{description}</p>
+                            {eventCoordinates && (
+                                    <MapContainer
+                                        center={[eventCoordinates.lat, eventCoordinates.long]}
+                                        zoom={15}
+                                        style={{ height: '400px', width: '100%' }}
+                                    >
+                                        <TileLayer
+                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                        />
+                                        <Marker position={[eventCoordinates.lat, eventCoordinates.long]}>
+                                            <Popup>
+                                                {eventName} <br /> {eventLocation}
+                                            </Popup>
+                                        </Marker>
+                                    </MapContainer>
+                             )}
                         </div>
                         <div className="col-lg-4 col-md-5">
                             {isUserHost ? (
