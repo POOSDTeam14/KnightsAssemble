@@ -88,8 +88,49 @@
   width: 120px;
   background-color: gold;
   border-right: 2px solid black;
-  height: calc(100vh - 50px);
-  overflow-y: hidden;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.verticalTabLink {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  width: 100%;
+}
+
+.verticalTabColumn p {
+  margin: 20px;
+  font-size: 1.2em;
+  text-align: center;
+  padding: 10px;
+}
+
+.verticalTabLink:hover p {
+  text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+  .verticalTabColumn {
+    height: calc(100vh - 90px);
+    width: 100px;
+  }
+
+  .verticalTabColumn p {
+    font-size: 1em;
+  }
+}
+
+.verticalTabColumn {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  background-color: gold;
+  border-right: 2px solid black;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .verticalTabLink {
