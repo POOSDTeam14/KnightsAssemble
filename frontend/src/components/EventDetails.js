@@ -220,6 +220,7 @@ function EventDetails() {
             } else {
                 setIsUserJoined(true);
                 fetchEventMessages();
+                fetchEventDetails();
             }
         } catch (error) {
             console.error('Failed to join event', error);
