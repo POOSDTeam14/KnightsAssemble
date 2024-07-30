@@ -645,7 +645,7 @@ body {
 /*********  MyEvents CSS ***************/
 
 .myEvents-container {
-  height: 100%;
+  height: 97%;
 }
 
 .hostingEvents-row {
@@ -748,6 +748,7 @@ body {
 }
 
 .pagination-buttons {
+  width: 90%;
   position: absolute;
   bottom: 0;
   right: 0;
