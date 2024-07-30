@@ -73,90 +73,87 @@ function CreateEvent() {
 
     return (
         <div className="createEvent-container">
-            <div className="createEvent-TopRow">
-                <div className="createEvent-Header">
-                    <h1>Create event</h1>
-                </div>
+            <div className="createEvent-header">
+                <h1>Create event</h1>
             </div>
 
-            <div className="createEvent-BottomRow">
-                <div className="createEvent-InfoRow">
-                    <div className="createEvent-Col1">
-                        <div className="createEvent-NameRow">
-                            <div className="createEvent-InfoTextInput">
-                                <p>Name</p>
-                                <input type="text" placeholder="Name" value={eventName} onChange={(e) => setEventName(e.target.value)} />
-                            </div>
-                        </div>
-                        <div className="createEvent-LocationRow">
-                            <div className="createEvent-InfoTextInput">
-                                <p>Location</p>
-                                <input type="text" placeholder="Location" value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} />
-                            </div>
-                        </div>
-                        <div className="createEvent-TypeRow">
-                            <div className="createEvent-InfoTextInput">
-                                <label htmlFor="event-type" className="visually-hidden">Event Type</label>
-                                <p>Type</p>
-                                <select id="event-type" value={eventType} onChange={(e) => setEventType(e.target.value)}>
-                                    <option value="" disabled>Type</option>
-                                    <option value="Sports">Sports</option>
-                                    <option value="Food">Food</option>
-                                    <option value="Clubs">Clubs</option>
-                                    <option value="Academic">Academic</option>
-                                    <option value="Entertainment">Entertainment</option>
-                                    <option value="Volunteer">Volunteer</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+            <div className="createEvent-form">
+                <div className="createEvent-inputGroup">
+                    <label>Name</label>
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        value={eventName}
+                        onChange={(e) => setEventName(e.target.value)}
+                    />
+                </div>
 
-                    <div className="createEvent-Col2">
-                        <div className="createEvent-DateRow">
-                            <div className="createEvent-InfoTextInput">
-                                <label htmlFor="event-date" className="visually-hidden">Date</label>
-                                <p>Date</p>
-                                <input id="event-date" type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
-                            </div>
-                        </div>
-                        <div className="createEvent-TimeRow">
-                            <div className="createEvent-InfoTextInput">
-                                <label htmlFor="event-time" className="visually-hidden">Event Time</label>
-                                <p>Start time</p>
-                                <input
-                                    id="event-time"
-                                    type="time"
-                                    value={eventTime}
-                                    onChange={(e) => setEventTime(e.target.value)}
-                                    step="60"
-                                />
-                            </div>
-                        </div>
-                        <div className="createEvent-CapacityRow">
-                            <div className="createEvent-InfoTextInput">
-                                <p>Capacity</p>
-                                <input type="text" placeholder="Capacity" value={eventCapacity} onChange={(e) => setEventCapacity(e.target.value)} />
-                            </div>
-                        </div>
-                    </div>
+                <div className="createEvent-inputGroup">
+                    <label>Location</label>
+                    <input
+                        type="text"
+                        placeholder="Location"
+                        value={eventLocation}
+                        onChange={(e) => setEventLocation(e.target.value)}
+                    />
+                </div>
 
-                    <div className="createEvent-Col3">
-                        <div className="createEvent-DescriptionRow">
-                            <div className="createEvent-InfoTextInput">
-                                <p>Description</p>
-                                <textarea
-                                    placeholder="Description"
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                />
-                            </div>
+                <div className="createEvent-inputGroup">
+                    <label>Type</label>
+                    <select
+                        value={eventType}
+                        onChange={(e) => setEventType(e.target.value)}
+                    >
+                        <option value="" disabled selected>Type</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Food">Food</option>
+                        <option value="Clubs">Clubs</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Volunteer">Volunteer</option>
+                    </select>
+                </div>
 
-                            <div className="createEvent-buttonGroup">
-                                <span>{message}</span>
-                                <button onClick={doCreateEvent}>Create event</button>
-                            </div>
-                        </div>
-                    </div>
+                <div className="createEvent-inputGroup">
+                    <label>Date</label>
+                    <input
+                        type="date"
+                        value={eventDate}
+                        onChange={(e) => setEventDate(e.target.value)}
+                    />
+                </div>
+
+                <div className="createEvent-inputGroup">
+                    <label>Start time</label>
+                    <input
+                        type="time"
+                        value={eventTime}
+                        onChange={(e) => setEventTime(e.target.value)}
+                    />
+                </div>
+
+                <div className="createEvent-inputGroup">
+                    <label>Capacity</label>
+                    <input
+                        type="text"
+                        placeholder="Capacity"
+                        value={eventCapacity}
+                        onChange={(e) => setEventCapacity(e.target.value)}
+                    />
+                </div>
+
+                <div className="createEvent-inputGroup">
+                    <label>Description</label>
+                    <textarea
+                        placeholder="Description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </div>
+
+                <div className="createEvent-buttonGroup">
+                    <span>{message}</span>
+                    <button onClick={doCreateEvent}>Create event</button>
                 </div>
             </div>
         </div>
