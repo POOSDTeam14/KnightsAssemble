@@ -99,24 +99,17 @@ body
   color: black;
   font-weight: bold;
   width: 100%;
-  display: block;
-  padding: 15px;
-  text-align: center;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  margin: 5px 0;
-  background-color: #f0f0f0;
-}
-
-.verticalTabLink:hover {
-  background-color: #ddd;
-  border-color: #ccc;
-  text-decoration: none;
 }
 
 .verticalTabColumn p {
-  margin: 0;
+  margin: 20px;
   font-size: 1.2em;
+  text-align: center;
+  padding: 10px;
+}
+
+.verticalTabLink:hover p {
+  text-decoration: underline;
 }
 
 /* Responsive adjustments */
