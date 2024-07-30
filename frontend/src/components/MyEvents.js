@@ -237,5 +237,3 @@ function MyEvents() {
 }
 
 export default MyEvents;
-
-export default MyEvents;
