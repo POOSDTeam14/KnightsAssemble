@@ -19,13 +19,15 @@ function CreateEvent() {
     const doCreateEvent = async event => {
         event.preventDefault();
         setMessage("");
-
+        //Validate All Inputs Filled
         if (!eventName || !eventLocation || !eventType || !eventDate || !eventTime || !eventCapacity || !description) {
             setMessage('All fields must be filled out.');
             return;
         }
 
+        //Pass Date Object
         const dateObject = new Date(`${eventDate}T${eventTime}`);
+
         let testCapacity = parseInt(eventCapacity);
         let token = retrieveToken();
         let userId = jwtDecode(token).userInfo.userid;
@@ -45,83 +47,114 @@ function CreateEvent() {
             let js = JSON.stringify(obj);
 
             try {
-                const response = await fetch(bp.buildPath('api/createEvent'), { method: 'POST', body: js, headers: { 'Content-Type': 'application/json' } });
+                const response = await fetch(bp.buildPath('api/createEvent'),
+                    { method: 'POST', body: js, headers: { 'Content-Type': 'application/json' } });
+
 
                 let res = JSON.parse(await response.text());
 
                 if ('error' in res) {
                     setMessage(res.error);
-                } else {
+                }
+                else {
                     setMessage('');
                     window.location.href = '/events';
                 }
-            } catch (e) {
+            }
+            catch (e) {
                 alert(e.toString());
                 return;
             }
-        } else {
+        }
+        else {
             setMessage("Capacity must be an integer.");
         }
     };
 
     return (
         <div className="createEvent-container">
-            <div className="createEvent-TopRow">
-                <div className="createEvent-Header">
-                    <h1>Create event</h1>
-                </div>
-                <div className="createEvent-Image">
-                    <img src="https://i.imgur.com/zfs6dLN.png" alt="UCF Pegasus Seal" />
-                </div>
+            <div className="createEvent-header">
+                <h1>Create event</h1>
+                <img src="https://i.imgur.com/zfs6dLN.png" alt="UCF Pegasus Seal" />
             </div>
-            <div className='createEvent-BottomRow'>
-                <div className="createEvent-InfoRow">
-                    <div className="createEvent-Col1">
-                        <div className="createEvent-InfoTextInput">
-                            <p>Event name</p>
-                            <input type="text" placeholder="Event Name" value={eventName} onChange={(e) => setEventName(e.target.value)} />
-                        </div>
-                        <div className="createEvent-InfoTextInput">
-                            <p>Location</p>
-                            <input type="text" placeholder="Location" value={eventLocation} onChange={(e) => setEventLocation(e.target.value)} />
-                        </div>
-                        <div className="createEvent-InfoTextInput">
-                            <p>Event type</p>
-                            <select id="event-type" value={eventType} onChange={(e) => setEventType(e.target.value)}>
-                                <option value="" disabled selected>Event Type</option>
-                                <option value="Sports">Sports</option>
-                                <option value="Food">Food</option>
-                                <option value="Clubs">Clubs</option>
-                                <option value="Academic">Academic</option>
-                                <option value="Entertainment">Entertainment</option>
-                                <option value="Volunteer">Volunteer</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="createEvent-Col2">
-                        <div className="createEvent-InfoTextInput">
-                            <p>Event date</p>
-                            <input id="event-date" type="date" value={eventDate} onChange={(e) => setEventDate(e.target.value)} />
-                        </div>
-                        <div className="createEvent-InfoTextInput">
-                            <p>Start time</p>
-                            <input id="event-StartTime" type="time" value={eventTime} onChange={(e) => setEventTime(e.target.value)} />
-                        </div>
-                        <div className="createEvent-InfoTextInput">
-                            <p>Event capacity</p>
-                            <input type="text" placeholder="Capacity" value={eventCapacity} onChange={(e) => setEventCapacity(e.target.value)} />
-                        </div>
-                    </div>
-                    <div className="createEvent-Col3">
-                        <div className="createEvent-InfoTextInput">
-                            <p>Event description</p>
-                            <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-                        </div>
-                    </div>
+
+            <div className="createEvent-form">
+                <div className="createEvent-inputGroup">
+                    <label>Name</label>
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        value={eventName}
+                        onChange={(e) => setEventName(e.target.value)}
+                    />
                 </div>
-                <div className="createEvent-ButtonRow">
-                    <button id="createEvent-Button" onClick={doCreateEvent}>Create Event</button>
-                    <span id="createEventResult">{message}</span>
+
+                <div className="createEvent-inputGroup">
+                    <label>Location</label>
+                    <input
+                        type="text"
+                        placeholder="Location"
+                        value={eventLocation}
+                        onChange={(e) => setEventLocation(e.target.value)}
+                    />
+                </div>
+
+                <div className="createEvent-inputGroup">
+                    <label>Type</label>
+                    <select
+                        value={eventType}
+                        onChange={(e) => setEventType(e.target.value)}
+                    >
+                        <option value="" disabled selected>Type</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Food">Food</option>
+                        <option value="Clubs">Clubs</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Volunteer">Volunteer</option>
+                    </select>
+                </div>
+
+                <div className="createEvent-inputGroup">
+                    <label>Date</label>
+                    <input
+                        type="date"
+                        value={eventDate}
+                        onChange={(e) => setEventDate(e.target.value)}
+                    />
+                </div>
+
+                <div className="createEvent-inputGroup">
+                    <label>Start time</label>
+                    <input
+                        type="time"
+                        value={eventTime}
+                        onChange={(e) => setEventTime(e.target.value)}
+                    />
+                </div>
+
+                <div className="createEvent-inputGroup">
+                    <label>Capacity</label>
+                    <input
+                        type="text"
+                        placeholder="Capacity"
+                        value={eventCapacity}
+                        onChange={(e) => setEventCapacity(e.target.value)}
+                    />
+                </div>
+
+                <div className="createEvent-inputGroup">
+                    <label>Description</label>
+                    <textarea
+                        placeholder="Description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </div>
+
+                <div className="createEvent-buttonGroup">
+                    <span>{message}</span>
+                    <button onClick={doCreateEvent}>Create event</button>
                 </div>
             </div>
         </div>

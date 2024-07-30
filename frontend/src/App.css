@@ -547,132 +547,102 @@ body {
 /*********  CreateEvent CSS ***************/
 
 .createEvent-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 2%;
-  background: url('https://i.imgur.com/j9hx0Fb.png') center/cover no-repeat;
-}
-
-.createEvent-TopRow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  text-align: center;
-}
-
-.createEvent-Header {
-  margin-bottom: 20px;
-}
-
-.createEvent-Image img {
-  width: 15%;
-  margin-bottom: 20px;
-}
-
-.createEvent-BottomRow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.createEvent-InfoRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.createEvent-Col1,
-.createEvent-Col2,
-.createEvent-Col3 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  min-width: 300px;
-  padding: 1%;
-}
-
-.createEvent-InfoTextInput {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-.createEvent-InfoTextInput p {
-  font-family: "Arial";
-  font-weight: bold;
-  font-size: 20px;
-  margin-bottom: 5px;
-}
-
-.createEvent-InfoTextInput input,
-.createEvent-InfoTextInput select,
-.createEvent-InfoTextInput textarea {
-  width: 100%;
-  padding: 10px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.createEvent-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.createEvent-header h1 {
+  font-family: 'Arial', sans-serif;
+  font-size: 2em;
   margin-bottom: 10px;
 }
 
-.createEvent-InfoTextInput textarea {
-  height: 150px;
+.createEvent-header img {
+  width: 80px;
 }
 
-.createEvent-ButtonRow {
+.createEvent-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.createEvent-inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.createEvent-inputGroup label {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.createEvent-inputGroup input,
+.createEvent-inputGroup select,
+.createEvent-inputGroup textarea {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.createEvent-inputGroup textarea {
+  resize: vertical;
+}
+
+.createEvent-buttonGroup {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
 }
 
-#createEvent-Button {
+.createEvent-buttonGroup button {
   background-color: black;
   border: 2px solid gold;
   color: white;
   font-weight: bold;
   border-radius: 20px;
-  margin-top: 20px;
+  padding: 10px 20px;
   cursor: pointer;
-  width: 200px;
-  height: 40px;
 }
 
-#createEvent-Button:hover {
+.createEvent-buttonGroup button:hover {
   background-color: #333;
   border-color: transparent;
   color: gold;
 }
 
-#createEventResult {
-  font-size: 1.2em;
-  font-weight: normal;
-  color: red;
+.createEvent-buttonGroup span {
   margin-top: 10px;
+  color: red;
+  font-weight: bold;
 }
 
 @media (max-width: 875px) {
-
-  .createEvent-Col1,
-  .createEvent-Col2,
-  .createEvent-Col3 {
-    min-width: 100%;
+  .createEvent-container {
+    padding: 10px;
   }
 
-  .createEvent-InfoTextInput input,
-  .createEvent-InfoTextInput select,
-  .createEvent-InfoTextInput textarea {
-    width: 90%;
+  .createEvent-inputGroup input,
+  .createEvent-inputGroup select,
+  .createEvent-inputGroup textarea {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .createEvent-buttonGroup button {
+    padding: 8px 16px;
   }
 }
 
