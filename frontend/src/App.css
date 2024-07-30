@@ -90,7 +90,7 @@ body
   width: 120px;
   background-color: gold;
   border-right: 2px solid black;
-  height: calc(100vh - 50px);
+  height: 100vh;
   overflow-y: auto;
 }
 
@@ -115,7 +115,6 @@ body
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .verticalTabColumn {
-    height: calc(100vh - 90px);
     width: 100px;
   }
 
@@ -1017,6 +1016,7 @@ body
   opacity: 0.5; /* Reduce opacity when disabled */
   cursor: not-allowed; /* Change cursor to not-allowed when disabled */
 }
+
 
 
 /******** Main Events Page CSS *********/
