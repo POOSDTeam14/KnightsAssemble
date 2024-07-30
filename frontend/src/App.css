@@ -547,10 +547,7 @@ body {
 /*********  CreateEvent CSS ***************/
 
 .createEvent-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  padding: 20px;
   max-width: 800px;
   margin: 0 auto;
   background-color: white;
