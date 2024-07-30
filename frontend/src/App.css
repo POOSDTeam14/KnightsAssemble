@@ -768,6 +768,12 @@ body {
   cursor: pointer;
 }
 
+.pagination-buttons button:hover {
+  background-color: #333;
+    border-color: transparent;
+    color: gold;
+}
+
 .pagination-buttons button:disabled {
   opacity: 0.5; /* Reduce opacity when disabled */
   cursor: not-allowed; /* Change cursor to not-allowed when disabled */
@@ -788,7 +794,10 @@ body {
   cursor: pointer;
 }
 
-
+.effectEventButtons button:hover {
+  background-color: rgb(199, 169, 0);
+  border: transparent;
+}
 
 /*********  MyEvents CSS ***************/
 
@@ -894,6 +903,12 @@ body {
   font-weight: bold; 
   border-radius: 20px; 
   cursor: pointer; 
+}
+
+.eventSearchRow button:hover {
+  background-color: #333;
+    border-color: transparent;
+    color: gold;
 }
 
 .mainEventsDisplay{
@@ -1005,6 +1020,12 @@ body {
   cursor: pointer;
   height: 50px;
   width: 100px;
+}
+
+.mainEventsDisplay-Button:hover {
+  background-color: #333;
+    border-color: transparent;
+    color: gold;
 }
 
 .mainEventsDisplay-Button button:disabled {
