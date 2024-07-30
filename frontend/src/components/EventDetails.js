@@ -120,7 +120,7 @@ function EventDetails() {
                 setEventName(res.ret.Name);
                 setEventLocation(res.ret.Location);
                 setEventType(res.ret.Type);
-                convertUTCtoEST(res.ret.Date);
+                convertUTCtoEST(res.ret.Time);
                 setDescription(res.ret.Description);
                 setNumberOfAttendees((res.ret.Attendees).length); 
                 setCapacity(res.ret.Capacity); 
@@ -244,6 +244,7 @@ function EventDetails() {
                 console.error('Error leaving event:', res.ret.error);
             } else {
                 setIsUserJoined(false);
+                fetchEventDetails();
             }
         } catch (error) {
             console.error('Failed to leave event', error);
