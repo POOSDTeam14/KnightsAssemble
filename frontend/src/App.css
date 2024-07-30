@@ -532,6 +532,14 @@ body
 
 /*********  CreateEvent CSS ***************/
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 .createEvent-container {
   padding: 20px;
   max-width: 800px;
