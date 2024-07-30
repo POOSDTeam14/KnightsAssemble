@@ -1322,6 +1322,9 @@ exports.setApp = function(app, client)
                     case location.includes('CSB'):
                         ret = {lat: 28.60106, long: -81.20006};
                         break;
+                    case location.includes('Memory Mall'):
+                        ret = {lat: 28.60479, long: -81.19880};
+                        break;
                     case location.includes('STUN'):
                         ret = {lat: 28.60189, long: -81.20048};
                         break;
