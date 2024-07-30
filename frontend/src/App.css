@@ -71,7 +71,7 @@
   }
 
   body {
-      padding-top: 120px;
+      padding-top: 140px;
   }
 }
 
@@ -561,14 +561,14 @@ body {
   margin-bottom: 20px;
 }
 
-.createEvent-header h1 {
-  font-family: 'Arial', sans-serif;
-  font-size: 2em;
-  margin-bottom: 10px;
+.createEvent-header h1 
+{
+  font-weight: bold;
+  font-size: 2.5em;
 }
 
 .createEvent-header img {
-  width: 80px;
+  width: 40px;
 }
 
 .createEvent-form {
@@ -624,7 +624,8 @@ body {
 }
 
 .createEvent-buttonGroup span {
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   color: red;
   font-weight: bold;
 }
