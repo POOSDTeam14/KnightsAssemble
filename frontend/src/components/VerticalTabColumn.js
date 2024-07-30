@@ -9,10 +9,10 @@ function VerticalTabColumn() {
                         <p>Events</p>
                     </a>
                     <a href="/myevents">
-                        <p>My Events</p>
+                        <p>My events</p>
                     </a>
                     <a href="/createevent">
-                        <p>Create Event</p>
+                        <p>Create event</p>
                     </a>
                 </div>
             </div>
