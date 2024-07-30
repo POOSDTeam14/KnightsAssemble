@@ -528,11 +528,11 @@
 /*********  CreateEvent CSS ***************/
 
 .createEvent-container {
-  margin-top: 60px;
+  margin-top: 50px;
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 15px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -1035,11 +1035,8 @@
 /******** Event Details Page CSS *********/
 
 .container {
-  max-width: 1200px;
-}
-
-.card-body {
   margin-top: 50px;
+  max-width: 1200px;
 }
 
 .card-title {
