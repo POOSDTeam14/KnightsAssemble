@@ -71,7 +71,7 @@
   }
 
   body {
-      padding-top: 100px;
+      padding-top: 120px;
   }
 }
 
@@ -547,17 +547,17 @@ body {
 /*********  CreateEvent CSS ***************/
 
 .createEvent-container {
-  height: 100%; /* Fill the entire height of its parent container */
+  height: 100%;
 }
 
-.createEvent-TopRow{
+.createEvent-TopRow {
   height: 50%;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.createEvent-TopRow .createEvent-Header{
+.createEvent-TopRow .createEvent-Header {
   height: 30%;
   width: 100%;
   display: flex;
@@ -565,7 +565,7 @@ body {
   justify-content: center;
 }
 
-.createEvent-TopRow .createEvent-Image{
+.createEvent-TopRow .createEvent-Image {
   height: 70%;
   width: 100%;
   display: flex;
@@ -573,148 +573,119 @@ body {
   justify-content: center;
 }
 
-.createEvent-Image img{
+.createEvent-Image img {
   height: 80%;
   width: 15%;
 }
 
-.createEvent-TopRow h1{
+.createEvent-TopRow h1 {
   font-family: "Arial";
   text-align: center;
 }
 
-.createEvent-BottomRow{
+.createEvent-BottomRow {
   height: 50%;
   width: 100%;
 }
 
-.createEvent-BottomRow .createEvent-InfoRow{
+.createEvent-BottomRow .createEvent-InfoRow {
   height: 80%;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.createEvent-Col1 p {
-  font-family: "Arial";
-  font-weight: bold;
-  margin-right: 10px;
-  font-size: 20px;
-  min-width: 120px; 
-}
-
-.createEvent-Col2 p {
-  font-family: "Arial";
-  font-weight: bold;
-  margin-right: 10px;
-  font-size: 20px;
-  min-width: 140px; 
-}
-
+.createEvent-Col1 p,
+.createEvent-Col2 p,
 .createEvent-Col3 p {
   font-family: "Arial";
   font-weight: bold;
   font-size: 20px;
 }
 
-.createEvent-Col1, .createEvent-Col2, .createEvent-Col3{
+.createEvent-Col1,
+.createEvent-Col2,
+.createEvent-Col3 {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.createEvent-Col3{
+.createEvent-Col3 {
   margin-left: 10%;
 }
 
-.createEvent-Col1 .row, .createEvent-Col2 .row, .createEvent-Col3 .row {
+.createEvent-Col1 .row,
+.createEvent-Col2 .row,
+.createEvent-Col3 .row {
   flex: 1;
   width: 100%;
 }
 
 .createEvent-Col1 .createEvent-InfoTextInput,
-.createEvent-Col2 .createEvent-InfoTextInput{
+.createEvent-Col2 .createEvent-InfoTextInput {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-.createEvent-Col3 .createEvent-InfoTextInput{
+.createEvent-Col3 .createEvent-InfoTextInput {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
 }
 
-.createEvent-Col1 input, .createEvent-Col1 select, .createEvent-Col2 select, .createEvent-Col2 input{
+.createEvent-Col1 input,
+.createEvent-Col1 select,
+.createEvent-Col2 select,
+.createEvent-Col2 input {
   height: 50px;
   margin-bottom: 3%;
   width: 50%;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding-left: 2%;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  background-color: #DDDDDD;
 }
 
-.createEvent-Col3 textarea{
-  height: 80%;
-  margin-bottom: 3%;
-  width: 80%;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+textarea {
+  resize: none;
+  height: 75%;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  background-color: #DDDDDD;
+  padding: 2%;
 }
 
-.createEvent-BottomRow .createEvent-ButtonRow{
+.createEvent-ButtonRow {
   height: 20%;
   width: 100%;
-}
-
-.createEvent-ButtonRow{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  text-align: center;
+  justify-content: center;
 }
 
-#createEvent-Button{
-  background-color: black; 
-  border: 2px solid gold; 
-  color: white; 
-  font-weight: bold; 
-  border-radius: 20px; 
-  margin-top: 0px;
-  cursor: pointer; 
-  width: 75%;
-  height: 40px;
+#createEvent-Button {
+  height: 50px;
+  width: 20%;
+  border-radius: 10px;
+  background-color: #CFB53B;
+  border: none;
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-@media (max-width: 1366px){
-  .createEvent-Col1 input, .createEvent-Col1 select, .createEvent-Col2 select, .createEvent-Col2 input{
-    height: 35px;
-  }
-
-  #createEvent-Button{
-    height: 30px;
-    margin-left: 10px;
-  }
-
-}
-
-@media (max-width: 1140px){
-  .createEvent-BottomRow p{
-    font-size: 16px;
-  }
+#createEventResult {
+  margin-left: 3%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
 }
 
 /*********  CreateEvent CSS ***************/
