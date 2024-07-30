@@ -77,7 +77,6 @@
 /*********  VerticalTab CSS ***************/
 
 .verticalTabColumn {
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   width: 120px;
