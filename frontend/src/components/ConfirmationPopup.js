@@ -1,106 +1,69 @@
-import React, { useState } from 'react'
-import ChangePassword from './ChangePassword';
-import { jwtDecode } from "jwt-decode";
+import React, { useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 const { retrieveToken, retrieveEventID } = require('../storage.js');
 
-function ConfirmationPopup( {show, onClose, refreshEvents, deleteEvent}) {
-    const[message, setMessage] = useState("");
+function ConfirmationPopup({ show, onClose, refreshEvents, deleteEvent }) {
+    const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-
-
     let bp = require('./Path.js');
-    
+
     const removeEventVerification = async () => {
-        setIsLoading(true); 
+        setIsLoading(true);
         let token = retrieveToken();
         let eventId = retrieveEventID();
         let userId = jwtDecode(token).userInfo.userid;
-        
-        //Delete Event
-        if(deleteEvent){
-            var obj = {
-                eventid: eventId,
-                token: token
-            };
-            let js = JSON.stringify(obj);
-        
-            try {
-                const response = await fetch(bp.buildPath('api/deleteEvent'), {
-                    method: 'POST',
-                    body: js,
-                    headers: { 'Content-Type': 'application/json' }
-                });
-        
-                let res = JSON.parse(await response.text());
-        
-                if ('error' in res) {
-                    setMessage(res.error);
-                } else {
-                    setMessage('');
-                    await refreshEvents(); 
-                }
-            } catch (e) {
-                alert(e.toString());
-            } finally {
-                setIsLoading(false); 
-                onClose(); 
-            }
-        }
 
-        //Leave Event
-        else{
-            var obj = {
-                eventid: eventId,
-                userid: userId,
-                token: token
-            };
-            let js = JSON.stringify(obj);
-        
-            try {
-                const response = await fetch(bp.buildPath('api/leaveEvent'), {
-                    method: 'POST',
-                    body: js,
-                    headers: { 'Content-Type': 'application/json' }
-                });
-        
-                let res = JSON.parse(await response.text());
-        
-                if ('error' in res) {
-                    setMessage(res.error);
-                } else {
-                    setMessage('');
-                    await refreshEvents(); 
-                }
-            } catch (e) {
-                alert(e.toString());
-            } finally {
-                setIsLoading(false); 
-                onClose(); 
+        const obj = deleteEvent
+            ? { eventid: eventId, token: token }
+            : { eventid: eventId, userid: userId, token: token };
+
+        const endpoint = deleteEvent ? 'api/deleteEvent' : 'api/leaveEvent';
+        const js = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(bp.buildPath(endpoint), {
+                method: 'POST',
+                body: js,
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            let res = JSON.parse(await response.text());
+
+            if ('error' in res) {
+                setMessage(res.error);
+            } else {
+                setMessage('');
+                await refreshEvents();
             }
+        } catch (e) {
+            alert(e.toString());
+        } finally {
+            setIsLoading(false);
+            onClose();
         }
     };
 
     const closeRemoveEventVerification = () => {
-        onClose(); 
+        onClose();
     };
 
-
-    if(!show)
-        return null;
-
+    if (!show) return null;
 
     return (
         <div className="updateEventStatus-PopUp">
-            <div className="row g-0 updateEventStatus-Content">
-                <div className="col updateEventStatus-text">
+            <div className="updateEventStatus-Content">
+                <div className="updateEventStatus-text">
                     <p>
                         {deleteEvent
-                        ? (isLoading ? "Deleting event..." : "Confirm Delete Event")
-                        : (isLoading ? "Leaving event..." : "Confirm Leave Event")
-                        }
+                            ? isLoading
+                                ? 'Deleting event...'
+                                : 'Confirm delete event'
+                            : isLoading
+                                ? 'Leaving event...'
+                                : 'Confirm leave event'}
                     </p>
                 </div>
-                <div className="col updateEventStatus-Buttons">
+                <div className="updateEventStatus-Buttons">
                     <button id="updateEventStatus-Yes" onClick={removeEventVerification} disabled={isLoading}>
                         Yes
                     </button>
@@ -111,7 +74,6 @@ function ConfirmationPopup( {show, onClose, refreshEvents, deleteEvent}) {
             </div>
         </div>
     );
-    
 }
 
 export default ConfirmationPopup;

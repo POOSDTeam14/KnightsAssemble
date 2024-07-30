@@ -802,7 +802,7 @@ body {
 /*********  MyEvents CSS ***************/
 
 /******** Delete/Leave Event CSS *********/
-.updateEventStatus-PopUp{
+.updateEventStatus-PopUp {
   position: fixed;
   top: 0;
   left: 0;
@@ -811,47 +811,81 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
-
 
 .updateEventStatus-Content {
   background: black;
   border: 2px solid gold;
-  border-radius: 5px;
-  width: 200px;
-  height: 200px;
+  border-radius: 10px;
+  width: 300px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-.updateEventStatus-text{
-  height: 50%;
+.updateEventStatus-text {
   width: 100%;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.updateEventStatus-Buttons{
-  height: 50%;
-  width: 100%;
+.updateEventStatus-Buttons {
   display: flex;
-  align-items: center;
+  gap: 10px;
+  width: 100%;
   justify-content: center;
-  gap: 30px;
+}
+
+#updateEventStatus-Yes,
+#updateEventStatus-No {
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 #updateEventStatus-Yes {
-  color: white;
   background-color: green;
 }
 
-#updateEventStatus-No{
-  color: white;
+#updateEventStatus-Yes:hover {
+  background-color: darkgreen;
+}
+
+#updateEventStatus-No {
   background-color: red;
+}
+
+#updateEventStatus-No:hover {
+  background-color: darkred;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .updateEventStatus-Content {
+    width: 80%;
+    padding: 10px;
+  }
+
+  .updateEventStatus-Buttons {
+    flex-direction: column;
+  }
+
+  #updateEventStatus-Yes,
+  #updateEventStatus-No {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
 /******** Delete/Leave Event CSS *********/
 
