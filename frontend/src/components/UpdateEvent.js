@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
 const { retrieveToken, retrieveEventID } = require('../storage.js');
 
 function UpdateEvent() {
@@ -70,7 +69,6 @@ function UpdateEvent() {
     const dateObject = new Date(`${eventDate}T${eventTime}`);
     let testCapacity = parseInt(eventCapacity);
     let token = retrieveToken();
-    let userId = jwtDecode(token).userInfo.userid;
 
     if (Number.isInteger(testCapacity)) {
       var obj = {
@@ -144,7 +142,7 @@ function UpdateEvent() {
   return (
     <div className="createEvent-container">
       <div className="createEvent-header">
-        <h1>Create event</h1>
+        <h1>Update event</h1>
       </div>
 
       <div className="createEvent-form">
@@ -223,7 +221,7 @@ function UpdateEvent() {
 
         <div className="createEvent-buttonGroup">
           <span>{message}</span>
-          <button onClick={doCreateEvent}>Create event</button>
+          <button onClick={doUpdateEvent}>Update event</button>
         </div>
       </div>
     </div>
