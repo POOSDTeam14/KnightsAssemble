@@ -36,6 +36,44 @@ function EventDetails() {
     const eventId = retrieveEventID();
     const userId = jwtDecode(token).userInfo.userid;
 
+    function convertUTCtoEST(utcDateString) 
+    {
+        const date = new Date(utcDateString);
+        const utcOffset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
+        const estOffset = -5 * 60 * 60000; // EST offset is UTC-5
+
+        // Check if the date is during daylight saving time (DST) in EST (typically March to November)
+        const isDST = () => {
+            const year = date.getFullYear();
+            // DST starts on the second Sunday in March (month 2) and ends on the first Sunday in November (month 10)
+            const dstStart = new Date(year, 2, 8 + 7 - new Date(year, 2, 8).getDay());
+            const dstEnd = new Date(year, 10, 1 + 7 - new Date(year, 10, 1).getDay());
+            return date.getTime() >= dstStart.getTime() && date.getTime() < dstEnd.getTime();
+        };
+
+        // Adjust EST offset to account for DST
+        const adjustedEstOffset = isDST() ? -4 * 60 * 60000 : estOffset;
+
+        const estTime = new Date(date.getTime() + utcOffset + adjustedEstOffset);
+
+        // Format date as YYYY-MM-DD and time as HH:MM
+        const year = estTime.getFullYear();
+        const month = String(estTime.getMonth() + 1).padStart(2, '0');
+        const day = String(estTime.getDate()).padStart(2, '0');
+        const formattedDate = `${month}/${day}/${year}`;
+
+        // Format time as HH:MM AM/PM
+        let hours = estTime.getHours();
+        const minutes = String(estTime.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        const formattedTime = `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
+
+        setEventDate(formattedDate);
+        setEventTime(formattedTime);
+    }
+
     const fetchEventMessages = async () => {
         const obj = { eventid: eventId, token: token };
         const js = JSON.stringify(obj);
@@ -82,8 +120,7 @@ function EventDetails() {
                 setEventName(res.ret.Name);
                 setEventLocation(res.ret.Location);
                 setEventType(res.ret.Type);
-                setEventDate(new Date(res.ret.Time).toISOString().split('T')[0]);
-                setEventTime(new Date(res.ret.Time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+                convertUTCtoEST(res.ret.Date);
                 setDescription(res.ret.Description);
                 setNumberOfAttendees((res.ret.Attendees).length); 
                 setCapacity(res.ret.Capacity); 
@@ -265,7 +302,7 @@ function EventDetails() {
                                     <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                         {messages.map((message) => (
                                             <p key={message._id}>
-                                                <strong>{messageSender.get(message.User) || 'Unknown'}: </strong> {message.Text} <br/> {message.TimeSent}
+                                                <strong>{messageSender.get(message.User) || 'Unknown'}: </strong> {message.Text} <br/>
                                             </p>
                                         ))}
                                     </div>
@@ -289,7 +326,7 @@ function EventDetails() {
                                             <div className="chat-box border rounded p-3 mb-3" ref={chatBoxRef}>
                                                 {messages.map((message) => (
                                                     <p key={message._id}>
-                                                        <strong>{messageSender.get(message.User) || 'Unknown'}: </strong> {message.Text} <br /> {message.TimeSent}
+                                                        <strong>{messageSender.get(message.User) || 'Unknown'}: </strong> {message.Text} <br />
                                                     </p>
                                                 ))}
                                             </div>
@@ -308,7 +345,7 @@ function EventDetails() {
                                         </>
                                     ) : (
                                         <button className="btn btn-primary w-100" onClick={handleJoinEvent}>
-                                            Join Event
+                                            Join event
                                         </button>
                                     )}
                                 </>
